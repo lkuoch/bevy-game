@@ -1,0 +1,11 @@
+[package]
+name = "learn_game"
+version = "0.1.0"
+authors = ["lkuoch <lkuoch@users.noreply.github.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+bevy = { path = "../bevy" }
+rand = "0.7.3"
+const_format = "0.2.10"
