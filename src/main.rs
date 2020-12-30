@@ -1,7 +1,6 @@
 #![feature(format_args_capture)]
 
 mod plugins;
-mod vars;
 
 use crate::plugins::{camera, debug, player};
 use bevy::prelude::*;
