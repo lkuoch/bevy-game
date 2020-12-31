@@ -1,4 +1,6 @@
 pub(super) mod mask_dude {
+    pub const BASE_SPEED: f32 = 250.0;
+
     const ROOT_PATH: &str = "pixels/Players/Mask Dude/";
 
     #[derive(PartialEq, Eq, Hash, Copy, Clone)]

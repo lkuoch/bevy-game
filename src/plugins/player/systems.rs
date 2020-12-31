@@ -3,7 +3,7 @@ use crate::{
     plugins::input::event::InputEvent,
 };
 use bevy::prelude::*;
-use std::collections::HashMap;
+use std::{collections::HashMap, f32::consts::PI};
 
 pub(super) fn setup(
     commands: &mut Commands,
@@ -32,10 +32,10 @@ pub(super) fn setup(
                 transform: Transform::from_scale(Vec3::splat(2.5)),
                 ..Default::default()
             })
-            .with(Timer::from_seconds(0.1, true))
             .with(Player {
                 textures: textures_map,
-            });
+            })
+            .with(Timer::from_seconds(0.1, true));
     }
 }
 
@@ -85,8 +85,26 @@ pub(super) fn handle_input_event(
     }
 }
 
-pub(super) fn react_player_state(player_state: Res<PlayerState>) {
-    let current = player_state;
+pub(super) fn react_player_state(
+    player_state: Res<PlayerState>,
+    time: Res<Time>,
+    mut query: Query<(&Player, &mut Transform)>,
+) {
+    for (_, mut transform) in query.iter_mut() {
+        // Movement
+        if let MovementState::Moving(dir) = player_state.movement {
+            let dir_val = match dir {
+                DirState::Left => {
+                    transform.rotation = Quat::from_rotation_y(PI);
+                    -1.0
+                }
+                DirState::Right => {
+                    transform.rotation = Quat::default();
+                    1.0
+                }
+            };
 
-    println!("{current:?}");
+            transform.translation.x += time.delta_seconds() * dir_val * MaskDude::BASE_SPEED;
+        }
+    }
 }
