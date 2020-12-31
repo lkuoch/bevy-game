@@ -1,5 +1,7 @@
-use crate::player::vars::mask_dude as MaskDude;
-use crate::player::components::*;
+use crate::{
+    player::{components::*, state::*, vars::mask_dude as MaskDude},
+    plugins::input::event::InputEvent,
+};
 use bevy::prelude::*;
 use std::collections::HashMap;
 
@@ -49,4 +51,42 @@ pub(super) fn animate_sprite_system(
             sprite.index = ((sprite.index as usize + 1) % texture_atlas.textures.len()) as u32;
         }
     }
+}
+
+pub(super) fn handle_input_event(
+    mut event_reader: Local<EventReader<InputEvent>>,
+    events: ResMut<Events<InputEvent>>,
+    mut player_state: ResMut<PlayerState>,
+) {
+    for event in event_reader.iter(&events) {
+        if let Some(key) = event.pressed {
+            match key {
+                KeyCode::A => {
+                    player_state.move_left();
+                }
+                KeyCode::D => {
+                    player_state.move_right();
+                }
+                _ => {}
+            }
+        }
+
+        if let Some(key) = event.released {
+            match key {
+                KeyCode::A => {
+                    player_state.reset_movement();
+                }
+                KeyCode::D => {
+                    player_state.reset_movement();
+                }
+                _ => {}
+            }
+        }
+    }
+}
+
+pub(super) fn react_player_state(player_state: Res<PlayerState>) {
+    let current = player_state;
+
+    println!("{current:?}");
 }
