@@ -108,3 +108,23 @@ pub(super) fn react_player_state(
         }
     }
 }
+
+pub(super) fn change_animation(
+    player_state: Res<PlayerState>,
+    mut query: Query<(&Player, &mut Handle<TextureAtlas>)>,
+) {
+    for (player, mut current_texture_atlas_handle) in query.iter_mut() {
+        match player_state.movement {
+            MovementState::Moving(_) => {
+                if let Some(new_anim_handle) = player.get_animation(MaskDude::States::Run) {
+                    *current_texture_atlas_handle = new_anim_handle;
+                }
+            }
+            MovementState::None => {
+                if let Some(new_anim_handle) = player.get_animation(MaskDude::States::Idle) {
+                    *current_texture_atlas_handle = new_anim_handle;
+                }
+            }
+        }
+    }
+}
