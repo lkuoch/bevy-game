@@ -1,4 +1,5 @@
 mod plugin;
 pub use plugin::InputPlugin;
 
-pub mod event;
+pub mod events;
+mod systems;

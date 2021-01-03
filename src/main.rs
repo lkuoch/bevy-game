@@ -2,7 +2,7 @@
 
 mod plugins;
 
-use crate::plugins::{camera, debug, input, player};
+use crate::plugins::{camera, debug, input, player, world};
 use bevy::prelude::*;
 
 fn main() {
@@ -11,6 +11,7 @@ fn main() {
         .add_plugin(debug::DebugPlugin)
         .add_plugin(input::InputPlugin)
         .add_plugin(camera::CameraPlugin)
+        .add_plugin(world::WorldPlugin)
         .add_plugin(player::PlayerPlugin)
         .run();
 }

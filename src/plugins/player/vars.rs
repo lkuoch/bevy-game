@@ -3,7 +3,7 @@ pub(super) mod mask_dude {
 
     const ROOT_PATH: &str = "pixels/Players/Mask Dude/";
 
-    #[derive(PartialEq, Eq, Hash, Copy, Clone)]
+    #[derive(Debug, PartialEq, Eq, Hash, Copy, Clone)]
     pub enum States {
         Idle,
         DoubleJump,
