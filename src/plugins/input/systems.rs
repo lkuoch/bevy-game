@@ -5,7 +5,7 @@ pub(super) fn keyboard_input_system(
     inputs: Res<Input<KeyCode>>,
     mut events: ResMut<Events<InputEvent>>,
 ) {
-    for just_pressed in inputs.get_pressed() {
+    for just_pressed in inputs.get_just_pressed() {
         events.send(InputEvent {
             pressed: Some(*just_pressed),
             released: None,

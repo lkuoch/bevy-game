@@ -1,6 +1,8 @@
-use crate::player::vars::mask_dude as MaskDude;
+use crate::player::vars::*;
 use bevy::prelude::*;
 use std::collections::HashMap;
+
+pub(super) type PlayerSpriteMap<T> = HashMap<PlayerSpriteKV<T>, PlayerSpriteKV<T>>;
 
 #[derive(Debug, Clone)]
 pub(super) struct PlayerState {
@@ -10,18 +12,27 @@ pub(super) struct PlayerState {
     pub movement: MovementState,
 
     // Textures for mask dude
-    pub current_sprite: CurrentSpriteType,
-    pub mask_dude_textures: HashMap<MaskDudeTextureKeyValue, MaskDudeTextureKeyValue>,
+    pub current_sprite: PlayerType,
+    pub previous_sprite: PlayerType,
+
+    // Can I make this all generic?
+    pub mask_dude_textures: PlayerSpriteMap<mask_dude::States>,
+    pub ninja_frog_textures: PlayerSpriteMap<ninja_frog::States>,
+    pub pink_man_textures: PlayerSpriteMap<pink_man::States>,
+    pub virtual_guy_textures: PlayerSpriteMap<virtual_guy::States>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
-pub(super) enum CurrentSpriteType {
+pub(super) enum PlayerType {
     MaskDude,
+    NinjaFrog,
+    PinkMan,
+    VirtualGuy,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
-pub(super) enum MaskDudeTextureKeyValue {
-    State(MaskDude::States),
+pub(super) enum PlayerSpriteKV<T> {
+    State(T),
     Handle(Handle<TextureAtlas>),
 }
 
@@ -50,14 +61,14 @@ impl PlayerState {
 
     pub fn get_mask_dude_state_from_texture_handle(
         &self,
-        animation: MaskDude::States,
+        animation: mask_dude::States,
     ) -> Option<Handle<TextureAtlas>> {
         if let Some(x) = self
             .mask_dude_textures
-            .get(&MaskDudeTextureKeyValue::State(animation))
+            .get(&PlayerSpriteKV::State(animation))
         {
             match x {
-                MaskDudeTextureKeyValue::Handle(h) => Some(h.clone()),
+                PlayerSpriteKV::Handle(h) => Some(h.clone()),
                 _ => None,
             }
         } else {
@@ -68,17 +79,37 @@ impl PlayerState {
     pub fn get_texture_handle_from_mask_dude_state(
         &self,
         handle: Handle<TextureAtlas>,
-    ) -> Option<MaskDude::States> {
-        if let Some(x) = self
-            .mask_dude_textures
-            .get(&MaskDudeTextureKeyValue::Handle(handle))
-        {
+    ) -> Option<mask_dude::States> {
+        if let Some(x) = self.mask_dude_textures.get(&PlayerSpriteKV::Handle(handle)) {
             match x {
-                MaskDudeTextureKeyValue::State(s) => Some(*s),
+                PlayerSpriteKV::State(s) => Some(*s),
                 _ => None,
             }
         } else {
             None
+        }
+    }
+
+    pub fn transform_next(&mut self) {
+        // self.current_sprite = PlayerType::NinjaFrog;
+        match self.current_sprite {
+            PlayerType::MaskDude => {
+                self.previous_sprite = PlayerType::MaskDude;
+                self.current_sprite = PlayerType::NinjaFrog;
+            }
+            PlayerType::NinjaFrog => {
+                self.previous_sprite = PlayerType::NinjaFrog;
+                self.current_sprite = PlayerType::PinkMan;
+            }
+
+            PlayerType::PinkMan => {
+                self.previous_sprite = PlayerType::PinkMan;
+                self.current_sprite = PlayerType::VirtualGuy;
+            }
+            PlayerType::VirtualGuy => {
+                self.previous_sprite = PlayerType::VirtualGuy;
+                self.current_sprite = PlayerType::MaskDude;
+            }
         }
     }
 }
@@ -91,8 +122,12 @@ impl Default for PlayerState {
             jump: JumpState::None,
             movement: MovementState::None,
 
-            current_sprite: CurrentSpriteType::MaskDude,
-            mask_dude_textures: HashMap::<MaskDudeTextureKeyValue, MaskDudeTextureKeyValue>::new(),
+            previous_sprite: PlayerType::MaskDude,
+            current_sprite: PlayerType::MaskDude,
+            mask_dude_textures: PlayerSpriteMap::<mask_dude::States>::new(),
+            ninja_frog_textures: PlayerSpriteMap::<ninja_frog::States>::new(),
+            pink_man_textures: PlayerSpriteMap::<pink_man::States>::new(),
+            virtual_guy_textures: PlayerSpriteMap::<virtual_guy::States>::new(),
         }
     }
 }

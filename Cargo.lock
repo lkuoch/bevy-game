@@ -363,6 +363,7 @@ dependencies = [
  "bitflags",
  "downcast-rs",
  "fixedbitset",
+ "fxhash",
  "lazy_static",
  "parking_lot",
  "rand",
