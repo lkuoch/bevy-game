@@ -11,98 +11,74 @@ pub(super) fn setup(
     mut player_state: ResMut<PlayerState>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
 ) {
-    // Load MaskDude textures
-    for texture in mask_dude::TEXTURES {
-        let texture_handle = asset_server.load(texture.path);
+    for player in player_common::PLAYER_LIST.iter() {
+        for texture in player_common::TEXTURES.iter() {
+            let path = format!("{}{}", player.root_path.to_owned(), texture.path.to_owned());
 
-        let handle = texture_atlases.add(TextureAtlas::from_grid(
-            texture_handle,
-            Vec2::new(32.0, 32.0),
-            texture.frames,
-            1,
-        ));
+            let texture_handle: Handle<Texture> = asset_server.load(&path[..]);
+            let handle = texture_atlases.add(TextureAtlas::from_grid(
+                texture_handle,
+                Vec2::new(32.0, 32.0),
+                texture.frames,
+                1,
+            ));
 
-        player_state.mask_dude_textures.insert(
-            PlayerSpriteKV::<mask_dude::States>::State(texture.state),
-            PlayerSpriteKV::Handle(handle.clone()),
-        );
+            match player.ty {
+                PlayerType::MaskDude => {
+                    player_state.textures.insert(
+                        PlayerSpriteMapKey::State(PlayerTypeKey::MaskDude(texture.state)),
+                        PlayerSpriteKV::Handle(handle.clone()),
+                    );
 
-        player_state.mask_dude_textures.insert(
-            PlayerSpriteKV::Handle(handle.clone()),
-            PlayerSpriteKV::State(texture.state),
-        );
-    }
+                    player_state.textures.insert(
+                        PlayerSpriteKV::Handle(handle.clone()),
+                        PlayerSpriteKV::State(texture.state),
+                    );
+                }
+                PlayerType::NinjaFrog => {
+                    player_state.textures.insert(
+                        PlayerSpriteMapKey::State(PlayerTypeKey::NinjaFrog(texture.state)),
+                        PlayerSpriteKV::Handle(handle.clone()),
+                    );
 
-    // Load NinjaFrog textures
-    for texture in ninja_frog::TEXTURES {
-        let texture_handle = asset_server.load(texture.path);
+                    player_state.textures.insert(
+                        PlayerSpriteKV::Handle(handle.clone()),
+                        PlayerSpriteKV::State(texture.state),
+                    );
+                }
+                PlayerType::PinkMan => {
+                    player_state.textures.insert(
+                        PlayerSpriteMapKey::State(PlayerTypeKey::PinkMan(texture.state)),
+                        PlayerSpriteKV::Handle(handle.clone()),
+                    );
 
-        let handle = texture_atlases.add(TextureAtlas::from_grid(
-            texture_handle,
-            Vec2::new(32.0, 32.0),
-            texture.frames,
-            1,
-        ));
+                    player_state.textures.insert(
+                        PlayerSpriteKV::Handle(handle.clone()),
+                        PlayerSpriteKV::State(texture.state),
+                    );
+                }
+                PlayerType::VirtualGuy => {
+                    player_state.textures.insert(
+                        PlayerSpriteMapKey::State(PlayerTypeKey::VirtualGuy(texture.state)),
+                        PlayerSpriteKV::Handle(handle.clone()),
+                    );
 
-        player_state.ninja_frog_textures.insert(
-            PlayerSpriteKV::<ninja_frog::States>::State(texture.state),
-            PlayerSpriteKV::Handle(handle.clone()),
-        );
-
-        player_state.ninja_frog_textures.insert(
-            PlayerSpriteKV::Handle(handle.clone()),
-            PlayerSpriteKV::State(texture.state),
-        );
-    }
-
-    // Load PinkMan textures
-    for texture in pink_man::TEXTURES {
-        let texture_handle = asset_server.load(texture.path);
-
-        let handle = texture_atlases.add(TextureAtlas::from_grid(
-            texture_handle,
-            Vec2::new(32.0, 32.0),
-            texture.frames,
-            1,
-        ));
-
-        player_state.pink_man_textures.insert(
-            PlayerSpriteKV::<pink_man::States>::State(texture.state),
-            PlayerSpriteKV::Handle(handle.clone()),
-        );
-
-        player_state.pink_man_textures.insert(
-            PlayerSpriteKV::Handle(handle.clone()),
-            PlayerSpriteKV::State(texture.state),
-        );
-    }
-
-    // Load Virtual Guy textures
-    for texture in virtual_guy::TEXTURES {
-        let texture_handle = asset_server.load(texture.path);
-
-        let handle = texture_atlases.add(TextureAtlas::from_grid(
-            texture_handle,
-            Vec2::new(32.0, 32.0),
-            texture.frames,
-            1,
-        ));
-
-        player_state.virtual_guy_textures.insert(
-            PlayerSpriteKV::<virtual_guy::States>::State(texture.state),
-            PlayerSpriteKV::Handle(handle.clone()),
-        );
-
-        player_state.virtual_guy_textures.insert(
-            PlayerSpriteKV::Handle(handle.clone()),
-            PlayerSpriteKV::State(texture.state),
-        );
+                    player_state.textures.insert(
+                        PlayerSpriteKV::Handle(handle.clone()),
+                        PlayerSpriteKV::State(texture.state),
+                    );
+                }
+            }
+        }
     }
 
     // Default player is MaskDude
-    if let Some(PlayerSpriteKV::Handle(default_texture)) = player_state
-        .mask_dude_textures
-        .get(&PlayerSpriteKV::State(mask_dude::States::Idle))
+    if let Some(PlayerSpriteKV::Handle(default_texture)) =
+        player_state
+            .textures
+            .get(&PlayerSpriteKV::State(PlayerTypeKey::MaskDude(
+                player_common::States::Idle,
+            )))
     {
         commands
             .spawn(SpriteSheetBundle {
@@ -134,7 +110,7 @@ pub(super) fn animate_sprite_system(
             if sprite.index == 0 {
                 events.send(AnimEvent {
                     anim_start: player_state
-                        .get_texture_handle_from_mask_dude_state(texture_atlas_handle.clone()),
+                        .get_texture_handle_from_state(texture_atlas_handle.clone()),
                     anim_finish: None,
                 });
             }
@@ -147,7 +123,7 @@ pub(super) fn animate_sprite_system(
                 events.send(AnimEvent {
                     anim_start: None,
                     anim_finish: player_state
-                        .get_texture_handle_from_mask_dude_state(texture_atlas_handle.clone()),
+                        .get_texture_handle_from_state(texture_atlas_handle.clone()),
                 });
             }
         }
@@ -202,13 +178,13 @@ pub(super) fn handle_player_event(
     for event in event_reader.iter(&events) {
         if let Some(anim) = event.anim_finish {
             match anim {
-                mask_dude::States::DoubleJump => player_state.land(),
-                mask_dude::States::Idle => {}
-                mask_dude::States::Fall => {}
-                mask_dude::States::Hit => {}
-                mask_dude::States::Jump => {}
-                mask_dude::States::Run => {}
-                mask_dude::States::WallJump => {}
+                player_common::States::DoubleJump => player_state.land(),
+                player_common::States::Idle => {}
+                player_common::States::Fall => {}
+                player_common::States::Hit => {}
+                player_common::States::Jump => {}
+                player_common::States::Run => {}
+                player_common::States::WallJump => {}
             }
         }
     }
@@ -241,32 +217,39 @@ pub(super) fn react_player_state(
             match player_state.current_sprite {
                 PlayerType::MaskDude => {
                     if let Some(PlayerSpriteKV::Handle(mask_dude_texture_handle)) = player_state
-                        .mask_dude_textures
-                        .get(&PlayerSpriteKV::State(mask_dude::States::Idle))
+                        .textures
+                        .get(&PlayerSpriteKV::State(PlayerTypeKey::MaskDude(
+                            player_common::States::Idle,
+                        )))
                     {
                         *current_texture_handle = mask_dude_texture_handle.clone();
                     }
                 }
                 PlayerType::NinjaFrog => {
                     if let Some(PlayerSpriteKV::Handle(ninja_frog_texture_handle)) = player_state
-                        .ninja_frog_textures
-                        .get(&PlayerSpriteKV::State(ninja_frog::States::Idle))
+                        .textures
+                        .get(&PlayerSpriteKV::State(PlayerTypeKey::NinjaFrog(
+                            player_common::States::Idle,
+                        )))
                     {
                         *current_texture_handle = ninja_frog_texture_handle.clone();
                     }
                 }
                 PlayerType::PinkMan => {
                     if let Some(PlayerSpriteKV::Handle(pink_man_texture_handle)) = player_state
-                        .pink_man_textures
-                        .get(&PlayerSpriteKV::State(pink_man::States::Idle))
+                        .textures
+                        .get(&PlayerSpriteKV::State(PlayerTypeKey::PinkMan(
+                            player_common::States::Idle,
+                        )))
                     {
                         *current_texture_handle = pink_man_texture_handle.clone();
                     }
                 }
                 PlayerType::VirtualGuy => {
-                    if let Some(PlayerSpriteKV::Handle(virtual_guy_texture_handle)) = player_state
-                        .virtual_guy_textures
-                        .get(&PlayerSpriteKV::State(virtual_guy::States::Idle))
+                    if let Some(PlayerSpriteKV::Handle(virtual_guy_texture_handle)) =
+                        player_state.textures.get(&PlayerSpriteKV::State(
+                            PlayerTypeKey::VirtualGuy(player_common::States::Idle),
+                        ))
                     {
                         *current_texture_handle = virtual_guy_texture_handle.clone();
                     }
@@ -285,18 +268,18 @@ pub(super) fn change_animation(
     for (_, mut current_texture_atlas_handle) in query.iter_mut() {
         if player_state.movement != MovementState::None {
             if let Some(new_anim_handle) =
-                player_state.get_mask_dude_state_from_texture_handle(mask_dude::States::Run)
+                player_state.get_state_from_texture_handle(player_common::States::Run)
             {
                 *current_texture_atlas_handle = new_anim_handle;
             }
         } else if player_state.jump != JumpState::None {
             if let Some(new_anim_handle) =
-                player_state.get_mask_dude_state_from_texture_handle(mask_dude::States::DoubleJump)
+                player_state.get_state_from_texture_handle(player_common::States::DoubleJump)
             {
                 *current_texture_atlas_handle = new_anim_handle;
             }
         } else if let Some(new_anim_handle) =
-            player_state.get_mask_dude_state_from_texture_handle(mask_dude::States::Idle)
+            player_state.get_state_from_texture_handle(player_common::States::Idle)
         {
             *current_texture_atlas_handle = new_anim_handle;
         }

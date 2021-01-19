@@ -10,7 +10,7 @@ impl Plugin for PlayerPlugin {
             .add_system(animate_sprite_system.system())
             .add_system(handle_input_event.system())
             .add_system(react_player_state.system())
-            // .add_system(change_animation.system())
+            .add_system(change_animation.system())
             .add_system(handle_player_event.system());
     }
 }
