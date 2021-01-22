@@ -40,6 +40,31 @@ pub enum PlayerType {
     VirtualGuy,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub(super) enum MovementState {
+    None,
+    Moving(DirState),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub(super) enum DirState {
+    Left,
+    Right,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub(super) enum JumpState {
+    None,
+    Jumping,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub(super) enum AttackState {
+    None,
+    Preparing,
+    Attacking,
+}
+
 impl PlayerState {
     pub fn move_right(&mut self) {
         self.movement = MovementState::Moving(DirState::Right);
@@ -144,29 +169,4 @@ impl Default for PlayerState {
             textures: PlayerSpriteMap::<player_common::States>::new(),
         }
     }
-}
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub(super) enum MovementState {
-    None,
-    Moving(DirState),
-}
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub(super) enum DirState {
-    Left,
-    Right,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub(super) enum JumpState {
-    None,
-    Jumping,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub(super) enum AttackState {
-    None,
-    Preparing,
-    Attacking,
 }

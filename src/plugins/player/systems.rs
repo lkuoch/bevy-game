@@ -131,11 +131,10 @@ pub(super) fn animate_sprite_system(
 }
 
 pub(super) fn handle_input_event(
-    mut event_reader: Local<EventReader<InputEvent>>,
-    input_event: ResMut<Events<InputEvent>>,
+    mut event_reader: EventReader<InputEvent>,
     mut player_state: ResMut<PlayerState>,
 ) {
-    for event in event_reader.iter(&input_event) {
+    for event in event_reader.iter() {
         if let Some(key) = event.pressed {
             match key {
                 KeyCode::A => {
@@ -171,11 +170,10 @@ pub(super) fn handle_input_event(
 }
 
 pub(super) fn handle_player_event(
-    mut event_reader: Local<EventReader<AnimEvent>>,
-    events: ResMut<Events<AnimEvent>>,
+    mut events: EventReader<AnimEvent>,
     mut player_state: ResMut<PlayerState>,
 ) {
-    for event in event_reader.iter(&events) {
+    for event in events.iter() {
         if let Some(anim) = event.anim_finish {
             match anim {
                 player_common::States::DoubleJump => player_state.land(),
