@@ -1,5 +1,5 @@
 use crate::{
-    player::{components::*, events::*, state::*, vars::*},
+    player::{events::*, components::*, vars::*},
     plugins::input::events::InputEvent,
 };
 use bevy::prelude::*;

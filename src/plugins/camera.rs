@@ -10,6 +10,6 @@ impl Plugin for CameraPlugin {
 
 fn setup(commands: &mut Commands) {
     commands
-        .spawn(CameraUiBundle::default())
-        .spawn(Camera2dBundle::default());
+        .spawn(UiCameraBundle::default())
+        .spawn(OrthographicCameraBundle::new_2d());
 }
