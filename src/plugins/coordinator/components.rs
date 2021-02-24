@@ -1,39 +1,4 @@
 #[derive(Debug, Clone, Copy, PartialEq, Hash)]
-pub enum BackgroundType {
-    Blue,
-    Brown,
-    Gray,
-    Green,
-    Pink,
-    Purple,
-    Yellow,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Hash)]
-pub enum EnemyType {
-    AngryPig,
-    Bat,
-    Bee,
-    BlueBird,
-    Bunny,
-    Chameleon,
-    Chicken,
-    Duck,
-    FatBird,
-    Ghost,
-    Mushroom,
-    Plant,
-    Radish,
-    Rino,
-    Rocks,
-    Skull,
-    Slime,
-    Snail,
-    Trunk,
-    Turtle,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Hash)]
 pub enum ItemsType {
     Boxes,
     Checkpoints,

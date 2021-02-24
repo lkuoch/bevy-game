@@ -1,4 +1,4 @@
-pub(super) mod world_vars {
+pub(super) mod world {
   pub const WALL_THICKNESS: f32 = 10.0;
 
   // #e91e63

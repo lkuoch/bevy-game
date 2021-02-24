@@ -1,4 +1,4 @@
-pub(super) mod player_common {
+pub(super) mod player {
     use crate::plugins::player::components::PlayerType;
 
     pub const BASE_SPEED: f32 = 250.0;

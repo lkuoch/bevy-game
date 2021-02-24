@@ -2,7 +2,7 @@ use crate::world::{components::*, vars::*};
 use bevy::prelude::*;
 
 pub(super) fn setup(commands: &mut Commands, mut materials: ResMut<Assets<ColorMaterial>>) {
-    if let Ok(wall_color) = Color::hex(world_vars::WALL_COLOR_1) {
+    if let Ok(wall_color) = Color::hex(world::WALL_COLOR_1) {
         let wall_material = materials.add(wall_color.into());
         let bounds = Vec2::new(1000.0, 700.0);
 
@@ -12,8 +12,8 @@ pub(super) fn setup(commands: &mut Commands, mut materials: ResMut<Assets<ColorM
                 material: wall_material.clone(),
                 transform: Transform::from_translation(Vec3::new(-bounds.x / 2.0, 0.0, 0.0)),
                 sprite: Sprite::new(Vec2::new(
-                    world_vars::WALL_THICKNESS,
-                    bounds.y + world_vars::WALL_THICKNESS,
+                    world::WALL_THICKNESS,
+                    bounds.y + world::WALL_THICKNESS,
                 )),
                 ..Default::default()
             })
@@ -23,8 +23,8 @@ pub(super) fn setup(commands: &mut Commands, mut materials: ResMut<Assets<ColorM
                 material: wall_material.clone(),
                 transform: Transform::from_translation(Vec3::new(bounds.x / 2.0, 0.0, 0.0)),
                 sprite: Sprite::new(Vec2::new(
-                    world_vars::WALL_THICKNESS,
-                    bounds.y + world_vars::WALL_THICKNESS,
+                    world::WALL_THICKNESS,
+                    bounds.y + world::WALL_THICKNESS,
                 )),
                 ..Default::default()
             })
@@ -34,8 +34,8 @@ pub(super) fn setup(commands: &mut Commands, mut materials: ResMut<Assets<ColorM
                 material: wall_material.clone(),
                 transform: Transform::from_translation(Vec3::new(0.0, -bounds.y / 2.0, 0.0)),
                 sprite: Sprite::new(Vec2::new(
-                    bounds.x + world_vars::WALL_THICKNESS,
-                    world_vars::WALL_THICKNESS,
+                    bounds.x + world::WALL_THICKNESS,
+                    world::WALL_THICKNESS,
                 )),
                 ..Default::default()
             })
@@ -45,8 +45,8 @@ pub(super) fn setup(commands: &mut Commands, mut materials: ResMut<Assets<ColorM
                 material: wall_material,
                 transform: Transform::from_translation(Vec3::new(0.0, bounds.y / 2.0, 0.0)),
                 sprite: Sprite::new(Vec2::new(
-                    bounds.x + world_vars::WALL_THICKNESS,
-                    world_vars::WALL_THICKNESS,
+                    bounds.x + world::WALL_THICKNESS,
+                    world::WALL_THICKNESS,
                 )),
                 ..Default::default()
             })

@@ -11,8 +11,8 @@ pub(super) fn setup(
     mut player_state: ResMut<PlayerState>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
 ) {
-    for player in player_common::PLAYER_LIST.iter() {
-        for texture in player_common::TEXTURES.iter() {
+    for player in player::PLAYER_LIST.iter() {
+        for texture in player::TEXTURES.iter() {
             let path = format!("{}{}", player.root_path.to_owned(), texture.path.to_owned());
 
             let texture_handle: Handle<Texture> = asset_server.load(&path[..]);
@@ -77,7 +77,7 @@ pub(super) fn setup(
         player_state
             .textures
             .get(&PlayerSpriteKV::State(PlayerTypeKey::MaskDude(
-                player_common::States::Idle,
+                player::States::Idle,
             )))
     {
         commands
@@ -176,13 +176,13 @@ pub(super) fn handle_player_event(
     for event in events.iter() {
         if let Some(anim) = event.anim_finish {
             match anim {
-                player_common::States::DoubleJump => player_state.land(),
-                player_common::States::Idle => {}
-                player_common::States::Fall => {}
-                player_common::States::Hit => {}
-                player_common::States::Jump => {}
-                player_common::States::Run => {}
-                player_common::States::WallJump => {}
+                player::States::DoubleJump => player_state.land(),
+                player::States::Idle => {}
+                player::States::Fall => {}
+                player::States::Hit => {}
+                player::States::Jump => {}
+                player::States::Run => {}
+                player::States::WallJump => {}
             }
         }
     }
@@ -207,7 +207,7 @@ pub(super) fn react_player_state(
                 }
             };
 
-            transform.translation.x += time.delta_seconds() * dir_val * player_common::BASE_SPEED;
+            transform.translation.x += time.delta_seconds() * dir_val * player::BASE_SPEED;
         }
 
         // Transformation
@@ -217,7 +217,7 @@ pub(super) fn react_player_state(
                     if let Some(PlayerSpriteKV::Handle(mask_dude_texture_handle)) = player_state
                         .textures
                         .get(&PlayerSpriteKV::State(PlayerTypeKey::MaskDude(
-                            player_common::States::Idle,
+                            player::States::Idle,
                         )))
                     {
                         *current_texture_handle = mask_dude_texture_handle.clone();
@@ -227,7 +227,7 @@ pub(super) fn react_player_state(
                     if let Some(PlayerSpriteKV::Handle(ninja_frog_texture_handle)) = player_state
                         .textures
                         .get(&PlayerSpriteKV::State(PlayerTypeKey::NinjaFrog(
-                            player_common::States::Idle,
+                            player::States::Idle,
                         )))
                     {
                         *current_texture_handle = ninja_frog_texture_handle.clone();
@@ -237,7 +237,7 @@ pub(super) fn react_player_state(
                     if let Some(PlayerSpriteKV::Handle(pink_man_texture_handle)) = player_state
                         .textures
                         .get(&PlayerSpriteKV::State(PlayerTypeKey::PinkMan(
-                            player_common::States::Idle,
+                            player::States::Idle,
                         )))
                     {
                         *current_texture_handle = pink_man_texture_handle.clone();
@@ -246,7 +246,7 @@ pub(super) fn react_player_state(
                 PlayerType::VirtualGuy => {
                     if let Some(PlayerSpriteKV::Handle(virtual_guy_texture_handle)) =
                         player_state.textures.get(&PlayerSpriteKV::State(
-                            PlayerTypeKey::VirtualGuy(player_common::States::Idle),
+                            PlayerTypeKey::VirtualGuy(player::States::Idle),
                         ))
                     {
                         *current_texture_handle = virtual_guy_texture_handle.clone();
@@ -266,18 +266,18 @@ pub(super) fn change_animation(
     for (_, mut current_texture_atlas_handle) in query.iter_mut() {
         if player_state.movement != MovementState::None {
             if let Some(new_anim_handle) =
-                player_state.get_state_from_texture_handle(player_common::States::Run)
+                player_state.get_state_from_texture_handle(player::States::Run)
             {
                 *current_texture_atlas_handle = new_anim_handle;
             }
         } else if player_state.jump != JumpState::None {
             if let Some(new_anim_handle) =
-                player_state.get_state_from_texture_handle(player_common::States::DoubleJump)
+                player_state.get_state_from_texture_handle(player::States::DoubleJump)
             {
                 *current_texture_atlas_handle = new_anim_handle;
             }
         } else if let Some(new_anim_handle) =
-            player_state.get_state_from_texture_handle(player_common::States::Idle)
+            player_state.get_state_from_texture_handle(player::States::Idle)
         {
             *current_texture_atlas_handle = new_anim_handle;
         }
