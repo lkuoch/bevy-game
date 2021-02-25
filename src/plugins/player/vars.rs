@@ -1,13 +1,13 @@
-pub(super) mod player {
-    use crate::plugins::player::components::*;
+pub mod player {
+    use crate::{common::components::*, plugins::player::components::*};
 
     pub const BASE_SPEED: f32 = 250.0;
 
-    pub const PLAYER_LIST: &[PlayerList<States>] = &[PlayerList {
+    pub const PLAYER_LIST: &[EntList<States, PlayerType>] = &[EntList {
         animation_states: &[
             // MASK DUDE
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Idle,
                     ty: PlayerType::MaskDude,
                 },
@@ -15,7 +15,7 @@ pub(super) mod player {
                 path: "Mask Dude/Idle (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::DoubleJump,
                     ty: PlayerType::MaskDude,
                 },
@@ -23,7 +23,7 @@ pub(super) mod player {
                 path: "Mask Dude/Double Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Fall,
                     ty: PlayerType::MaskDude,
                 },
@@ -31,7 +31,7 @@ pub(super) mod player {
                 path: "Mask Dude/Fall (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Hit,
                     ty: PlayerType::MaskDude,
                 },
@@ -39,7 +39,7 @@ pub(super) mod player {
                 path: "Mask Dude/Hit (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Jump,
                     ty: PlayerType::MaskDude,
                 },
@@ -47,7 +47,7 @@ pub(super) mod player {
                 path: "Mask Dude/Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Jump,
                     ty: PlayerType::MaskDude,
                 },
@@ -55,7 +55,7 @@ pub(super) mod player {
                 path: "Mask Dude/Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Run,
                     ty: PlayerType::MaskDude,
                 },
@@ -63,7 +63,7 @@ pub(super) mod player {
                 path: "Mask Dude/Run (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::WallJump,
                     ty: PlayerType::MaskDude,
                 },
@@ -72,7 +72,7 @@ pub(super) mod player {
             },
             // NINJA FROG
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Idle,
                     ty: PlayerType::NinjaFrog,
                 },
@@ -80,7 +80,7 @@ pub(super) mod player {
                 path: "Ninja Frog/Idle (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::DoubleJump,
                     ty: PlayerType::NinjaFrog,
                 },
@@ -88,7 +88,7 @@ pub(super) mod player {
                 path: "Ninja Frog/Double Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Fall,
                     ty: PlayerType::NinjaFrog,
                 },
@@ -96,7 +96,7 @@ pub(super) mod player {
                 path: "Ninja Frog/Fall (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Hit,
                     ty: PlayerType::NinjaFrog,
                 },
@@ -104,7 +104,7 @@ pub(super) mod player {
                 path: "Ninja Frog/Hit (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Jump,
                     ty: PlayerType::NinjaFrog,
                 },
@@ -112,7 +112,7 @@ pub(super) mod player {
                 path: "Ninja Frog/Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Jump,
                     ty: PlayerType::NinjaFrog,
                 },
@@ -120,7 +120,7 @@ pub(super) mod player {
                 path: "Ninja Frog/Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Run,
                     ty: PlayerType::NinjaFrog,
                 },
@@ -128,7 +128,7 @@ pub(super) mod player {
                 path: "Ninja Frog/Run (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::WallJump,
                     ty: PlayerType::NinjaFrog,
                 },
@@ -137,7 +137,7 @@ pub(super) mod player {
             },
             // NINJA FROG
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Idle,
                     ty: PlayerType::NinjaFrog,
                 },
@@ -145,7 +145,7 @@ pub(super) mod player {
                 path: "Ninja Frog/Idle (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::DoubleJump,
                     ty: PlayerType::NinjaFrog,
                 },
@@ -153,7 +153,7 @@ pub(super) mod player {
                 path: "Ninja Frog/Double Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Fall,
                     ty: PlayerType::NinjaFrog,
                 },
@@ -161,7 +161,7 @@ pub(super) mod player {
                 path: "Ninja Frog/Fall (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Hit,
                     ty: PlayerType::NinjaFrog,
                 },
@@ -169,7 +169,7 @@ pub(super) mod player {
                 path: "Ninja Frog/Hit (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Jump,
                     ty: PlayerType::NinjaFrog,
                 },
@@ -177,7 +177,7 @@ pub(super) mod player {
                 path: "Ninja Frog/Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Jump,
                     ty: PlayerType::NinjaFrog,
                 },
@@ -185,7 +185,7 @@ pub(super) mod player {
                 path: "Ninja Frog/Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Run,
                     ty: PlayerType::NinjaFrog,
                 },
@@ -193,7 +193,7 @@ pub(super) mod player {
                 path: "Ninja Frog/Run (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::WallJump,
                     ty: PlayerType::NinjaFrog,
                 },
@@ -202,7 +202,7 @@ pub(super) mod player {
             },
             // PINK MAN
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Idle,
                     ty: PlayerType::PinkMan,
                 },
@@ -210,7 +210,7 @@ pub(super) mod player {
                 path: "Pink Man/Idle (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::DoubleJump,
                     ty: PlayerType::PinkMan,
                 },
@@ -218,7 +218,7 @@ pub(super) mod player {
                 path: "Pink Man/Double Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Fall,
                     ty: PlayerType::PinkMan,
                 },
@@ -226,7 +226,7 @@ pub(super) mod player {
                 path: "Pink Man/Fall (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Hit,
                     ty: PlayerType::PinkMan,
                 },
@@ -234,7 +234,7 @@ pub(super) mod player {
                 path: "Pink Man/Hit (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Jump,
                     ty: PlayerType::PinkMan,
                 },
@@ -242,7 +242,7 @@ pub(super) mod player {
                 path: "Pink Man/Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Jump,
                     ty: PlayerType::PinkMan,
                 },
@@ -250,7 +250,7 @@ pub(super) mod player {
                 path: "Pink Man/Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Run,
                     ty: PlayerType::PinkMan,
                 },
@@ -258,7 +258,7 @@ pub(super) mod player {
                 path: "Pink Man/Run (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::WallJump,
                     ty: PlayerType::PinkMan,
                 },
@@ -267,7 +267,7 @@ pub(super) mod player {
             },
             // Pink Man
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Idle,
                     ty: PlayerType::PinkMan,
                 },
@@ -275,7 +275,7 @@ pub(super) mod player {
                 path: "Pink Man/Idle (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::DoubleJump,
                     ty: PlayerType::PinkMan,
                 },
@@ -283,7 +283,7 @@ pub(super) mod player {
                 path: "Pink Man/Double Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Fall,
                     ty: PlayerType::PinkMan,
                 },
@@ -291,7 +291,7 @@ pub(super) mod player {
                 path: "Pink Man/Fall (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Hit,
                     ty: PlayerType::PinkMan,
                 },
@@ -299,7 +299,7 @@ pub(super) mod player {
                 path: "Pink Man/Hit (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Jump,
                     ty: PlayerType::PinkMan,
                 },
@@ -307,7 +307,7 @@ pub(super) mod player {
                 path: "Pink Man/Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Jump,
                     ty: PlayerType::PinkMan,
                 },
@@ -315,7 +315,7 @@ pub(super) mod player {
                 path: "Pink Man/Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Run,
                     ty: PlayerType::PinkMan,
                 },
@@ -323,7 +323,7 @@ pub(super) mod player {
                 path: "Pink Man/Run (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::WallJump,
                     ty: PlayerType::PinkMan,
                 },
@@ -332,7 +332,7 @@ pub(super) mod player {
             },
             // VIRTUAL GUY
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Idle,
                     ty: PlayerType::VirtualGuy,
                 },
@@ -340,7 +340,7 @@ pub(super) mod player {
                 path: "Virtual Guy/Idle (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::DoubleJump,
                     ty: PlayerType::VirtualGuy,
                 },
@@ -348,7 +348,7 @@ pub(super) mod player {
                 path: "Virtual Guy/Double Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Fall,
                     ty: PlayerType::VirtualGuy,
                 },
@@ -356,7 +356,7 @@ pub(super) mod player {
                 path: "Virtual Guy/Fall (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Hit,
                     ty: PlayerType::VirtualGuy,
                 },
@@ -364,7 +364,7 @@ pub(super) mod player {
                 path: "Virtual Guy/Hit (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Jump,
                     ty: PlayerType::VirtualGuy,
                 },
@@ -372,7 +372,7 @@ pub(super) mod player {
                 path: "Virtual Guy/Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Jump,
                     ty: PlayerType::VirtualGuy,
                 },
@@ -380,7 +380,7 @@ pub(super) mod player {
                 path: "Virtual Guy/Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Run,
                     ty: PlayerType::VirtualGuy,
                 },
@@ -388,7 +388,7 @@ pub(super) mod player {
                 path: "Virtual Guy/Run (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::WallJump,
                     ty: PlayerType::VirtualGuy,
                 },
@@ -397,7 +397,7 @@ pub(super) mod player {
             },
             // Virtual Guy
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Idle,
                     ty: PlayerType::VirtualGuy,
                 },
@@ -405,7 +405,7 @@ pub(super) mod player {
                 path: "Virtual Guy/Idle (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::DoubleJump,
                     ty: PlayerType::VirtualGuy,
                 },
@@ -413,7 +413,7 @@ pub(super) mod player {
                 path: "Virtual Guy/Double Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Fall,
                     ty: PlayerType::VirtualGuy,
                 },
@@ -421,7 +421,7 @@ pub(super) mod player {
                 path: "Virtual Guy/Fall (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Hit,
                     ty: PlayerType::VirtualGuy,
                 },
@@ -429,7 +429,7 @@ pub(super) mod player {
                 path: "Virtual Guy/Hit (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Jump,
                     ty: PlayerType::VirtualGuy,
                 },
@@ -437,7 +437,7 @@ pub(super) mod player {
                 path: "Virtual Guy/Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Jump,
                     ty: PlayerType::VirtualGuy,
                 },
@@ -445,7 +445,7 @@ pub(super) mod player {
                 path: "Virtual Guy/Jump (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::Run,
                     ty: PlayerType::VirtualGuy,
                 },
@@ -453,7 +453,7 @@ pub(super) mod player {
                 path: "Virtual Guy/Run (32x32).png",
             },
             AnimationState {
-                kv: PlayerTypeKey {
+                kv: EntTypeKey {
                     state: States::WallJump,
                     ty: PlayerType::VirtualGuy,
                 },

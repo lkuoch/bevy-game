@@ -1,7 +1,7 @@
 use crate::world::{components::*, vars::*};
 use bevy::prelude::*;
 
-pub(super) fn setup(commands: &mut Commands, mut materials: ResMut<Assets<ColorMaterial>>) {
+pub fn setup(commands: &mut Commands, mut materials: ResMut<Assets<ColorMaterial>>) {
     if let Ok(wall_color) = Color::hex(world::WALL_COLOR_1) {
         let wall_material = materials.add(wall_color.into());
         let bounds = Vec2::new(1000.0, 700.0);

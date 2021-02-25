@@ -1,11 +1,12 @@
 use crate::{
+    common::components::*,
     player::{components::*, events::*, vars::*},
     plugins::input::events::InputEvent,
 };
 use bevy::prelude::*;
 use std::f32::consts::PI;
 
-pub(super) fn setup(
+pub fn setup(
     commands: &mut Commands,
     asset_server: Res<AssetServer>,
     mut player_state: ResMut<PlayerState>,
@@ -25,24 +26,22 @@ pub(super) fn setup(
 
             player_state.textures.insert(
                 PlayerSpriteMapKey::State(anim.kv),
-                PlayerSpriteKV::Handle(handle.clone()),
+                EntSpriteKV::Handle(handle.clone()),
             );
 
             player_state.textures.insert(
-                PlayerSpriteKV::Handle(handle.clone()),
-                PlayerSpriteKV::State(anim.kv.state),
+                EntSpriteKV::Handle(handle.clone()),
+                EntSpriteKV::State(anim.kv.state),
             );
         }
     }
 
     // Default player is MaskDude
-    if let Some(PlayerSpriteKV::Handle(default_texture)) =
-        player_state
-            .textures
-            .get(&PlayerSpriteKV::State(PlayerTypeKey {
-                ty: PlayerType::MaskDude,
-                state: States::Idle,
-            }))
+    if let Some(EntSpriteKV::Handle(default_texture)) =
+        player_state.textures.get(&EntSpriteKV::State(EntTypeKey {
+            ty: PlayerType::MaskDude,
+            state: States::Idle,
+        }))
     {
         commands
             .spawn(SpriteSheetBundle {
@@ -55,7 +54,7 @@ pub(super) fn setup(
     }
 }
 
-pub(super) fn animate_sprite_system(
+pub fn animate_sprite_system(
     time: Res<Time>,
     texture_atlases: Res<Assets<TextureAtlas>>,
     player_state: Res<PlayerState>,
@@ -94,7 +93,7 @@ pub(super) fn animate_sprite_system(
     }
 }
 
-pub(super) fn handle_input_event(
+pub fn handle_input_event(
     mut event_reader: EventReader<InputEvent>,
     mut player_state: ResMut<PlayerState>,
 ) {
@@ -133,7 +132,7 @@ pub(super) fn handle_input_event(
     }
 }
 
-pub(super) fn handle_player_event(
+pub fn handle_player_event(
     mut events: EventReader<AnimEvent>,
     mut player_state: ResMut<PlayerState>,
 ) {
@@ -152,7 +151,7 @@ pub(super) fn handle_player_event(
     }
 }
 
-pub(super) fn react_player_state(
+pub fn react_player_state(
     mut player_state: ResMut<PlayerState>,
     time: Res<Time>,
     mut query: Query<(&Player, &mut Transform, &mut Handle<TextureAtlas>)>,
@@ -176,9 +175,8 @@ pub(super) fn react_player_state(
 
         // Transformation
         if player_state.previous_sprite != player_state.current_sprite {
-            if let Some(PlayerSpriteKV::Handle(mask_dude_texture_handle)) = player_state
-                .textures
-                .get(&PlayerSpriteKV::State(PlayerTypeKey {
+            if let Some(EntSpriteKV::Handle(mask_dude_texture_handle)) =
+                player_state.textures.get(&EntSpriteKV::State(EntTypeKey {
                     ty: player_state.current_sprite,
                     state: States::Idle,
                 }))
@@ -191,7 +189,7 @@ pub(super) fn react_player_state(
     }
 }
 
-pub(super) fn change_animation(
+pub fn change_animation(
     player_state: Res<PlayerState>,
     mut query: Query<(&Player, &mut Handle<TextureAtlas>)>,
 ) {

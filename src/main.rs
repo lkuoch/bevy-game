@@ -1,5 +1,6 @@
 #![feature(format_args_capture)]
 
+mod common;
 mod plugins;
 
 use crate::plugins::{camera, coordinator, debug, input, player, world};

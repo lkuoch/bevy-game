@@ -1,33 +1,11 @@
+use crate::common::components::*;
 use bevy::prelude::*;
 use std::collections::HashMap;
 
-pub(super) type PlayerSpriteMap<T> = HashMap<PlayerSpriteKV<PlayerTypeKey<T>>, PlayerSpriteKV<T>>;
-pub(super) type PlayerSpriteMapKey = PlayerSpriteKV<PlayerTypeKey<States>>;
+pub type PlayerSpriteMap = HashMap<PlayerSpriteMapKey, EntSpriteKV<States>>;
+pub type PlayerSpriteMapKey = EntSpriteKV<EntTypeKey<States, PlayerType>>;
 
 pub struct Player;
-
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
-pub(super) enum PlayerSpriteKV<T> {
-    State(T),
-    Handle(Handle<TextureAtlas>),
-}
-
-pub struct AnimationState<'a, T> {
-    pub kv: PlayerTypeKey<T>,
-    pub frames: usize,
-    pub path: &'a str,
-}
-
-pub struct PlayerList<'a, T> {
-    pub animation_states: &'a [AnimationState<'a, T>],
-    pub root_path: &'a str,
-}
-
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub struct PlayerTypeKey<T> {
-    pub state: T,
-    pub ty: PlayerType,
-}
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum PlayerType {
@@ -49,7 +27,7 @@ pub enum States {
 }
 
 #[derive(Debug, Clone)]
-pub(super) struct PlayerState {
+pub struct PlayerState {
     pub dir: DirState,
     pub attack: AttackState,
     pub jump: JumpState,
@@ -58,29 +36,29 @@ pub(super) struct PlayerState {
     pub current_sprite: PlayerType,
     pub previous_sprite: PlayerType,
 
-    pub textures: PlayerSpriteMap<States>,
+    pub textures: PlayerSpriteMap,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]
-pub(super) enum MovementState {
+pub enum MovementState {
     None,
     Moving(DirState),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]
-pub(super) enum DirState {
+pub enum DirState {
     Left,
     Right,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]
-pub(super) enum JumpState {
+pub enum JumpState {
     None,
     Jumping,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]
-pub(super) enum AttackState {
+pub enum AttackState {
     None,
     Preparing,
     Attacking,
@@ -132,9 +110,9 @@ impl PlayerState {
     }
 
     pub fn get_texture_handle_from_state(&self, handle: Handle<TextureAtlas>) -> Option<States> {
-        if let Some(x) = self.textures.get(&PlayerSpriteKV::Handle(handle)) {
+        if let Some(x) = self.textures.get(&EntSpriteKV::Handle(handle)) {
             match x {
-                PlayerSpriteKV::State(s) => Some(*s),
+                EntSpriteKV::State(s) => Some(*s),
                 _ => None,
             }
         } else {
@@ -143,12 +121,12 @@ impl PlayerState {
     }
 
     pub fn get_state_from_texture_handle(&self, state: States) -> Option<Handle<TextureAtlas>> {
-        if let Some(x) = self.textures.get(&PlayerSpriteKV::State(PlayerTypeKey {
+        if let Some(x) = self.textures.get(&EntSpriteKV::State(EntTypeKey {
             ty: self.current_sprite,
             state,
         })) {
             match x {
-                PlayerSpriteKV::Handle(h) => Some(h.clone()),
+                EntSpriteKV::Handle(h) => Some(h.clone()),
                 _ => None,
             }
         } else {
@@ -169,7 +147,7 @@ impl Default for PlayerState {
             current_sprite: PlayerType::MaskDude,
 
             // Stores all playable character textures
-            textures: PlayerSpriteMap::<States>::new(),
+            textures: PlayerSpriteMap::new(),
         }
     }
 }

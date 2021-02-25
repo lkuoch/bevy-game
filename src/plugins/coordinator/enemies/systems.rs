@@ -1,4 +1,7 @@
-use crate::coordinator::enemies::{components::*, vars::*};
+use crate::{
+    common::components::*,
+    coordinator::enemies::{components::*, vars::*},
+};
 use bevy::prelude::*;
 
 pub fn enemies_setup(
@@ -21,19 +24,19 @@ pub fn enemies_setup(
 
             enemies.textures.insert(
                 EnemySpriteMapKey::State(anim.kv),
-                EnemySpriteKV::Handle(handle.clone()),
+                EntSpriteKV::Handle(handle.clone()),
             );
 
             enemies.textures.insert(
-                EnemySpriteKV::Handle(handle.clone()),
-                EnemySpriteKV::State(anim.kv.state),
+                EntSpriteKV::Handle(handle.clone()),
+                EntSpriteKV::State(anim.kv.state),
             );
         }
     }
 
     // Let's just spawn angry pig
-    if let Some(EnemySpriteKV::Handle(enemy)) =
-        enemies.textures.get(&EnemySpriteKV::State(EnemyTypeKey {
+    if let Some(EntSpriteKV::Handle(enemy)) =
+        enemies.textures.get(&EntSpriteKV::State(EntTypeKey {
             ty: EnemyType::AngryPig,
             state: States::Idle,
         }))

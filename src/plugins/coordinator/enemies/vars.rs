@@ -1,13 +1,14 @@
 pub mod enemies {
+    use crate::common::components::*;
     use crate::coordinator::enemies::components::*;
 
     pub const BASE_SPEED: f32 = 200.0;
 
-    pub const ENEMY_LIST: &[EnemyList<States>] = &[EnemyList {
+    pub const ENEMY_LIST: &[EntList<States, EnemyType>] = &[EntList {
         animation_states: &[
             // ANGRY PIG
             AnimationState {
-                kv: EnemyTypeKey {
+                kv: EntTypeKey {
                     ty: EnemyType::AngryPig,
                     state: States::Idle,
                 },
@@ -15,7 +16,7 @@ pub mod enemies {
                 path: "Idle (36x30).png",
             },
             AnimationState {
-                kv: EnemyTypeKey {
+                kv: EntTypeKey {
                     ty: EnemyType::AngryPig,
                     state: States::Run,
                 },
@@ -23,7 +24,7 @@ pub mod enemies {
                 path: "Hit 2 (36x30).png",
             },
             AnimationState {
-                kv: EnemyTypeKey {
+                kv: EntTypeKey {
                     ty: EnemyType::AngryPig,
                     state: States::Walk,
                 },
@@ -31,7 +32,7 @@ pub mod enemies {
                 path: "Run (36x30).png",
             },
             AnimationState {
-                kv: EnemyTypeKey {
+                kv: EntTypeKey {
                     ty: EnemyType::AngryPig,
                     state: States::Hit,
                 },
@@ -39,7 +40,7 @@ pub mod enemies {
                 path: "Hit 1 (36x30).png",
             },
             AnimationState {
-                kv: EnemyTypeKey {
+                kv: EntTypeKey {
                     ty: EnemyType::AngryPig,
                     state: States::Hit2,
                 },

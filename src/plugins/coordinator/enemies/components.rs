@@ -1,31 +1,8 @@
-use bevy::prelude::*;
+use crate::common::components::*;
 use std::collections::HashMap;
 
-pub type EnemySpriteMap<T> = HashMap<EnemySpriteKV<EnemyTypeKey<T>>, EnemySpriteKV<T>>;
-pub type EnemySpriteMapKey = EnemySpriteKV<EnemyTypeKey<States>>;
-
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
-pub enum EnemySpriteKV<T> {
-    State(T),
-    Handle(Handle<TextureAtlas>),
-}
-
-pub struct AnimationState<'a, T> {
-    pub kv: EnemyTypeKey<T>,
-    pub frames: usize,
-    pub path: &'a str,
-}
-
-pub struct EnemyList<'a, T> {
-    pub animation_states: &'a [AnimationState<'a, T>],
-    pub root_path: &'a str,
-}
-
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub struct EnemyTypeKey<T> {
-    pub state: T,
-    pub ty: EnemyType,
-}
+pub type EnemySpriteMap = HashMap<EnemySpriteMapKey, EntSpriteKV<States>>;
+pub type EnemySpriteMapKey = EntSpriteKV<EntTypeKey<States, EnemyType>>;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum EnemyType {
@@ -68,13 +45,13 @@ pub struct Enemy;
 
 #[derive(Debug, Clone)]
 pub struct Enemies {
-    pub textures: EnemySpriteMap<States>,
+    pub textures: EnemySpriteMap,
 }
 
 impl Default for Enemies {
     fn default() -> Self {
         Self {
-            textures: EnemySpriteMap::<States>::new(),
+            textures: EnemySpriteMap::new(),
         }
     }
 }
