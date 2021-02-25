@@ -3,17 +3,6 @@ pub(super) mod player {
 
     pub const BASE_SPEED: f32 = 250.0;
 
-    pub struct AnimationState<'a, T> {
-        pub kv: PlayerTypeKey<T>,
-        pub frames: usize,
-        pub path: &'a str,
-    }
-
-    pub struct PlayerList<'a, T> {
-        pub animation_states: &'a [AnimationState<'a, T>],
-        pub root_path: &'a str,
-    }
-
     pub const PLAYER_LIST: &[PlayerList<States>] = &[PlayerList {
         animation_states: &[
             // MASK DUDE

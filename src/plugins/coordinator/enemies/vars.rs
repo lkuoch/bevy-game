@@ -3,17 +3,6 @@ pub mod enemies {
 
     pub const BASE_SPEED: f32 = 200.0;
 
-    pub struct AnimationState<'a, T> {
-        pub kv: EnemyTypeKey<T>,
-        pub frames: usize,
-        pub path: &'a str,
-    }
-
-    pub struct EnemyList<'a, T> {
-        pub animation_states: &'a [AnimationState<'a, T>],
-        pub root_path: &'a str,
-    }
-
     pub const ENEMY_LIST: &[EnemyList<States>] = &[EnemyList {
         animation_states: &[
             // ANGRY PIG

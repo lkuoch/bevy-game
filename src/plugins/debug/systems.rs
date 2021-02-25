@@ -1,21 +1,10 @@
+use crate::debug::components::*;
 use bevy::{
     diagnostic::{Diagnostics, FrameTimeDiagnosticsPlugin},
     prelude::*,
 };
 
-pub struct DebugPlugin;
-
-struct FPSText;
-
-impl Plugin for DebugPlugin {
-    fn build(&self, app: &mut AppBuilder) {
-        app.add_plugin(FrameTimeDiagnosticsPlugin::default())
-            .add_startup_system(setup.system())
-            .add_system(text_update.system());
-    }
-}
-
-fn setup(commands: &mut Commands, asset_server: Res<AssetServer>) {
+pub fn setup(commands: &mut Commands, asset_server: Res<AssetServer>) {
     commands
         .spawn(TextBundle {
             style: Style {
@@ -38,7 +27,7 @@ fn setup(commands: &mut Commands, asset_server: Res<AssetServer>) {
         .with(FPSText);
 }
 
-fn text_update(diagnostics: Res<Diagnostics>, mut query: Query<&mut Text, With<FPSText>>) {
+pub fn text_update(diagnostics: Res<Diagnostics>, mut query: Query<&mut Text, With<FPSText>>) {
     for mut text in query.iter_mut() {
         if let Some(fps) = diagnostics.get(FrameTimeDiagnosticsPlugin::FPS) {
             if let Some(avg) = fps.average() {

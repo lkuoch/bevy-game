@@ -1,4 +1,3 @@
-use crate::coordinator::enemies::vars::*;
 use bevy::prelude::*;
 use std::collections::HashMap;
 
@@ -9,6 +8,17 @@ pub type EnemySpriteMapKey = EnemySpriteKV<EnemyTypeKey<States>>;
 pub enum EnemySpriteKV<T> {
     State(T),
     Handle(Handle<TextureAtlas>),
+}
+
+pub struct AnimationState<'a, T> {
+    pub kv: EnemyTypeKey<T>,
+    pub frames: usize,
+    pub path: &'a str,
+}
+
+pub struct EnemyList<'a, T> {
+    pub animation_states: &'a [AnimationState<'a, T>],
+    pub root_path: &'a str,
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]

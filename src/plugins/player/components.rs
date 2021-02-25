@@ -12,6 +12,17 @@ pub(super) enum PlayerSpriteKV<T> {
     Handle(Handle<TextureAtlas>),
 }
 
+pub struct AnimationState<'a, T> {
+    pub kv: PlayerTypeKey<T>,
+    pub frames: usize,
+    pub path: &'a str,
+}
+
+pub struct PlayerList<'a, T> {
+    pub animation_states: &'a [AnimationState<'a, T>],
+    pub root_path: &'a str,
+}
+
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct PlayerTypeKey<T> {
     pub state: T,

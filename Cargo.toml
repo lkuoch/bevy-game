@@ -8,4 +8,4 @@ edition = "2018"
 [dependencies]
 bevy = { git = "https://github.com/bevyengine/bevy.git" }
 bevy_rapier2d = { git = "https://github.com/dimforge/bevy_rapier.git", features = [ "simd-stable", "parallel" ] }
-rand = "0.7.3"
+rand = { git = "https://github.com/rust-random/rand.git" }
