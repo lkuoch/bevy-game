@@ -8,65 +8,63 @@ pub fn enemies_setup(
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
 ) {
     for enemy in enemies::ENEMY_LIST.iter() {
-        for texture in enemy.animation_states.iter() {
-            let path = format!("{}{}", enemy.root_path.to_owned(), texture.path.to_owned());
+        for anim in enemy.animation_states.iter() {
+            let path = format!("{}{}", enemy.root_path.to_owned(), anim.path.to_owned());
 
             let texture_handle: Handle<Texture> = asset_server.load(&path[..]);
             let handle = texture_atlases.add(TextureAtlas::from_grid(
                 texture_handle,
                 Vec2::new(32.0, 32.0),
-                texture.frames,
+                anim.frames,
                 1,
             ));
 
-            match enemy.ty {
-                EnemyType::AngryPig => {
-                    enemies.textures.insert(
-                        EnemySpriteMapKey::State(EnemyTypeKey::AngryPig(texture.state)),
-                        EnemySpriteKV::Handle(handle.clone()),
-                    );
+            enemies.textures.insert(
+                EnemySpriteMapKey::State(anim.kv),
+                EnemySpriteKV::Handle(handle.clone()),
+            );
 
-                    enemies.textures.insert(
-                        EnemySpriteKV::Handle(handle.clone()),
-                        EnemySpriteKV::State(texture.state),
-                    );
-                }
-                EnemyType::Bat => {}
-                EnemyType::Bee => {}
-                EnemyType::BlueBird => {}
-                EnemyType::Bunny => {}
-                EnemyType::Chameleon => {}
-                EnemyType::Chicken => {}
-                EnemyType::Duck => {}
-                EnemyType::FatBird => {}
-                EnemyType::Ghost => {}
-                EnemyType::Mushroom => {}
-                EnemyType::Plant => {}
-                EnemyType::Radish => {}
-                EnemyType::Rino => {}
-                EnemyType::Rocks => {}
-                EnemyType::Skull => {}
-                EnemyType::Slime => {}
-                EnemyType::Snail => {}
-                EnemyType::Trunk => {}
-                EnemyType::Turtle => {}
-            }
+            enemies.textures.insert(
+                EnemySpriteKV::Handle(handle.clone()),
+                EnemySpriteKV::State(anim.kv.state),
+            );
         }
     }
 
     // Let's just spawn angry pig
     if let Some(EnemySpriteKV::Handle(enemy)) =
-        enemies
-            .textures
-            .get(&EnemySpriteKV::State(EnemyTypeKey::AngryPig(
-                enemies::States::Idle,
-            )))
+        enemies.textures.get(&EnemySpriteKV::State(EnemyTypeKey {
+            ty: EnemyType::AngryPig,
+            state: States::Idle,
+        }))
     {
-        commands.spawn(SpriteSheetBundle {
-            texture_atlas: enemy.clone(),
-            transform: Transform::from_xyz(150., 0., 0.)
-                .mul_transform(Transform::from_scale(Vec3::splat(2.5))),
-            ..Default::default()
-        });
+        commands
+            .spawn(SpriteSheetBundle {
+                texture_atlas: enemy.clone(),
+                transform: Transform::from_xyz(150., 0., 0.)
+                    .mul_transform(Transform::from_scale(Vec3::splat(2.5))),
+                ..Default::default()
+            })
+            .with(Enemy)
+            .with(Timer::from_seconds(0.1, true));
+    }
+}
+
+pub fn animate_sprite_system(
+    time: Res<Time>,
+    texture_atlases: Res<Assets<TextureAtlas>>,
+    mut query: Query<(
+        &Enemy,
+        &mut Timer,
+        &mut TextureAtlasSprite,
+        &Handle<TextureAtlas>,
+    )>,
+) {
+    for (_, mut timer, mut sprite, texture_atlas_handle) in query.iter_mut() {
+        timer.tick(time.delta_seconds());
+        if timer.finished() {
+            let texture_atlas = texture_atlases.get(texture_atlas_handle).unwrap();
+            sprite.index = ((sprite.index as usize + 1) % texture_atlas.textures.len()) as u32;
+        }
     }
 }

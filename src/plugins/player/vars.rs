@@ -1,84 +1,477 @@
 pub(super) mod player {
-    use crate::plugins::player::components::PlayerType;
+    use crate::plugins::player::components::*;
 
     pub const BASE_SPEED: f32 = 250.0;
 
-    #[derive(Debug, PartialEq, Eq, Hash, Copy, Clone)]
-    pub enum States {
-        Idle,
-        DoubleJump,
-        Fall,
-        Hit,
-        Jump,
-        Run,
-        WallJump,
-    }
-
-    pub struct AnimationState<'a> {
-        pub state: States,
+    pub struct AnimationState<'a, T> {
+        pub kv: PlayerTypeKey<T>,
         pub frames: usize,
         pub path: &'a str,
     }
 
-    pub struct PlayerList<'a> {
-        pub ty: PlayerType,
+    pub struct PlayerList<'a, T> {
+        pub animation_states: &'a [AnimationState<'a, T>],
         pub root_path: &'a str,
     }
 
-    pub const PLAYER_LIST: &[PlayerList] = &[
-        PlayerList {
-            ty: PlayerType::MaskDude,
-            root_path: "pixels/Players/Mask Dude/",
-        },
-        PlayerList {
-            ty: PlayerType::NinjaFrog,
-            root_path: "pixels/Players/Ninja Frog/",
-        },
-        PlayerList {
-            ty: PlayerType::PinkMan,
-            root_path: "pixels/Players/Pink Man/",
-        },
-        PlayerList {
-            ty: PlayerType::VirtualGuy,
-            root_path: "pixels/Players/Virtual Guy/",
-        },
-    ];
-
-    pub const TEXTURES: &[AnimationState] = &[
-        AnimationState {
-            state: States::Idle,
-            frames: 11,
-            path: "/Idle (32x32).png",
-        },
-        AnimationState {
-            state: States::DoubleJump,
-            frames: 6,
-            path: "/Double Jump (32x32).png",
-        },
-        AnimationState {
-            state: States::Fall,
-            frames: 1,
-            path: "/Fall (32x32).png",
-        },
-        AnimationState {
-            state: States::Hit,
-            frames: 7,
-            path: "/Hit (32x32).png",
-        },
-        AnimationState {
-            state: States::Jump,
-            frames: 1,
-            path: "/Jump (32x32).png",
-        },
-        AnimationState {
-            state: States::Run,
-            frames: 12,
-            path: "/Run (32x32).png",
-        },
-        AnimationState {
-            state: States::WallJump,
-            frames: 5,
-            path: "/Wall Jump (32x32).png",
-        },
-    ];
+    pub const PLAYER_LIST: &[PlayerList<States>] = &[PlayerList {
+        animation_states: &[
+            // MASK DUDE
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Idle,
+                    ty: PlayerType::MaskDude,
+                },
+                frames: 11,
+                path: "Mask Dude/Idle (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::DoubleJump,
+                    ty: PlayerType::MaskDude,
+                },
+                frames: 6,
+                path: "Mask Dude/Double Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Fall,
+                    ty: PlayerType::MaskDude,
+                },
+                frames: 1,
+                path: "Mask Dude/Fall (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Hit,
+                    ty: PlayerType::MaskDude,
+                },
+                frames: 7,
+                path: "Mask Dude/Hit (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Jump,
+                    ty: PlayerType::MaskDude,
+                },
+                frames: 1,
+                path: "Mask Dude/Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Jump,
+                    ty: PlayerType::MaskDude,
+                },
+                frames: 1,
+                path: "Mask Dude/Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Run,
+                    ty: PlayerType::MaskDude,
+                },
+                frames: 12,
+                path: "Mask Dude/Run (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::WallJump,
+                    ty: PlayerType::MaskDude,
+                },
+                frames: 5,
+                path: "Mask Dude/Wall Jump (32x32).png",
+            },
+            // NINJA FROG
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Idle,
+                    ty: PlayerType::NinjaFrog,
+                },
+                frames: 11,
+                path: "Ninja Frog/Idle (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::DoubleJump,
+                    ty: PlayerType::NinjaFrog,
+                },
+                frames: 6,
+                path: "Ninja Frog/Double Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Fall,
+                    ty: PlayerType::NinjaFrog,
+                },
+                frames: 1,
+                path: "Ninja Frog/Fall (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Hit,
+                    ty: PlayerType::NinjaFrog,
+                },
+                frames: 7,
+                path: "Ninja Frog/Hit (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Jump,
+                    ty: PlayerType::NinjaFrog,
+                },
+                frames: 1,
+                path: "Ninja Frog/Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Jump,
+                    ty: PlayerType::NinjaFrog,
+                },
+                frames: 1,
+                path: "Ninja Frog/Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Run,
+                    ty: PlayerType::NinjaFrog,
+                },
+                frames: 12,
+                path: "Ninja Frog/Run (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::WallJump,
+                    ty: PlayerType::NinjaFrog,
+                },
+                frames: 5,
+                path: "Ninja Frog/Wall Jump (32x32).png",
+            },
+            // NINJA FROG
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Idle,
+                    ty: PlayerType::NinjaFrog,
+                },
+                frames: 11,
+                path: "Ninja Frog/Idle (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::DoubleJump,
+                    ty: PlayerType::NinjaFrog,
+                },
+                frames: 6,
+                path: "Ninja Frog/Double Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Fall,
+                    ty: PlayerType::NinjaFrog,
+                },
+                frames: 1,
+                path: "Ninja Frog/Fall (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Hit,
+                    ty: PlayerType::NinjaFrog,
+                },
+                frames: 7,
+                path: "Ninja Frog/Hit (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Jump,
+                    ty: PlayerType::NinjaFrog,
+                },
+                frames: 1,
+                path: "Ninja Frog/Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Jump,
+                    ty: PlayerType::NinjaFrog,
+                },
+                frames: 1,
+                path: "Ninja Frog/Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Run,
+                    ty: PlayerType::NinjaFrog,
+                },
+                frames: 12,
+                path: "Ninja Frog/Run (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::WallJump,
+                    ty: PlayerType::NinjaFrog,
+                },
+                frames: 5,
+                path: "Ninja Frog/Wall Jump (32x32).png",
+            },
+            // PINK MAN
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Idle,
+                    ty: PlayerType::PinkMan,
+                },
+                frames: 11,
+                path: "Pink Man/Idle (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::DoubleJump,
+                    ty: PlayerType::PinkMan,
+                },
+                frames: 6,
+                path: "Pink Man/Double Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Fall,
+                    ty: PlayerType::PinkMan,
+                },
+                frames: 1,
+                path: "Pink Man/Fall (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Hit,
+                    ty: PlayerType::PinkMan,
+                },
+                frames: 7,
+                path: "Pink Man/Hit (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Jump,
+                    ty: PlayerType::PinkMan,
+                },
+                frames: 1,
+                path: "Pink Man/Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Jump,
+                    ty: PlayerType::PinkMan,
+                },
+                frames: 1,
+                path: "Pink Man/Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Run,
+                    ty: PlayerType::PinkMan,
+                },
+                frames: 12,
+                path: "Pink Man/Run (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::WallJump,
+                    ty: PlayerType::PinkMan,
+                },
+                frames: 5,
+                path: "Pink Man/Wall Jump (32x32).png",
+            },
+            // Pink Man
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Idle,
+                    ty: PlayerType::PinkMan,
+                },
+                frames: 11,
+                path: "Pink Man/Idle (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::DoubleJump,
+                    ty: PlayerType::PinkMan,
+                },
+                frames: 6,
+                path: "Pink Man/Double Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Fall,
+                    ty: PlayerType::PinkMan,
+                },
+                frames: 1,
+                path: "Pink Man/Fall (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Hit,
+                    ty: PlayerType::PinkMan,
+                },
+                frames: 7,
+                path: "Pink Man/Hit (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Jump,
+                    ty: PlayerType::PinkMan,
+                },
+                frames: 1,
+                path: "Pink Man/Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Jump,
+                    ty: PlayerType::PinkMan,
+                },
+                frames: 1,
+                path: "Pink Man/Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Run,
+                    ty: PlayerType::PinkMan,
+                },
+                frames: 12,
+                path: "Pink Man/Run (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::WallJump,
+                    ty: PlayerType::PinkMan,
+                },
+                frames: 5,
+                path: "Pink Man/Wall Jump (32x32).png",
+            },
+            // VIRTUAL GUY
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Idle,
+                    ty: PlayerType::VirtualGuy,
+                },
+                frames: 11,
+                path: "Virtual Guy/Idle (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::DoubleJump,
+                    ty: PlayerType::VirtualGuy,
+                },
+                frames: 6,
+                path: "Virtual Guy/Double Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Fall,
+                    ty: PlayerType::VirtualGuy,
+                },
+                frames: 1,
+                path: "Virtual Guy/Fall (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Hit,
+                    ty: PlayerType::VirtualGuy,
+                },
+                frames: 7,
+                path: "Virtual Guy/Hit (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Jump,
+                    ty: PlayerType::VirtualGuy,
+                },
+                frames: 1,
+                path: "Virtual Guy/Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Jump,
+                    ty: PlayerType::VirtualGuy,
+                },
+                frames: 1,
+                path: "Virtual Guy/Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Run,
+                    ty: PlayerType::VirtualGuy,
+                },
+                frames: 12,
+                path: "Virtual Guy/Run (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::WallJump,
+                    ty: PlayerType::VirtualGuy,
+                },
+                frames: 5,
+                path: "Virtual Guy/Wall Jump (32x32).png",
+            },
+            // Virtual Guy
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Idle,
+                    ty: PlayerType::VirtualGuy,
+                },
+                frames: 11,
+                path: "Virtual Guy/Idle (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::DoubleJump,
+                    ty: PlayerType::VirtualGuy,
+                },
+                frames: 6,
+                path: "Virtual Guy/Double Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Fall,
+                    ty: PlayerType::VirtualGuy,
+                },
+                frames: 1,
+                path: "Virtual Guy/Fall (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Hit,
+                    ty: PlayerType::VirtualGuy,
+                },
+                frames: 7,
+                path: "Virtual Guy/Hit (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Jump,
+                    ty: PlayerType::VirtualGuy,
+                },
+                frames: 1,
+                path: "Virtual Guy/Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Jump,
+                    ty: PlayerType::VirtualGuy,
+                },
+                frames: 1,
+                path: "Virtual Guy/Jump (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::Run,
+                    ty: PlayerType::VirtualGuy,
+                },
+                frames: 12,
+                path: "Virtual Guy/Run (32x32).png",
+            },
+            AnimationState {
+                kv: PlayerTypeKey {
+                    state: States::WallJump,
+                    ty: PlayerType::VirtualGuy,
+                },
+                frames: 5,
+                path: "Virtual Guy/Wall Jump (32x32).png",
+            },
+        ],
+        root_path: "pixels/Players/",
+    }];
 }

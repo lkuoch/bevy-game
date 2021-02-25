@@ -3,7 +3,7 @@ use bevy::prelude::*;
 use std::collections::HashMap;
 
 pub type EnemySpriteMap<T> = HashMap<EnemySpriteKV<EnemyTypeKey<T>>, EnemySpriteKV<T>>;
-pub type EnemySpriteMapKey = EnemySpriteKV<EnemyTypeKey<enemies::States>>;
+pub type EnemySpriteMapKey = EnemySpriteKV<EnemyTypeKey<States>>;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum EnemySpriteKV<T> {
@@ -11,7 +11,13 @@ pub enum EnemySpriteKV<T> {
     Handle(Handle<TextureAtlas>),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Hash)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+pub struct EnemyTypeKey<T> {
+    pub state: T,
+    pub ty: EnemyType,
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum EnemyType {
     AngryPig,
     Bat,
@@ -35,41 +41,30 @@ pub enum EnemyType {
     Turtle,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
-pub enum EnemyTypeKey<T> {
-    AngryPig(T),
-    Bat(T),
-    Bee(T),
-    BlueBird(T),
-    Bunny(T),
-    Chameleon(T),
-    Chicken(T),
-    Duck(T),
-    FatBird(T),
-    Ghost(T),
-    Mushroom(T),
-    Plant(T),
-    Radish(T),
-    Rino(T),
-    Rocks(T),
-    Skull(T),
-    Slime(T),
-    Snail(T),
-    Trunk(T),
-    Turtle(T),
+#[derive(Debug, PartialEq, Eq, Hash, Copy, Clone)]
+pub enum States {
+    Idle,
+    DoubleJump,
+    Fall,
+    Hit,
+    Hit2,
+    Jump,
+    Run,
+    WallJump,
+    Walk,
 }
 
 pub struct Enemy;
 
 #[derive(Debug, Clone)]
 pub struct Enemies {
-    pub textures: EnemySpriteMap<enemies::States>,
+    pub textures: EnemySpriteMap<States>,
 }
 
 impl Default for Enemies {
     fn default() -> Self {
         Self {
-            textures: EnemySpriteMap::<enemies::States>::new(),
+            textures: EnemySpriteMap::<States>::new(),
         }
     }
 }

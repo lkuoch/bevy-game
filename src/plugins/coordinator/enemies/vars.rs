@@ -1,63 +1,63 @@
 pub mod enemies {
-    use crate::coordinator::enemies::components::EnemyType;
+    use crate::coordinator::enemies::components::*;
 
     pub const BASE_SPEED: f32 = 200.0;
 
-    #[derive(Debug, PartialEq, Eq, Hash, Copy, Clone)]
-    pub enum States {
-        Idle,
-        DoubleJump,
-        Fall,
-        Hit,
-        Hit2,
-        Jump,
-        Run,
-        WallJump,
-        Walk,
-    }
-
-    pub struct AnimationState<'a> {
-        pub state: States,
+    pub struct AnimationState<'a, T> {
+        pub kv: EnemyTypeKey<T>,
         pub frames: usize,
         pub path: &'a str,
     }
 
-    pub struct EnemyList<'a> {
-        pub ty: EnemyType,
-        pub animation_states: &'a [AnimationState<'a>],
+    pub struct EnemyList<'a, T> {
+        pub animation_states: &'a [AnimationState<'a, T>],
         pub root_path: &'a str,
     }
 
-    pub const ENEMY_LIST: &[EnemyList] = &[EnemyList {
-        ty: EnemyType::AngryPig,
-
+    pub const ENEMY_LIST: &[EnemyList<States>] = &[EnemyList {
         animation_states: &[
+            // ANGRY PIG
             AnimationState {
-                state: States::Idle,
+                kv: EnemyTypeKey {
+                    ty: EnemyType::AngryPig,
+                    state: States::Idle,
+                },
                 frames: 9,
-                path: "/Idle (36x30).png",
+                path: "Idle (36x30).png",
             },
             AnimationState {
-                state: States::Run,
+                kv: EnemyTypeKey {
+                    ty: EnemyType::AngryPig,
+                    state: States::Run,
+                },
                 frames: 5,
                 path: "Hit 2 (36x30).png",
             },
             AnimationState {
-                state: States::Walk,
+                kv: EnemyTypeKey {
+                    ty: EnemyType::AngryPig,
+                    state: States::Walk,
+                },
                 frames: 12,
                 path: "Run (36x30).png",
             },
             AnimationState {
-                state: States::Hit,
+                kv: EnemyTypeKey {
+                    ty: EnemyType::AngryPig,
+                    state: States::Hit,
+                },
                 frames: 5,
                 path: "Hit 1 (36x30).png",
             },
             AnimationState {
-                state: States::Hit2,
+                kv: EnemyTypeKey {
+                    ty: EnemyType::AngryPig,
+                    state: States::Hit2,
+                },
                 frames: 5,
                 path: "Hit 2 (36x30).png",
             },
         ],
-        root_path: "pixels/Enemies/AngryPig",
+        root_path: "pixels/Enemies/AngryPig/",
     }];
 }

@@ -1,4 +1,5 @@
 #![feature(format_args_capture)]
+#![feature(bindings_after_at)]
 
 mod plugins;
 
