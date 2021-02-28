@@ -1,7 +1,9 @@
 use crate::{
-    common::components::*,
-    player::{components::*, events::*, vars::*},
-    plugins::input::events::InputEvent,
+    player::{components::*, vars::*},
+    plugins::{
+        core::{components::*, traits::*},
+        input::components::*,
+    },
 };
 use bevy::prelude::*;
 use std::f32::consts::PI;
@@ -9,7 +11,7 @@ use std::f32::consts::PI;
 pub fn setup(
     commands: &mut Commands,
     asset_server: Res<AssetServer>,
-    mut player_state: ResMut<PlayerState>,
+    mut player_state: ResMut<Player>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
 ) {
     for player in player::PLAYER_LIST.iter() {
@@ -37,11 +39,9 @@ pub fn setup(
     }
 
     // Default player is MaskDude
-    if let Some(EntSpriteKV::Handle(default_texture)) =
-        player_state.textures.get(&EntSpriteKV::State(EntTypeKey {
-            ty: PlayerType::MaskDude,
-            state: States::Idle,
-        }))
+    if let Some(EntSpriteKV::Handle(default_texture)) = player_state
+        .textures
+        .get(&EntSpriteKV::State(player::DEFAULT_PLAYER))
     {
         commands
             .spawn(SpriteSheetBundle {
@@ -49,53 +49,15 @@ pub fn setup(
                 transform: Transform::from_scale(Vec3::splat(2.5)),
                 ..Default::default()
             })
-            .with(Player)
+            .with(PlayerTag)
+            .with(AnimatableTag)
             .with(Timer::from_seconds(0.1, true));
-    }
-}
-
-pub fn animate_sprite_system(
-    time: Res<Time>,
-    texture_atlases: Res<Assets<TextureAtlas>>,
-    player_state: Res<PlayerState>,
-    mut events: ResMut<Events<AnimEvent>>,
-    mut query: Query<(
-        &Player,
-        &mut Timer,
-        &mut TextureAtlasSprite,
-        &Handle<TextureAtlas>,
-    )>,
-) {
-    for (_, mut timer, mut sprite, texture_atlas_handle) in query.iter_mut() {
-        timer.tick(time.delta_seconds());
-        if timer.finished() {
-            // Anim start
-            if sprite.index == 0 {
-                events.send(AnimEvent {
-                    anim_start: player_state
-                        .get_texture_handle_from_state(texture_atlas_handle.clone()),
-                    anim_finish: None,
-                });
-            }
-
-            let texture_atlas = texture_atlases.get(texture_atlas_handle).unwrap();
-            sprite.index = ((sprite.index as usize + 1) % texture_atlas.textures.len()) as u32;
-
-            // Anim finish
-            if sprite.index as usize == texture_atlas.textures.len() - 1 {
-                events.send(AnimEvent {
-                    anim_start: None,
-                    anim_finish: player_state
-                        .get_texture_handle_from_state(texture_atlas_handle.clone()),
-                });
-            }
-        }
     }
 }
 
 pub fn handle_input_event(
     mut event_reader: EventReader<InputEvent>,
-    mut player_state: ResMut<PlayerState>,
+    mut player_state: ResMut<Player>,
 ) {
     for event in event_reader.iter() {
         if let Some(key) = event.pressed {
@@ -116,8 +78,6 @@ pub fn handle_input_event(
             }
         }
 
-        // if let Some(key) = event.
-
         if let Some(key) = event.released {
             match key {
                 KeyCode::A => {
@@ -132,29 +92,36 @@ pub fn handle_input_event(
     }
 }
 
-pub fn handle_player_event(
-    mut events: EventReader<AnimEvent>,
-    mut player_state: ResMut<PlayerState>,
+pub fn handle_animation(
+    mut events: EventReader<AnimEvent<Handle<TextureAtlas>>>,
+    mut player_state: ResMut<Player>,
 ) {
     for event in events.iter() {
-        if let Some(anim) = event.anim_finish {
-            match anim {
-                States::DoubleJump => player_state.land(),
-                States::Idle => {}
-                States::Fall => {}
-                States::Jump => {}
-                States::Hit => {}
-                States::Run => {}
-                States::WallJump => {}
+        match event {
+            AnimEvent::Start(_handle) => {}
+            AnimEvent::Finish(handle) => {
+                if let Some(state) = player_state.get_texture_handle_from_state(handle.clone(), ())
+                {
+                    match state {
+                        States::DoubleJump => player_state.land(),
+                        States::Idle => {}
+                        States::Fall => {}
+                        States::Hit => {}
+                        States::Jump => {}
+                        States::Run => {}
+                        States::WallJump => {}
+                    }
+                }
             }
+            AnimEvent::None => {}
         }
     }
 }
 
-pub fn react_player_state(
-    mut player_state: ResMut<PlayerState>,
+pub fn observe_player_state(
+    mut player_state: ResMut<Player>,
     time: Res<Time>,
-    mut query: Query<(&Player, &mut Transform, &mut Handle<TextureAtlas>)>,
+    mut query: Query<(&PlayerTag, &mut Transform, &mut Handle<TextureAtlas>)>,
 ) {
     for (_, mut transform, mut current_texture_handle) in query.iter_mut() {
         // Movement
@@ -190,22 +157,24 @@ pub fn react_player_state(
 }
 
 pub fn change_animation(
-    player_state: Res<PlayerState>,
-    mut query: Query<(&Player, &mut Handle<TextureAtlas>)>,
+    player_state: Res<Player>,
+    mut query: Query<(&PlayerTag, &mut Handle<TextureAtlas>)>,
 ) {
     for (_, mut current_texture_atlas_handle) in query.iter_mut() {
         if player_state.movement != MovementState::None {
-            if let Some(new_anim_handle) = player_state.get_state_from_texture_handle(States::Run) {
+            if let Some(new_anim_handle) =
+                player_state.get_state_from_texture_handle(States::Run, ())
+            {
                 *current_texture_atlas_handle = new_anim_handle;
             }
         } else if player_state.jump != JumpState::None {
             if let Some(new_anim_handle) =
-                player_state.get_state_from_texture_handle(States::DoubleJump)
+                player_state.get_state_from_texture_handle(States::DoubleJump, ())
             {
                 *current_texture_atlas_handle = new_anim_handle;
             }
         } else if let Some(new_anim_handle) =
-            player_state.get_state_from_texture_handle(States::Idle)
+            player_state.get_state_from_texture_handle(States::Idle, ())
         {
             *current_texture_atlas_handle = new_anim_handle;
         }

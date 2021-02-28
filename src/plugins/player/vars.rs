@@ -1,7 +1,12 @@
 pub mod player {
-    use crate::{common::components::*, plugins::player::components::*};
+    use crate::plugins::{core::components::*, player::components::*};
 
     pub const BASE_SPEED: f32 = 250.0;
+
+    pub const DEFAULT_PLAYER: EntTypeKey<States, PlayerType> = EntTypeKey {
+        ty: PlayerType::MaskDude,
+        state: States::Idle,
+    };
 
     pub const PLAYER_LIST: &[EntList<States, PlayerType>] = &[EntList {
         animation_states: &[

@@ -1,4 +1,4 @@
-use crate::input::events::InputEvent;
+use crate::input::components::*;
 use bevy::prelude::*;
 
 pub fn keyboard_input_system(inputs: Res<Input<KeyCode>>, mut events: ResMut<Events<InputEvent>>) {

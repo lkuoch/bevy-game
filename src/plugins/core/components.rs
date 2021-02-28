@@ -22,3 +22,13 @@ pub struct EntList<'a, T1, T2> {
     pub animation_states: &'a [AnimationState<'a, T1, T2>],
     pub root_path: &'a str,
 }
+
+// Animation events
+#[derive(Debug, Copy, Clone, Hash, PartialEq)]
+pub enum AnimEvent<T> {
+    Start(T),
+    Finish(T),
+    None,
+}
+
+pub struct AnimatableTag;

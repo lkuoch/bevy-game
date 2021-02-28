@@ -1,4 +1,5 @@
-use crate::common::components::*;
+use crate::plugins::core::{components::*, traits::*};
+use bevy::prelude::*;
 use std::collections::HashMap;
 
 pub type EnemySpriteMap = HashMap<EnemySpriteMapKey, EntSpriteKV<States>>;
@@ -41,11 +42,50 @@ pub enum States {
     Walk,
 }
 
-pub struct Enemy;
+#[derive(Debug, Copy, Clone)]
+pub struct EnemyTag {
+    pub current_sprite: EnemyType,
+    pub previous_sprite: EnemyType,
+}
 
 #[derive(Debug, Clone)]
 pub struct Enemies {
     pub textures: EnemySpriteMap,
+}
+
+impl Animatable<States, Enemies> for EnemyTag {
+    fn get_texture_handle_from_state(
+        &self,
+        handle: Handle<TextureAtlas>,
+        resource: Enemies,
+    ) -> Option<States> {
+        if let Some(x) = resource.textures.get(&EntSpriteKV::Handle(handle)) {
+            match x {
+                EntSpriteKV::State(s) => Some(*s),
+                _ => None,
+            }
+        } else {
+            None
+        }
+    }
+
+    fn get_state_from_texture_handle(
+        &self,
+        state: States,
+        resource: Enemies,
+    ) -> Option<Handle<TextureAtlas>> {
+        if let Some(x) = resource.textures.get(&EntSpriteKV::State(EntTypeKey {
+            ty: self.current_sprite,
+            state,
+        })) {
+            match x {
+                EntSpriteKV::Handle(h) => Some(h.clone()),
+                _ => None,
+            }
+        } else {
+            None
+        }
+    }
 }
 
 impl Default for Enemies {

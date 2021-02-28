@@ -1,6 +1,6 @@
 use crate::{
-    common::components::*,
     coordinator::enemies::{components::*, vars::*},
+    plugins::core::{components::*, traits::*},
 };
 use bevy::prelude::*;
 
@@ -35,11 +35,9 @@ pub fn enemies_setup(
     }
 
     // Let's just spawn angry pig
-    if let Some(EntSpriteKV::Handle(enemy)) =
-        enemies.textures.get(&EntSpriteKV::State(EntTypeKey {
-            ty: EnemyType::AngryPig,
-            state: States::Idle,
-        }))
+    if let Some(EntSpriteKV::Handle(enemy)) = enemies
+        .textures
+        .get(&EntSpriteKV::State(enemies::DEFAULT_ANGRY_PIG))
     {
         commands
             .spawn(SpriteSheetBundle {
@@ -48,26 +46,11 @@ pub fn enemies_setup(
                     .mul_transform(Transform::from_scale(Vec3::splat(2.5))),
                 ..Default::default()
             })
-            .with(Enemy)
+            .with(EnemyTag {
+                current_sprite: EnemyType::AngryPig,
+                previous_sprite: EnemyType::AngryPig,
+            })
+            .with(AnimatableTag)
             .with(Timer::from_seconds(0.1, true));
-    }
-}
-
-pub fn animate_sprite_system(
-    time: Res<Time>,
-    texture_atlases: Res<Assets<TextureAtlas>>,
-    mut query: Query<(
-        &Enemy,
-        &mut Timer,
-        &mut TextureAtlasSprite,
-        &Handle<TextureAtlas>,
-    )>,
-) {
-    for (_, mut timer, mut sprite, texture_atlas_handle) in query.iter_mut() {
-        timer.tick(time.delta_seconds());
-        if timer.finished() {
-            let texture_atlas = texture_atlases.get(texture_atlas_handle).unwrap();
-            sprite.index = ((sprite.index as usize + 1) % texture_atlas.textures.len()) as u32;
-        }
     }
 }

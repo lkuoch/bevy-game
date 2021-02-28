@@ -1,8 +1,13 @@
 pub mod enemies {
-    use crate::common::components::*;
     use crate::coordinator::enemies::components::*;
+    use crate::plugins::core::components::*;
 
     pub const BASE_SPEED: f32 = 200.0;
+
+    pub const DEFAULT_ANGRY_PIG: EntTypeKey<States, EnemyType> = EntTypeKey {
+        ty: EnemyType::AngryPig,
+        state: States::Idle,
+    };
 
     pub const ENEMY_LIST: &[EntList<States, EnemyType>] = &[EntList {
         animation_states: &[

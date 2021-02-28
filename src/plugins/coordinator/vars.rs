@@ -1,3 +1,3 @@
-pub mod coordinator_common {}
+pub mod coordinator_core {}
 
-pub mod items_common {}
+pub mod items_core {}

@@ -1,4 +1,4 @@
-use crate::input::{events::InputEvent, systems::*};
+use crate::input::{components::*, systems::*};
 use bevy::prelude::*;
 
 pub struct InputPlugin;
