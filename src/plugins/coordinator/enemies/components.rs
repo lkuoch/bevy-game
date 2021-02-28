@@ -40,6 +40,12 @@ pub enum States {
     Run,
     WallJump,
     Walk,
+    CeilingIn,
+    CeilingOut,
+    Flying,
+    Attack,
+    Bullet,
+    BulletPieces,
 }
 
 #[derive(Debug, Copy, Clone)]

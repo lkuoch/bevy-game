@@ -1,6 +1,6 @@
 use crate::{
     coordinator::enemies::{components::*, vars::*},
-    plugins::core::{components::*, traits::*},
+    plugins::core::components::*,
 };
 use bevy::prelude::*;
 
@@ -34,21 +34,25 @@ pub fn enemies_setup(
         }
     }
 
-    // Let's just spawn angry pig
-    if let Some(EntSpriteKV::Handle(enemy)) = enemies
-        .textures
-        .get(&EntSpriteKV::State(enemies::DEFAULT_ANGRY_PIG))
+    let default_enemy = EntTypeKey {
+        ty: EnemyType::Chameleon,
+        state: States::Attack,
+    };
+
+    // Let's just spawn common enemy
+    if let Some(EntSpriteKV::Handle(enemy)) =
+        enemies.textures.get(&EntSpriteKV::State(default_enemy))
     {
         commands
             .spawn(SpriteSheetBundle {
                 texture_atlas: enemy.clone(),
                 transform: Transform::from_xyz(150., 0., 0.)
-                    .mul_transform(Transform::from_scale(Vec3::splat(2.5))),
+                    .mul_transform(Transform::from_scale(Vec3::splat(2.))),
                 ..Default::default()
             })
             .with(EnemyTag {
-                current_sprite: EnemyType::AngryPig,
-                previous_sprite: EnemyType::AngryPig,
+                current_sprite: default_enemy.ty,
+                previous_sprite: default_enemy.ty,
             })
             .with(AnimatableTag)
             .with(Timer::from_seconds(0.1, true));
