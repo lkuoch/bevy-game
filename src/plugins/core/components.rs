@@ -9,6 +9,7 @@ pub enum EntSpriteKV<T> {
 pub struct AnimationState<'a, T1, T2> {
     pub kv: EntTypeKey<T1, T2>,
     pub frames: usize,
+    pub tile_size: (f32, f32),
     pub path: &'a str,
 }
 

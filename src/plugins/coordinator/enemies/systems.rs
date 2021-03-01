@@ -17,7 +17,7 @@ pub fn enemies_setup(
             let texture_handle: Handle<Texture> = asset_server.load(&path[..]);
             let handle = texture_atlases.add(TextureAtlas::from_grid(
                 texture_handle,
-                Vec2::new(32.0, 32.0),
+                Vec2::new(anim.tile_size.0, anim.tile_size.1),
                 anim.frames,
                 1,
             ));

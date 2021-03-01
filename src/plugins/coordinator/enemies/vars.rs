@@ -13,6 +13,7 @@ pub mod enemies {
                     state: States::Idle,
                 },
                 frames: 9,
+                tile_size: (32.0, 30.0),
                 path: "AngryPig/Idle (36x30).png",
             },
             AnimationState {
@@ -21,6 +22,7 @@ pub mod enemies {
                     state: States::Run,
                 },
                 frames: 5,
+                tile_size: (36.0, 30.0),
                 path: "AngryPig/Hit 2 (36x30).png",
             },
             AnimationState {
@@ -29,6 +31,7 @@ pub mod enemies {
                     state: States::Walk,
                 },
                 frames: 12,
+                tile_size: (36.0, 30.0),
                 path: "AngryPig/Run (36x30).png",
             },
             AnimationState {
@@ -37,6 +40,7 @@ pub mod enemies {
                     state: States::Hit,
                 },
                 frames: 5,
+                tile_size: (36.0, 30.0),
                 path: "AngryPig/Hit 1 (36x30).png",
             },
             AnimationState {
@@ -45,6 +49,7 @@ pub mod enemies {
                     state: States::Hit2,
                 },
                 frames: 5,
+                tile_size: (36.0, 30.0),
                 path: "AngryPig/Hit 2 (36x30).png",
             },
             // BAT
@@ -54,6 +59,7 @@ pub mod enemies {
                     state: States::CeilingIn,
                 },
                 frames: 7,
+                tile_size: (46.0, 30.0),
                 path: "Bat/Ceiling In (46x30).png",
             },
             AnimationState {
@@ -62,6 +68,7 @@ pub mod enemies {
                     state: States::CeilingOut,
                 },
                 frames: 7,
+                tile_size: (46.0, 30.0),
                 path: "Bat/Ceiling Out (46x30).png",
             },
             AnimationState {
@@ -70,6 +77,7 @@ pub mod enemies {
                     state: States::Flying,
                 },
                 frames: 7,
+                tile_size: (46.0, 30.0),
                 path: "Bat/Flying (46x30).png",
             },
             AnimationState {
@@ -78,6 +86,7 @@ pub mod enemies {
                     state: States::Hit,
                 },
                 frames: 5,
+                tile_size: (46.0, 30.0),
                 path: "Bat/Hit (46x30).png",
             },
             AnimationState {
@@ -86,6 +95,7 @@ pub mod enemies {
                     state: States::Idle,
                 },
                 frames: 12,
+                tile_size: (46.0, 30.0),
                 path: "Bat/Idle (46x30).png",
             },
             // BEE
@@ -95,6 +105,7 @@ pub mod enemies {
                     state: States::Attack,
                 },
                 frames: 8,
+                tile_size: (36.0, 34.0),
                 path: "Bee/Attack (36x34).png",
             },
             AnimationState {
@@ -103,6 +114,7 @@ pub mod enemies {
                     state: States::Bullet,
                 },
                 frames: 1,
+                tile_size: (36.0, 34.0),
                 path: "Bee/Bullet.png",
             },
             AnimationState {
@@ -111,6 +123,7 @@ pub mod enemies {
                     state: States::BulletPieces,
                 },
                 frames: 2,
+                tile_size: (36.0, 34.0),
                 path: "Bee/Bullet Pieces.png",
             },
             AnimationState {
@@ -119,6 +132,7 @@ pub mod enemies {
                     state: States::Hit,
                 },
                 frames: 5,
+                tile_size: (36.0, 34.0),
                 path: "Bee/Hit (36x34).png",
             },
             AnimationState {
@@ -127,6 +141,7 @@ pub mod enemies {
                     state: States::Idle,
                 },
                 frames: 6,
+                tile_size: (36.0, 34.0),
                 path: "Bee/Idle (36x34).png",
             },
             // BLUE BIRD
@@ -136,6 +151,7 @@ pub mod enemies {
                     state: States::Flying,
                 },
                 frames: 9,
+                tile_size: (32.0, 32.0),
                 path: "BlueBird/Flying (32x32).png",
             },
             AnimationState {
@@ -144,6 +160,7 @@ pub mod enemies {
                     state: States::Hit,
                 },
                 frames: 5,
+                tile_size: (32.0, 32.0),
                 path: "BlueBird/Hit (32x32).png",
             },
             // BUNNY
@@ -153,6 +170,7 @@ pub mod enemies {
                     state: States::Fall,
                 },
                 frames: 1,
+                tile_size: (34.0, 44.0),
                 path: "Bunny/Fall.png",
             },
             AnimationState {
@@ -161,6 +179,7 @@ pub mod enemies {
                     state: States::Hit,
                 },
                 frames: 5,
+                tile_size: (34.0, 44.0),
                 path: "Bunny/Hit (34x44).png",
             },
             AnimationState {
@@ -169,6 +188,7 @@ pub mod enemies {
                     state: States::Idle,
                 },
                 frames: 8,
+                tile_size: (34.0, 44.0),
                 path: "Bunny/Idle (34x44).png",
             },
             AnimationState {
@@ -177,6 +197,7 @@ pub mod enemies {
                     state: States::Jump,
                 },
                 frames: 1,
+                tile_size: (34.0, 44.0),
                 path: "Bunny/Jump.png",
             },
             AnimationState {
@@ -185,6 +206,7 @@ pub mod enemies {
                     state: States::Run,
                 },
                 frames: 12,
+                tile_size: (34.0, 44.0),
                 path: "Bunny/Run (34x44).png",
             },
             // CHAMELEON
@@ -194,6 +216,7 @@ pub mod enemies {
                     state: States::Attack,
                 },
                 frames: 10,
+                tile_size: (84.0, 38.0),
                 path: "Chameleon/Attack (84x38).png",
             },
             AnimationState {
@@ -202,6 +225,7 @@ pub mod enemies {
                     state: States::Hit,
                 },
                 frames: 5,
+                tile_size: (84.0, 38.0),
                 path: "Chameleon/Hit (84x38).png",
             },
             AnimationState {
@@ -210,6 +234,7 @@ pub mod enemies {
                     state: States::Idle,
                 },
                 frames: 13,
+                tile_size: (84.0, 38.0),
                 path: "Chameleon/Idle (84x38).png",
             },
             AnimationState {
@@ -218,11 +243,10 @@ pub mod enemies {
                     state: States::Run,
                 },
                 frames: 8,
+                tile_size: (84.0, 38.0),
                 path: "Chameleon/Run (84x38).png",
             },
         ],
         root_path: "pixels/Enemies/",
     }];
 }
-
-

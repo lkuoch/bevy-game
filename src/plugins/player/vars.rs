@@ -17,6 +17,7 @@ pub mod player {
                     ty: PlayerType::MaskDude,
                 },
                 frames: 11,
+                tile_size: (32.0, 32.0),
                 path: "Mask Dude/Idle (32x32).png",
             },
             AnimationState {
@@ -25,6 +26,7 @@ pub mod player {
                     ty: PlayerType::MaskDude,
                 },
                 frames: 6,
+                tile_size: (32.0, 32.0),
                 path: "Mask Dude/Double Jump (32x32).png",
             },
             AnimationState {
@@ -33,6 +35,7 @@ pub mod player {
                     ty: PlayerType::MaskDude,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Mask Dude/Fall (32x32).png",
             },
             AnimationState {
@@ -41,6 +44,7 @@ pub mod player {
                     ty: PlayerType::MaskDude,
                 },
                 frames: 7,
+                tile_size: (32.0, 32.0),
                 path: "Mask Dude/Hit (32x32).png",
             },
             AnimationState {
@@ -49,6 +53,7 @@ pub mod player {
                     ty: PlayerType::MaskDude,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Mask Dude/Jump (32x32).png",
             },
             AnimationState {
@@ -57,6 +62,7 @@ pub mod player {
                     ty: PlayerType::MaskDude,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Mask Dude/Jump (32x32).png",
             },
             AnimationState {
@@ -65,6 +71,7 @@ pub mod player {
                     ty: PlayerType::MaskDude,
                 },
                 frames: 12,
+                tile_size: (32.0, 32.0),
                 path: "Mask Dude/Run (32x32).png",
             },
             AnimationState {
@@ -73,6 +80,7 @@ pub mod player {
                     ty: PlayerType::MaskDude,
                 },
                 frames: 5,
+                tile_size: (32.0, 32.0),
                 path: "Mask Dude/Wall Jump (32x32).png",
             },
             // NINJA FROG
@@ -82,6 +90,7 @@ pub mod player {
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 11,
+                tile_size: (32.0, 32.0),
                 path: "Ninja Frog/Idle (32x32).png",
             },
             AnimationState {
@@ -90,6 +99,7 @@ pub mod player {
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 6,
+                tile_size: (32.0, 32.0),
                 path: "Ninja Frog/Double Jump (32x32).png",
             },
             AnimationState {
@@ -98,6 +108,7 @@ pub mod player {
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Ninja Frog/Fall (32x32).png",
             },
             AnimationState {
@@ -106,6 +117,7 @@ pub mod player {
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 7,
+                tile_size: (32.0, 32.0),
                 path: "Ninja Frog/Hit (32x32).png",
             },
             AnimationState {
@@ -114,6 +126,7 @@ pub mod player {
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Ninja Frog/Jump (32x32).png",
             },
             AnimationState {
@@ -122,6 +135,7 @@ pub mod player {
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Ninja Frog/Jump (32x32).png",
             },
             AnimationState {
@@ -130,6 +144,7 @@ pub mod player {
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 12,
+                tile_size: (32.0, 32.0),
                 path: "Ninja Frog/Run (32x32).png",
             },
             AnimationState {
@@ -138,6 +153,7 @@ pub mod player {
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 5,
+                tile_size: (32.0, 32.0),
                 path: "Ninja Frog/Wall Jump (32x32).png",
             },
             // NINJA FROG
@@ -147,6 +163,7 @@ pub mod player {
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 11,
+                tile_size: (32.0, 32.0),
                 path: "Ninja Frog/Idle (32x32).png",
             },
             AnimationState {
@@ -155,6 +172,7 @@ pub mod player {
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 6,
+                tile_size: (32.0, 32.0),
                 path: "Ninja Frog/Double Jump (32x32).png",
             },
             AnimationState {
@@ -163,6 +181,7 @@ pub mod player {
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Ninja Frog/Fall (32x32).png",
             },
             AnimationState {
@@ -171,6 +190,7 @@ pub mod player {
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 7,
+                tile_size: (32.0, 32.0),
                 path: "Ninja Frog/Hit (32x32).png",
             },
             AnimationState {
@@ -179,6 +199,7 @@ pub mod player {
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Ninja Frog/Jump (32x32).png",
             },
             AnimationState {
@@ -187,6 +208,7 @@ pub mod player {
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Ninja Frog/Jump (32x32).png",
             },
             AnimationState {
@@ -195,6 +217,7 @@ pub mod player {
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 12,
+                tile_size: (32.0, 32.0),
                 path: "Ninja Frog/Run (32x32).png",
             },
             AnimationState {
@@ -203,6 +226,7 @@ pub mod player {
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 5,
+                tile_size: (32.0, 32.0),
                 path: "Ninja Frog/Wall Jump (32x32).png",
             },
             // PINK MAN
@@ -212,6 +236,7 @@ pub mod player {
                     ty: PlayerType::PinkMan,
                 },
                 frames: 11,
+                tile_size: (32.0, 32.0),
                 path: "Pink Man/Idle (32x32).png",
             },
             AnimationState {
@@ -220,6 +245,7 @@ pub mod player {
                     ty: PlayerType::PinkMan,
                 },
                 frames: 6,
+                tile_size: (32.0, 32.0),
                 path: "Pink Man/Double Jump (32x32).png",
             },
             AnimationState {
@@ -228,6 +254,7 @@ pub mod player {
                     ty: PlayerType::PinkMan,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Pink Man/Fall (32x32).png",
             },
             AnimationState {
@@ -236,6 +263,7 @@ pub mod player {
                     ty: PlayerType::PinkMan,
                 },
                 frames: 7,
+                tile_size: (32.0, 32.0),
                 path: "Pink Man/Hit (32x32).png",
             },
             AnimationState {
@@ -244,6 +272,7 @@ pub mod player {
                     ty: PlayerType::PinkMan,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Pink Man/Jump (32x32).png",
             },
             AnimationState {
@@ -252,6 +281,7 @@ pub mod player {
                     ty: PlayerType::PinkMan,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Pink Man/Jump (32x32).png",
             },
             AnimationState {
@@ -260,6 +290,7 @@ pub mod player {
                     ty: PlayerType::PinkMan,
                 },
                 frames: 12,
+                tile_size: (32.0, 32.0),
                 path: "Pink Man/Run (32x32).png",
             },
             AnimationState {
@@ -268,6 +299,7 @@ pub mod player {
                     ty: PlayerType::PinkMan,
                 },
                 frames: 5,
+                tile_size: (32.0, 32.0),
                 path: "Pink Man/Wall Jump (32x32).png",
             },
             // Pink Man
@@ -277,6 +309,7 @@ pub mod player {
                     ty: PlayerType::PinkMan,
                 },
                 frames: 11,
+                tile_size: (32.0, 32.0),
                 path: "Pink Man/Idle (32x32).png",
             },
             AnimationState {
@@ -285,6 +318,7 @@ pub mod player {
                     ty: PlayerType::PinkMan,
                 },
                 frames: 6,
+                tile_size: (32.0, 32.0),
                 path: "Pink Man/Double Jump (32x32).png",
             },
             AnimationState {
@@ -293,6 +327,7 @@ pub mod player {
                     ty: PlayerType::PinkMan,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Pink Man/Fall (32x32).png",
             },
             AnimationState {
@@ -301,6 +336,7 @@ pub mod player {
                     ty: PlayerType::PinkMan,
                 },
                 frames: 7,
+                tile_size: (32.0, 32.0),
                 path: "Pink Man/Hit (32x32).png",
             },
             AnimationState {
@@ -309,6 +345,7 @@ pub mod player {
                     ty: PlayerType::PinkMan,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Pink Man/Jump (32x32).png",
             },
             AnimationState {
@@ -317,6 +354,7 @@ pub mod player {
                     ty: PlayerType::PinkMan,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Pink Man/Jump (32x32).png",
             },
             AnimationState {
@@ -325,6 +363,7 @@ pub mod player {
                     ty: PlayerType::PinkMan,
                 },
                 frames: 12,
+                tile_size: (32.0, 32.0),
                 path: "Pink Man/Run (32x32).png",
             },
             AnimationState {
@@ -333,6 +372,7 @@ pub mod player {
                     ty: PlayerType::PinkMan,
                 },
                 frames: 5,
+                tile_size: (32.0, 32.0),
                 path: "Pink Man/Wall Jump (32x32).png",
             },
             // VIRTUAL GUY
@@ -342,6 +382,7 @@ pub mod player {
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 11,
+                tile_size: (32.0, 32.0),
                 path: "Virtual Guy/Idle (32x32).png",
             },
             AnimationState {
@@ -350,6 +391,7 @@ pub mod player {
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 6,
+                tile_size: (32.0, 32.0),
                 path: "Virtual Guy/Double Jump (32x32).png",
             },
             AnimationState {
@@ -358,6 +400,7 @@ pub mod player {
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Virtual Guy/Fall (32x32).png",
             },
             AnimationState {
@@ -366,6 +409,7 @@ pub mod player {
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 7,
+                tile_size: (32.0, 32.0),
                 path: "Virtual Guy/Hit (32x32).png",
             },
             AnimationState {
@@ -374,6 +418,7 @@ pub mod player {
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Virtual Guy/Jump (32x32).png",
             },
             AnimationState {
@@ -382,6 +427,7 @@ pub mod player {
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Virtual Guy/Jump (32x32).png",
             },
             AnimationState {
@@ -390,6 +436,7 @@ pub mod player {
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 12,
+                tile_size: (32.0, 32.0),
                 path: "Virtual Guy/Run (32x32).png",
             },
             AnimationState {
@@ -398,6 +445,7 @@ pub mod player {
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 5,
+                tile_size: (32.0, 32.0),
                 path: "Virtual Guy/Wall Jump (32x32).png",
             },
             // Virtual Guy
@@ -407,6 +455,7 @@ pub mod player {
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 11,
+                tile_size: (32.0, 32.0),
                 path: "Virtual Guy/Idle (32x32).png",
             },
             AnimationState {
@@ -415,6 +464,7 @@ pub mod player {
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 6,
+                tile_size: (32.0, 32.0),
                 path: "Virtual Guy/Double Jump (32x32).png",
             },
             AnimationState {
@@ -423,6 +473,7 @@ pub mod player {
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Virtual Guy/Fall (32x32).png",
             },
             AnimationState {
@@ -431,6 +482,7 @@ pub mod player {
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 7,
+                tile_size: (32.0, 32.0),
                 path: "Virtual Guy/Hit (32x32).png",
             },
             AnimationState {
@@ -439,6 +491,7 @@ pub mod player {
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Virtual Guy/Jump (32x32).png",
             },
             AnimationState {
@@ -447,6 +500,7 @@ pub mod player {
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 1,
+                tile_size: (32.0, 32.0),
                 path: "Virtual Guy/Jump (32x32).png",
             },
             AnimationState {
@@ -455,6 +509,7 @@ pub mod player {
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 12,
+                tile_size: (32.0, 32.0),
                 path: "Virtual Guy/Run (32x32).png",
             },
             AnimationState {
@@ -463,6 +518,7 @@ pub mod player {
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 5,
+                tile_size: (32.0, 32.0),
                 path: "Virtual Guy/Wall Jump (32x32).png",
             },
         ],
