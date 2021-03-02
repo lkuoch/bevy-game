@@ -2,8 +2,8 @@ use crate::plugins::core::{components::*, traits::*};
 use bevy::prelude::*;
 use std::collections::HashMap;
 
-pub type EnemySpriteMap = HashMap<EnemySpriteMapKey, EntSpriteKV<States>>;
-pub type EnemySpriteMapKey = EntSpriteKV<EntTypeKey<States, EnemyType>>;
+pub type EnemySpriteMap = HashMap<EnemySpriteMapKey, EntSpriteKV<AnimationType>>;
+pub type EnemySpriteMapKey = EntSpriteKV<EntTypeKey<AnimationType, EnemyType>>;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum EnemyType {
@@ -30,7 +30,7 @@ pub enum EnemyType {
 }
 
 #[derive(Debug, PartialEq, Eq, Hash, Copy, Clone)]
-pub enum States {
+pub enum AnimationType {
     Idle,
     DoubleJump,
     Fall,
@@ -46,12 +46,16 @@ pub enum States {
     Attack,
     Bullet,
     BulletPieces,
+    JumpAnticipation,
+    Ground,
+    Appear,
+    Disappear,
+    GhostParticles,
 }
 
 #[derive(Debug, Copy, Clone)]
 pub struct EnemyTag {
     pub current_sprite: EnemyType,
-    pub previous_sprite: EnemyType,
 }
 
 #[derive(Debug, Clone)]
@@ -59,12 +63,12 @@ pub struct Enemies {
     pub textures: EnemySpriteMap,
 }
 
-impl Animatable<States, Enemies> for EnemyTag {
+impl Animatable<AnimationType, Enemies> for EnemyTag {
     fn get_texture_handle_from_state(
         &self,
         handle: Handle<TextureAtlas>,
         resource: Enemies,
-    ) -> Option<States> {
+    ) -> Option<AnimationType> {
         if let Some(x) = resource.textures.get(&EntSpriteKV::Handle(handle)) {
             match x {
                 EntSpriteKV::State(s) => Some(*s),
@@ -77,12 +81,12 @@ impl Animatable<States, Enemies> for EnemyTag {
 
     fn get_state_from_texture_handle(
         &self,
-        state: States,
+        state: AnimationType,
         resource: Enemies,
     ) -> Option<Handle<TextureAtlas>> {
         if let Some(x) = resource.textures.get(&EntSpriteKV::State(EntTypeKey {
             ty: self.current_sprite,
-            state,
+            anim_ty: state,
         })) {
             match x {
                 EntSpriteKV::Handle(h) => Some(h.clone()),

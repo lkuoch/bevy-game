@@ -29,14 +29,14 @@ pub fn enemies_setup(
 
             enemies.textures.insert(
                 EntSpriteKV::Handle(handle.clone()),
-                EntSpriteKV::State(anim.kv.state),
+                EntSpriteKV::State(anim.kv.anim_ty),
             );
         }
     }
 
     let default_enemy = EntTypeKey {
-        ty: EnemyType::Chameleon,
-        state: States::Attack,
+        ty: EnemyType::Plant,
+        anim_ty: AnimationType::Idle,
     };
 
     // Let's just spawn common enemy
@@ -52,7 +52,6 @@ pub fn enemies_setup(
             })
             .with(EnemyTag {
                 current_sprite: default_enemy.ty,
-                previous_sprite: default_enemy.ty,
             })
             .with(AnimatableTag)
             .with(Timer::from_seconds(0.1, true));

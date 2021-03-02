@@ -2,8 +2,8 @@ use crate::plugins::core::{components::*, traits::*};
 use bevy::prelude::*;
 use std::collections::HashMap;
 
-pub type PlayerSpriteMap = HashMap<PlayerSpriteMapKey, EntSpriteKV<States>>;
-pub type PlayerSpriteMapKey = EntSpriteKV<EntTypeKey<States, PlayerType>>;
+pub type PlayerSpriteMap = HashMap<PlayerSpriteMapKey, EntSpriteKV<AnimationType>>;
+pub type PlayerSpriteMapKey = EntSpriteKV<EntTypeKey<AnimationType, PlayerType>>;
 
 pub struct PlayerTag;
 
@@ -16,7 +16,7 @@ pub enum PlayerType {
 }
 
 #[derive(Debug, PartialEq, Eq, Hash, Copy, Clone)]
-pub enum States {
+pub enum AnimationType {
     Idle,
     DoubleJump,
     Fall,
@@ -110,8 +110,8 @@ impl Player {
     }
 }
 
-impl Animatable<States> for Player {
-    fn get_texture_handle_from_state(&self, handle: Handle<TextureAtlas>, _resource: ()) -> Option<States> {
+impl Animatable<AnimationType> for Player {
+    fn get_texture_handle_from_state(&self, handle: Handle<TextureAtlas>, _resource: ()) -> Option<AnimationType> {
         if let Some(x) = self.textures.get(&EntSpriteKV::Handle(handle)) {
             match x {
                 EntSpriteKV::State(s) => Some(*s),
@@ -122,10 +122,10 @@ impl Animatable<States> for Player {
         }
     }
 
-    fn get_state_from_texture_handle(&self, state: States, _resource: ()) -> Option<Handle<TextureAtlas>> {
+    fn get_state_from_texture_handle(&self, state: AnimationType, _resource: ()) -> Option<Handle<TextureAtlas>> {
         if let Some(x) = self.textures.get(&EntSpriteKV::State(EntTypeKey {
             ty: self.current_sprite,
-            state,
+            anim_ty: state,
         })) {
             match x {
                 EntSpriteKV::Handle(h) => Some(h.clone()),

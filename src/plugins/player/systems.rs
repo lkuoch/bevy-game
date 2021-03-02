@@ -33,7 +33,7 @@ pub fn setup(
 
             player_state.textures.insert(
                 EntSpriteKV::Handle(handle.clone()),
-                EntSpriteKV::State(anim.kv.state),
+                EntSpriteKV::State(anim.kv.anim_ty),
             );
         }
     }
@@ -103,13 +103,13 @@ pub fn handle_animation(
                 if let Some(state) = player_state.get_texture_handle_from_state(handle.clone(), ())
                 {
                     match state {
-                        States::DoubleJump => player_state.land(),
-                        States::Idle => {}
-                        States::Fall => {}
-                        States::Hit => {}
-                        States::Jump => {}
-                        States::Run => {}
-                        States::WallJump => {}
+                        AnimationType::DoubleJump => player_state.land(),
+                        AnimationType::Idle => {}
+                        AnimationType::Fall => {}
+                        AnimationType::Hit => {}
+                        AnimationType::Jump => {}
+                        AnimationType::Run => {}
+                        AnimationType::WallJump => {}
                     }
                 }
             }
@@ -145,7 +145,7 @@ pub fn observe_player_state(
             if let Some(EntSpriteKV::Handle(mask_dude_texture_handle)) =
                 player_state.textures.get(&EntSpriteKV::State(EntTypeKey {
                     ty: player_state.current_sprite,
-                    state: States::Idle,
+                    anim_ty: AnimationType::Idle,
                 }))
             {
                 *current_texture_handle = mask_dude_texture_handle.clone();
@@ -163,18 +163,18 @@ pub fn change_animation(
     for (_, mut current_texture_atlas_handle) in query.iter_mut() {
         if player_state.movement != MovementState::None {
             if let Some(new_anim_handle) =
-                player_state.get_state_from_texture_handle(States::Run, ())
+                player_state.get_state_from_texture_handle(AnimationType::Run, ())
             {
                 *current_texture_atlas_handle = new_anim_handle;
             }
         } else if player_state.jump != JumpState::None {
             if let Some(new_anim_handle) =
-                player_state.get_state_from_texture_handle(States::DoubleJump, ())
+                player_state.get_state_from_texture_handle(AnimationType::DoubleJump, ())
             {
                 *current_texture_atlas_handle = new_anim_handle;
             }
         } else if let Some(new_anim_handle) =
-            player_state.get_state_from_texture_handle(States::Idle, ())
+            player_state.get_state_from_texture_handle(AnimationType::Idle, ())
         {
             *current_texture_atlas_handle = new_anim_handle;
         }

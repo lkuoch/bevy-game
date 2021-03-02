@@ -3,17 +3,17 @@ pub mod player {
 
     pub const BASE_SPEED: f32 = 250.0;
 
-    pub const DEFAULT_PLAYER: EntTypeKey<States, PlayerType> = EntTypeKey {
+    pub const DEFAULT_PLAYER: EntTypeKey<AnimationType, PlayerType> = EntTypeKey {
         ty: PlayerType::MaskDude,
-        state: States::Idle,
+        anim_ty: AnimationType::Idle,
     };
 
-    pub const PLAYER_LIST: &[EntList<States, PlayerType>] = &[EntList {
+    pub const PLAYER_LIST: &[EntList<AnimationType, PlayerType>] = &[EntList {
         animation_states: &[
             // MASK DUDE
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Idle,
+                    anim_ty: AnimationType::Idle,
                     ty: PlayerType::MaskDude,
                 },
                 frames: 11,
@@ -22,7 +22,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::DoubleJump,
+                    anim_ty: AnimationType::DoubleJump,
                     ty: PlayerType::MaskDude,
                 },
                 frames: 6,
@@ -31,7 +31,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Fall,
+                    anim_ty: AnimationType::Fall,
                     ty: PlayerType::MaskDude,
                 },
                 frames: 1,
@@ -40,7 +40,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Hit,
+                    anim_ty: AnimationType::Hit,
                     ty: PlayerType::MaskDude,
                 },
                 frames: 7,
@@ -49,7 +49,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Jump,
+                    anim_ty: AnimationType::Jump,
                     ty: PlayerType::MaskDude,
                 },
                 frames: 1,
@@ -58,7 +58,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Jump,
+                    anim_ty: AnimationType::Jump,
                     ty: PlayerType::MaskDude,
                 },
                 frames: 1,
@@ -67,7 +67,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Run,
+                    anim_ty: AnimationType::Run,
                     ty: PlayerType::MaskDude,
                 },
                 frames: 12,
@@ -76,7 +76,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::WallJump,
+                    anim_ty: AnimationType::WallJump,
                     ty: PlayerType::MaskDude,
                 },
                 frames: 5,
@@ -86,7 +86,7 @@ pub mod player {
             // NINJA FROG
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Idle,
+                    anim_ty: AnimationType::Idle,
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 11,
@@ -95,7 +95,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::DoubleJump,
+                    anim_ty: AnimationType::DoubleJump,
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 6,
@@ -104,7 +104,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Fall,
+                    anim_ty: AnimationType::Fall,
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 1,
@@ -113,7 +113,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Hit,
+                    anim_ty: AnimationType::Hit,
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 7,
@@ -122,7 +122,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Jump,
+                    anim_ty: AnimationType::Jump,
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 1,
@@ -131,7 +131,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Jump,
+                    anim_ty: AnimationType::Jump,
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 1,
@@ -140,7 +140,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Run,
+                    anim_ty: AnimationType::Run,
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 12,
@@ -149,7 +149,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::WallJump,
+                    anim_ty: AnimationType::WallJump,
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 5,
@@ -159,7 +159,7 @@ pub mod player {
             // NINJA FROG
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Idle,
+                    anim_ty: AnimationType::Idle,
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 11,
@@ -168,7 +168,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::DoubleJump,
+                    anim_ty: AnimationType::DoubleJump,
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 6,
@@ -177,7 +177,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Fall,
+                    anim_ty: AnimationType::Fall,
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 1,
@@ -186,7 +186,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Hit,
+                    anim_ty: AnimationType::Hit,
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 7,
@@ -195,7 +195,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Jump,
+                    anim_ty: AnimationType::Jump,
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 1,
@@ -204,7 +204,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Jump,
+                    anim_ty: AnimationType::Jump,
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 1,
@@ -213,7 +213,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Run,
+                    anim_ty: AnimationType::Run,
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 12,
@@ -222,7 +222,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::WallJump,
+                    anim_ty: AnimationType::WallJump,
                     ty: PlayerType::NinjaFrog,
                 },
                 frames: 5,
@@ -232,7 +232,7 @@ pub mod player {
             // PINK MAN
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Idle,
+                    anim_ty: AnimationType::Idle,
                     ty: PlayerType::PinkMan,
                 },
                 frames: 11,
@@ -241,7 +241,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::DoubleJump,
+                    anim_ty: AnimationType::DoubleJump,
                     ty: PlayerType::PinkMan,
                 },
                 frames: 6,
@@ -250,7 +250,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Fall,
+                    anim_ty: AnimationType::Fall,
                     ty: PlayerType::PinkMan,
                 },
                 frames: 1,
@@ -259,7 +259,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Hit,
+                    anim_ty: AnimationType::Hit,
                     ty: PlayerType::PinkMan,
                 },
                 frames: 7,
@@ -268,7 +268,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Jump,
+                    anim_ty: AnimationType::Jump,
                     ty: PlayerType::PinkMan,
                 },
                 frames: 1,
@@ -277,7 +277,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Jump,
+                    anim_ty: AnimationType::Jump,
                     ty: PlayerType::PinkMan,
                 },
                 frames: 1,
@@ -286,7 +286,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Run,
+                    anim_ty: AnimationType::Run,
                     ty: PlayerType::PinkMan,
                 },
                 frames: 12,
@@ -295,7 +295,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::WallJump,
+                    anim_ty: AnimationType::WallJump,
                     ty: PlayerType::PinkMan,
                 },
                 frames: 5,
@@ -305,7 +305,7 @@ pub mod player {
             // Pink Man
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Idle,
+                    anim_ty: AnimationType::Idle,
                     ty: PlayerType::PinkMan,
                 },
                 frames: 11,
@@ -314,7 +314,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::DoubleJump,
+                    anim_ty: AnimationType::DoubleJump,
                     ty: PlayerType::PinkMan,
                 },
                 frames: 6,
@@ -323,7 +323,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Fall,
+                    anim_ty: AnimationType::Fall,
                     ty: PlayerType::PinkMan,
                 },
                 frames: 1,
@@ -332,7 +332,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Hit,
+                    anim_ty: AnimationType::Hit,
                     ty: PlayerType::PinkMan,
                 },
                 frames: 7,
@@ -341,7 +341,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Jump,
+                    anim_ty: AnimationType::Jump,
                     ty: PlayerType::PinkMan,
                 },
                 frames: 1,
@@ -350,7 +350,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Jump,
+                    anim_ty: AnimationType::Jump,
                     ty: PlayerType::PinkMan,
                 },
                 frames: 1,
@@ -359,7 +359,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Run,
+                    anim_ty: AnimationType::Run,
                     ty: PlayerType::PinkMan,
                 },
                 frames: 12,
@@ -368,7 +368,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::WallJump,
+                    anim_ty: AnimationType::WallJump,
                     ty: PlayerType::PinkMan,
                 },
                 frames: 5,
@@ -378,7 +378,7 @@ pub mod player {
             // VIRTUAL GUY
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Idle,
+                    anim_ty: AnimationType::Idle,
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 11,
@@ -387,7 +387,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::DoubleJump,
+                    anim_ty: AnimationType::DoubleJump,
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 6,
@@ -396,7 +396,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Fall,
+                    anim_ty: AnimationType::Fall,
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 1,
@@ -405,7 +405,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Hit,
+                    anim_ty: AnimationType::Hit,
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 7,
@@ -414,7 +414,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Jump,
+                    anim_ty: AnimationType::Jump,
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 1,
@@ -423,7 +423,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Jump,
+                    anim_ty: AnimationType::Jump,
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 1,
@@ -432,7 +432,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Run,
+                    anim_ty: AnimationType::Run,
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 12,
@@ -441,7 +441,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::WallJump,
+                    anim_ty: AnimationType::WallJump,
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 5,
@@ -451,7 +451,7 @@ pub mod player {
             // Virtual Guy
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Idle,
+                    anim_ty: AnimationType::Idle,
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 11,
@@ -460,7 +460,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::DoubleJump,
+                    anim_ty: AnimationType::DoubleJump,
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 6,
@@ -469,7 +469,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Fall,
+                    anim_ty: AnimationType::Fall,
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 1,
@@ -478,7 +478,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Hit,
+                    anim_ty: AnimationType::Hit,
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 7,
@@ -487,7 +487,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Jump,
+                    anim_ty: AnimationType::Jump,
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 1,
@@ -496,7 +496,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Jump,
+                    anim_ty: AnimationType::Jump,
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 1,
@@ -505,7 +505,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::Run,
+                    anim_ty: AnimationType::Run,
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 12,
@@ -514,7 +514,7 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    state: States::WallJump,
+                    anim_ty: AnimationType::WallJump,
                     ty: PlayerType::VirtualGuy,
                 },
                 frames: 5,

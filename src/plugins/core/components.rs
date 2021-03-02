@@ -15,7 +15,7 @@ pub struct AnimationState<'a, T1, T2> {
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct EntTypeKey<T1, T2> {
-    pub state: T1,
+    pub anim_ty: T1,
     pub ty: T2,
 }
 
