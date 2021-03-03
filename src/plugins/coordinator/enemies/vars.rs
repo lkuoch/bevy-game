@@ -392,7 +392,7 @@ pub mod enemies {
                 },
                 frames: 14,
                 tile_size: (32.0, 32.0),
-                path: "Mushroom/Hit (32x32).png",
+                path: "Mushroom/Idle (32x32).png",
             },
             AnimationState {
                 kv: EntTypeKey {
@@ -879,7 +879,7 @@ pub mod enemies {
                 },
                 frames: 1,
                 tile_size: (62.0, 16.0),
-                path: "Slime/Particle (62x16).png",
+                path: "Slime/Particles (62x16).png",
             },
             AnimationState {
                 kv: EntTypeKey {
