@@ -10,7 +10,7 @@ pub fn enemies_setup(
     mut enemies: ResMut<Enemies>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
 ) {
-    for enemy in enemies::ENEMY_LIST.iter() {
+    for enemy in enemies::ENEMY_ANIMATIONS.iter() {
         for anim in enemy.animation_states.iter() {
             let path = format!("{}{}", enemy.root_path.to_owned(), anim.path.to_owned());
 
@@ -35,7 +35,7 @@ pub fn enemies_setup(
     }
 
     let default_enemy = EntTypeKey {
-        ty: EnemyType::Plant,
+        ty: EnemyType::Turtle,
         anim_ty: AnimationType::Idle,
     };
 

@@ -3,12 +3,7 @@ pub mod player {
 
     pub const BASE_SPEED: f32 = 250.0;
 
-    pub const DEFAULT_PLAYER: EntTypeKey<AnimationType, PlayerType> = EntTypeKey {
-        ty: PlayerType::MaskDude,
-        anim_ty: AnimationType::Idle,
-    };
-
-    pub const PLAYER_LIST: &[EntList<AnimationType, PlayerType>] = &[EntList {
+    pub const PLAYER_ANIMATIONS: &[EntList<AnimationType, PlayerType>] = &[EntList {
         animation_states: &[
             // MASK DUDE
             AnimationState {

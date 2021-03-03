@@ -1,10 +1,9 @@
 pub mod enemies {
-    use crate::coordinator::enemies::components::*;
-    use crate::plugins::core::components::*;
+    use crate::{coordinator::enemies::components::*, plugins::core::components::*};
 
     pub const BASE_SPEED: f32 = 200.0;
 
-    pub const ENEMY_LIST: &[EntList<AnimationType, EnemyType>] = &[EntList {
+    pub const ENEMY_ANIMATIONS: &[EntList<AnimationType, EnemyType>] = &[EntList {
         animation_states: &[
             // ANGRY PIG
             AnimationState {
@@ -107,24 +106,6 @@ pub mod enemies {
                 frames: 8,
                 tile_size: (36.0, 34.0),
                 path: "Bee/Attack (36x34).png",
-            },
-            AnimationState {
-                kv: EntTypeKey {
-                    ty: EnemyType::Bee,
-                    anim_ty: AnimationType::Bullet,
-                },
-                frames: 1,
-                tile_size: (36.0, 34.0),
-                path: "Bee/Bullet.png",
-            },
-            AnimationState {
-                kv: EntTypeKey {
-                    ty: EnemyType::Bee,
-                    anim_ty: AnimationType::BulletPieces,
-                },
-                frames: 2,
-                tile_size: (32.0, 32.0),
-                path: "Bee/Bullet Pieces.png",
             },
             AnimationState {
                 kv: EntTypeKey {
@@ -379,15 +360,6 @@ pub mod enemies {
             AnimationState {
                 kv: EntTypeKey {
                     ty: EnemyType::Ghost,
-                    anim_ty: AnimationType::GhostParticles,
-                },
-                frames: 4,
-                tile_size: (48.0, 16.0),
-                path: "Ghost/Ghost Particles (48x16).png",
-            },
-            AnimationState {
-                kv: EntTypeKey {
-                    ty: EnemyType::Ghost,
                     anim_ty: AnimationType::Hit,
                 },
                 frames: 5,
@@ -444,24 +416,6 @@ pub mod enemies {
             AnimationState {
                 kv: EntTypeKey {
                     ty: EnemyType::Plant,
-                    anim_ty: AnimationType::BulletPieces,
-                },
-                frames: 2,
-                tile_size: (32.0, 32.0),
-                path: "Plant/Bullet Pieces.png",
-            },
-            AnimationState {
-                kv: EntTypeKey {
-                    ty: EnemyType::Plant,
-                    anim_ty: AnimationType::Bullet,
-                },
-                frames: 1,
-                tile_size: (32.0, 32.0),
-                path: "Plant/Bullet.png",
-            },
-            AnimationState {
-                kv: EntTypeKey {
-                    ty: EnemyType::Plant,
                     anim_ty: AnimationType::Hit,
                 },
                 frames: 5,
@@ -476,6 +430,474 @@ pub mod enemies {
                 frames: 11,
                 tile_size: (44.0, 42.0),
                 path: "Plant/Idle (44x42).png",
+            },
+            // RADISH
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Radish,
+                    anim_ty: AnimationType::Hit,
+                },
+                frames: 5,
+                tile_size: (30.0, 38.0),
+                path: "Radish/Hit (30x38).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Radish,
+                    anim_ty: AnimationType::Idle,
+                },
+                frames: 6,
+                tile_size: (30.0, 38.0),
+                path: "Radish/Idle 1 (30x38).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Radish,
+                    anim_ty: AnimationType::Idle2,
+                },
+                frames: 9,
+                tile_size: (30.0, 38.0),
+                path: "Radish/Idle 2 (30x38).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Radish,
+                    anim_ty: AnimationType::Run,
+                },
+                frames: 12,
+                tile_size: (30.0, 38.0),
+                path: "Radish/Run (30x38).png",
+            },
+            // RHINO
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Rhino,
+                    anim_ty: AnimationType::Hit,
+                },
+                frames: 5,
+                tile_size: (52.0, 34.0),
+                path: "Rhino/Hit (52x34).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Rhino,
+                    anim_ty: AnimationType::HitWall,
+                },
+                frames: 4,
+                tile_size: (52.0, 34.0),
+                path: "Rhino/Hit Wall (52x34).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Rhino,
+                    anim_ty: AnimationType::Idle,
+                },
+                frames: 11,
+                tile_size: (52.0, 34.0),
+                path: "Rhino/Idle (52x34).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Rhino,
+                    anim_ty: AnimationType::Run,
+                },
+                frames: 6,
+                tile_size: (52.0, 34.0),
+                path: "Rhino/Run (52x34).png",
+            },
+            // ROCKS
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Rocks1,
+                    anim_ty: AnimationType::Hit,
+                },
+                frames: 1,
+                tile_size: (38.0, 34.0),
+                path: "Rocks/Rock1_Hit.png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Rocks1,
+                    anim_ty: AnimationType::Idle,
+                },
+                frames: 14,
+                tile_size: (38.0, 34.0),
+                path: "Rocks/Rock1_Idle (38x34).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Rocks1,
+                    anim_ty: AnimationType::Run,
+                },
+                frames: 14,
+                tile_size: (38.0, 34.0),
+                path: "Rocks/Rock1_Run (38x34).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Rocks2,
+                    anim_ty: AnimationType::Hit,
+                },
+                frames: 1,
+                tile_size: (32.0, 28.0),
+                path: "Rocks/Rock2_Hit (32x28).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Rocks2,
+                    anim_ty: AnimationType::Idle,
+                },
+                frames: 13,
+                tile_size: (32.0, 28.0),
+                path: "Rocks/Rock2_Idle (32x28).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Rocks2,
+                    anim_ty: AnimationType::Run,
+                },
+                frames: 14,
+                tile_size: (32.0, 28.0),
+                path: "Rocks/Rock2_Run (32x28).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Rocks3,
+                    anim_ty: AnimationType::Hit,
+                },
+                frames: 5,
+                tile_size: (22.0, 18.0),
+                path: "Rocks/Rock3_Hit (22x18).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Rocks3,
+                    anim_ty: AnimationType::Idle,
+                },
+                frames: 11,
+                tile_size: (22.0, 18.0),
+                path: "Rocks/Rock3_Idle (22x18).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Rocks3,
+                    anim_ty: AnimationType::Run,
+                },
+                frames: 14,
+                tile_size: (22.0, 18.0),
+                path: "Rocks/Rock3_Run (22x18).png",
+            },
+            // SKULL
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Skull,
+                    anim_ty: AnimationType::Hit,
+                },
+                frames: 5,
+                tile_size: (52.0, 54.0),
+                path: "Skull/Hit (52x54).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Skull,
+                    anim_ty: AnimationType::HitWall,
+                },
+                frames: 7,
+                tile_size: (52.0, 54.0),
+                path: "Skull/Hit Wall 1 (52x54).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Skull,
+                    anim_ty: AnimationType::HitWall2,
+                },
+                frames: 7,
+                tile_size: (52.0, 54.0),
+                path: "Skull/Hit Wall 2 (52x54).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Skull,
+                    anim_ty: AnimationType::Idle,
+                },
+                frames: 8,
+                tile_size: (52.0, 54.0),
+                path: "Skull/Idle 1 (52x54).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Skull,
+                    anim_ty: AnimationType::Idle2,
+                },
+                frames: 8,
+                tile_size: (52.0, 54.0),
+                path: "Skull/Idle 2 (52x54).png",
+            },
+            // SLIME
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Slime,
+                    anim_ty: AnimationType::Hit,
+                },
+                frames: 5,
+                tile_size: (44.0, 30.0),
+                path: "Slime/Hit (44x30).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Slime,
+                    anim_ty: AnimationType::IdleRun,
+                },
+                frames: 10,
+                tile_size: (44.0, 30.0),
+                path: "Slime/Idle-Run (44x30).png",
+            },
+            // SNAIL
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Snail,
+                    anim_ty: AnimationType::Hit,
+                },
+                frames: 5,
+                tile_size: (38.0, 24.0),
+                path: "Snail/Hit (38x24).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Snail,
+                    anim_ty: AnimationType::Idle,
+                },
+                frames: 15,
+                tile_size: (38.0, 24.0),
+                path: "Snail/Idle (38x24).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Snail,
+                    anim_ty: AnimationType::ShellIdle,
+                },
+                frames: 6,
+                tile_size: (38.0, 24.0),
+                path: "Snail/Shell Idle (38x24).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Snail,
+                    anim_ty: AnimationType::ShellTopHit,
+                },
+                frames: 5,
+                tile_size: (38.0, 24.0),
+                path: "Snail/Shell Top Hit (38x24).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Snail,
+                    anim_ty: AnimationType::ShellWallHit,
+                },
+                frames: 4,
+                tile_size: (38.0, 24.0),
+                path: "Snail/Shell Wall Hit (38x24).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Snail,
+                    anim_ty: AnimationType::SnailWithoutShell,
+                },
+                frames: 1,
+                tile_size: (38.0, 24.0),
+                path: "Snail/Snail without shell.png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Snail,
+                    anim_ty: AnimationType::Walk,
+                },
+                frames: 10,
+                tile_size: (38.0, 24.0),
+                path: "Snail/Walk (38x24).png",
+            },
+            // TRUNK
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Trunk,
+                    anim_ty: AnimationType::Attack,
+                },
+                frames: 11,
+                tile_size: (64.0, 32.0),
+                path: "Trunk/Attack (64x32).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Trunk,
+                    anim_ty: AnimationType::Hit,
+                },
+                frames: 5,
+                tile_size: (64.0, 32.0),
+                path: "Trunk/Hit (64x32).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Trunk,
+                    anim_ty: AnimationType::Idle,
+                },
+                frames: 18,
+                tile_size: (64.0, 32.0),
+                path: "Trunk/Idle (64x32).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Trunk,
+                    anim_ty: AnimationType::Run,
+                },
+                frames: 14,
+                tile_size: (64.0, 32.0),
+                path: "Trunk/Run (64x32).png",
+            },
+            // TURTLE
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Turtle,
+                    anim_ty: AnimationType::Hit,
+                },
+                frames: 5,
+                tile_size: (44.0, 26.0),
+                path: "Turtle/Hit (44x26).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Turtle,
+                    anim_ty: AnimationType::Idle,
+                },
+                frames: 14,
+                tile_size: (44.0, 26.0),
+                path: "Turtle/Idle 1 (44x26).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Turtle,
+                    anim_ty: AnimationType::Idle2,
+                },
+                frames: 14,
+                tile_size: (44.0, 26.0),
+                path: "Turtle/Idle 2 (44x26).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Turtle,
+                    anim_ty: AnimationType::TurtleSpikesIn,
+                },
+                frames: 8,
+                tile_size: (44.0, 26.0),
+                path: "Turtle/Spikes in (44x26).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Turtle,
+                    anim_ty: AnimationType::TurtleSpikesOut,
+                },
+                frames: 8,
+                tile_size: (44.0, 26.0),
+                path: "Turtle/Spikes out (44x26).png",
+            },
+            // ~~ GENERIC ~~
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Generic,
+                    anim_ty: AnimationType::Bullet,
+                },
+                frames: 1,
+                tile_size: (16.0, 16.0),
+                path: "Bee/Bullet.png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Generic,
+                    anim_ty: AnimationType::BulletPieces,
+                },
+                frames: 2,
+                tile_size: (16.0, 16.0),
+                path: "Bee/Bullet Pieces.png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Generic,
+                    anim_ty: AnimationType::BulletPieces,
+                },
+                frames: 2,
+                tile_size: (16.0, 16.0),
+                path: "Plant/Bullet Pieces.png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Generic,
+                    anim_ty: AnimationType::Bullet,
+                },
+                frames: 1,
+                tile_size: (16.0, 16.0),
+                path: "Plant/Bullet.png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Generic,
+                    anim_ty: AnimationType::GhostParticles,
+                },
+                frames: 1,
+                tile_size: (48.0, 16.0),
+                path: "Ghost/Ghost Particles (48x16).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Generic,
+                    anim_ty: AnimationType::Leafs,
+                },
+                frames: 2,
+                tile_size: (16.0, 16.0),
+                path: "Radish/Leafs.png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Generic,
+                    anim_ty: AnimationType::RedParticle,
+                },
+                frames: 1,
+                tile_size: (16.0, 16.0),
+                path: "Skull/Red Particle.png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Generic,
+                    anim_ty: AnimationType::OrangeParticle,
+                },
+                frames: 1,
+                tile_size: (16.0, 16.0),
+                path: "Skull/Orange Particle.png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Generic,
+                    anim_ty: AnimationType::SlimeParticles,
+                },
+                frames: 1,
+                tile_size: (62.0, 16.0),
+                path: "Slime/Particle (62x16).png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Generic,
+                    anim_ty: AnimationType::Bullet,
+                },
+                frames: 1,
+                tile_size: (16.0, 16.0),
+                path: "Trunk/Bullet.png",
+            },
+            AnimationState {
+                kv: EntTypeKey {
+                    ty: EnemyType::Generic,
+                    anim_ty: AnimationType::BulletPieces,
+                },
+                frames: 2,
+                tile_size: (16.0, 16.0),
+                path: "Trunk/Bullet Pieces.png",
             },
         ],
         root_path: "pixels/Enemies/",

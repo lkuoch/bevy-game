@@ -14,7 +14,7 @@ pub fn setup(
     mut player_state: ResMut<Player>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
 ) {
-    for player in player::PLAYER_LIST.iter() {
+    for player in player::PLAYER_ANIMATIONS.iter() {
         for anim in player.animation_states.iter() {
             let path = format!("{}{}", player.root_path.to_owned(), anim.path.to_owned());
 
@@ -39,9 +39,11 @@ pub fn setup(
     }
 
     // Default player is MaskDude
-    if let Some(EntSpriteKV::Handle(default_texture)) = player_state
-        .textures
-        .get(&EntSpriteKV::State(player::DEFAULT_PLAYER))
+    if let Some(EntSpriteKV::Handle(default_texture)) =
+        player_state.textures.get(&EntSpriteKV::State(EntTypeKey {
+            ty: PlayerType::MaskDude,
+            anim_ty: AnimationType::Idle,
+        }))
     {
         commands
             .spawn(SpriteSheetBundle {
