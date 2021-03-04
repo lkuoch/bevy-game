@@ -1,9 +1,7 @@
-use crate::{
+use crate::plugins::{
+    core::{components::*, traits::*},
+    input::components::*,
     player::{components::*, vars::*},
-    plugins::{
-        core::{components::*, traits::*},
-        input::components::*,
-    },
 };
 use bevy::prelude::*;
 use std::f32::consts::PI;

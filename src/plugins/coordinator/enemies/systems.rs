@@ -1,6 +1,6 @@
-use crate::{
+use crate::plugins::{
     coordinator::enemies::{components::*, vars::*},
-    plugins::core::components::*,
+    core::components::*,
 };
 use bevy::prelude::*;
 
