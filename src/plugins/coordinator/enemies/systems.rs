@@ -5,7 +5,7 @@ use crate::plugins::{
 use bevy::prelude::*;
 
 pub fn enemies_setup(
-    commands: &mut Commands,
+    mut commands: Commands,
     asset_server: Res<AssetServer>,
     mut enemies: ResMut<Enemies>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,

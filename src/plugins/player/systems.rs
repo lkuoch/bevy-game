@@ -7,7 +7,7 @@ use bevy::prelude::*;
 use std::f32::consts::PI;
 
 pub fn setup(
-    commands: &mut Commands,
+    mut commands: Commands,
     asset_server: Res<AssetServer>,
     mut player_state: ResMut<Player>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
@@ -121,9 +121,9 @@ pub fn handle_animation(
 pub fn observe_player_state(
     mut player_state: ResMut<Player>,
     time: Res<Time>,
-    mut query: Query<(&PlayerTag, &mut Transform, &mut Handle<TextureAtlas>)>,
+    query: Query<(&PlayerTag, &mut Transform, &mut Handle<TextureAtlas>)>,
 ) {
-    for (_, mut transform, mut current_texture_handle) in query.iter_mut() {
+    query.for_each_mut(|(_, mut transform, mut current_texture_handle)| {
         // Movement
         if let MovementState::Moving(dir) = player_state.movement {
             let dir_val = match dir {
@@ -153,14 +153,14 @@ pub fn observe_player_state(
 
             player_state.previous_sprite = player_state.current_sprite.clone();
         }
-    }
+    });
 }
 
 pub fn change_animation(
     player_state: Res<Player>,
-    mut query: Query<(&PlayerTag, &mut Handle<TextureAtlas>)>,
+    query: Query<(&PlayerTag, &mut Handle<TextureAtlas>)>,
 ) {
-    for (_, mut current_texture_atlas_handle) in query.iter_mut() {
+    query.for_each_mut(|(_, mut current_texture_atlas_handle)| {
         if player_state.movement != MovementState::None {
             if let Some(new_anim_handle) =
                 player_state.get_state_from_texture_handle(AnimationType::Run, ())
@@ -178,5 +178,5 @@ pub fn change_animation(
         {
             *current_texture_atlas_handle = new_anim_handle;
         }
-    }
+    });
 }

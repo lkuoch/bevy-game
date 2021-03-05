@@ -6,14 +6,14 @@ pub fn animate_sprite(
     time: Res<Time>,
     texture_atlases: Res<Assets<TextureAtlas>>,
     mut events: ResMut<Events<AnimEvent<Handle<TextureAtlas>>>>,
-    mut query: Query<(
+    query: Query<(
         &AnimatableTag,
         &mut Timer,
         &mut TextureAtlasSprite,
         &Handle<TextureAtlas>,
     )>,
 ) {
-    for (_, mut timer, mut sprite, texture_atlas_handle) in query.iter_mut() {
+    query.for_each_mut(|(_, mut timer, mut sprite, texture_atlas_handle)| {
         timer.tick(time.delta_seconds());
         if timer.finished() {
             // Anim start
@@ -29,5 +29,5 @@ pub fn animate_sprite(
                 events.send(AnimEvent::Finish(texture_atlas_handle.clone()));
             }
         }
-    }
+    });
 }
