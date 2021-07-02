@@ -1,5 +1,5 @@
 use crate::plugins::{
-    core::{components::*, traits::*},
+    animation::{components::*, traits::*},
     input::components::*,
     player::{components::*, vars::*},
 };

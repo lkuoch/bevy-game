@@ -1,5 +1,5 @@
 pub mod enemies {
-    use crate::{coordinator::enemies::components::*, plugins::core::components::*};
+    use crate::{coordinator::enemies::components::*, plugins::animation::components::*};
 
     pub const BASE_SPEED: f32 = 200.0;
 

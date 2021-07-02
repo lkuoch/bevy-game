@@ -1,4 +1,4 @@
-use crate::plugins::core::{components::*, traits::*};
+use crate::plugins::animation::{components::*, traits::*};
 use bevy::prelude::*;
 use std::collections::HashMap;
 

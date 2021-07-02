@@ -1,5 +1,5 @@
 pub mod player {
-    use crate::plugins::{core::components::*, player::components::*};
+    use crate::plugins::{animation::components::*, player::components::*};
 
     pub const BASE_SPEED: f32 = 250.0;
 

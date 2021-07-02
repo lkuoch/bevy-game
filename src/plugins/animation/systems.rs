@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::plugins::core::components::*;
+use crate::plugins::animation::components::*;
 
 pub fn animate_sprite(
     time: Res<Time>,

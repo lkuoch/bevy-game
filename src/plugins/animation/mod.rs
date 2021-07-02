@@ -1,5 +1,5 @@
 mod plugin;
-pub use plugin::CorePlugin;
+pub use plugin::AnimationPlugin;
 
 pub mod components;
 pub mod traits;
