@@ -1,14 +1,15 @@
 use crate::plugins::{
-    coordinator::enemies::{components::*, vars::*},
     animation::components::*,
+    coordinator::enemies::{components::*, vars::*},
+    resource_manager::components::{ResourceManager, SpriteMapKey},
 };
 use bevy::prelude::*;
 
-pub fn enemies_setup(
-    mut commands: Commands,
+pub fn setup_system(
     asset_server: Res<AssetServer>,
-    mut enemies: ResMut<Enemies>,
+    mut commands: Commands,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
+    mut resource_manager: ResMut<ResourceManager>,
 ) {
     for enemy in enemies::ENEMY_ANIMATIONS.iter() {
         for anim in enemy.animation_states.iter() {
@@ -22,12 +23,12 @@ pub fn enemies_setup(
                 1,
             ));
 
-            enemies.textures.insert(
-                EnemySpriteMapKey::State(anim.kv),
+            resource_manager.textures.enemies.insert(
+                SpriteMapKey::State(anim.kv),
                 EntSpriteKV::Handle(handle.clone()),
             );
 
-            enemies.textures.insert(
+            resource_manager.textures.enemies.insert(
                 EntSpriteKV::Handle(handle.clone()),
                 EntSpriteKV::State(anim.kv.anim_ty),
             );
@@ -40,20 +41,22 @@ pub fn enemies_setup(
     };
 
     // Let's just spawn common enemy
-    if let Some(EntSpriteKV::Handle(enemy)) =
-        enemies.textures.get(&EntSpriteKV::State(default_enemy))
+    if let Some(EntSpriteKV::Handle(enemy)) = resource_manager
+        .textures
+        .enemies
+        .get(&EntSpriteKV::State(default_enemy))
     {
         commands
-            .spawn(SpriteSheetBundle {
+            .spawn_bundle(SpriteSheetBundle {
                 texture_atlas: enemy.clone(),
                 transform: Transform::from_xyz(150., 0., 0.)
                     .mul_transform(Transform::from_scale(Vec3::splat(2.))),
                 ..Default::default()
             })
-            .with(EnemyTag {
+            .insert(EnemyTag {
                 current_sprite: default_enemy.ty,
             })
-            .with(AnimatableTag)
-            .with(Timer::from_seconds(0.1, true));
+            .insert(AnimatableTag)
+            .insert(Timer::from_seconds(0.1, true));
     }
 }

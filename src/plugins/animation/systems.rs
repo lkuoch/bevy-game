@@ -1,4 +1,6 @@
-use bevy::prelude::*;
+use std::time::Duration;
+
+use bevy::{app::Events, prelude::*};
 
 use crate::plugins::animation::components::*;
 
@@ -6,7 +8,7 @@ pub fn animate_sprite(
     time: Res<Time>,
     texture_atlases: Res<Assets<TextureAtlas>>,
     mut events: ResMut<Events<AnimEvent<Handle<TextureAtlas>>>>,
-    query: Query<(
+    mut query: Query<(
         &AnimatableTag,
         &mut Timer,
         &mut TextureAtlasSprite,
@@ -14,7 +16,7 @@ pub fn animate_sprite(
     )>,
 ) {
     query.for_each_mut(|(_, mut timer, mut sprite, texture_atlas_handle)| {
-        timer.tick(time.delta_seconds());
+        timer.tick(Duration::from_secs_f32(time.delta_seconds()));
         if timer.finished() {
             // Anim start
             if sprite.index == 0 {

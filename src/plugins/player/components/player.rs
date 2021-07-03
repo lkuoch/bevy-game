@@ -1,30 +1,10 @@
-use crate::plugins::animation::{components::*, traits::*};
-use bevy::prelude::*;
-use std::collections::HashMap;
+use bevy::{prelude::Handle, sprite::TextureAtlas};
 
-pub type PlayerSpriteMap = HashMap<PlayerSpriteMapKey, EntSpriteKV<AnimationType>>;
-pub type PlayerSpriteMapKey = EntSpriteKV<EntTypeKey<AnimationType, PlayerType>>;
-
-pub struct PlayerTag;
-
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub enum PlayerType {
-    MaskDude,
-    NinjaFrog,
-    PinkMan,
-    VirtualGuy,
-}
-
-#[derive(Debug, PartialEq, Eq, Hash, Copy, Clone)]
-pub enum AnimationType {
-    Idle,
-    DoubleJump,
-    Fall,
-    Hit,
-    Jump,
-    Run,
-    WallJump,
-}
+use crate::plugins::{
+    animation::{components::*, traits::Animatable},
+    player::components::components::*,
+    resource_manager::components::ResourceManager,
+};
 
 #[derive(Debug, Clone)]
 pub struct Player {
@@ -35,33 +15,6 @@ pub struct Player {
 
     pub current_sprite: PlayerType,
     pub previous_sprite: PlayerType,
-
-    pub textures: PlayerSpriteMap,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub enum MovementState {
-    None,
-    Moving(DirState),
-}
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub enum DirState {
-    Left,
-    Right,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub enum JumpState {
-    None,
-    Jumping,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub enum AttackState {
-    None,
-    Preparing,
-    Attacking,
 }
 
 impl Player {
@@ -111,8 +64,16 @@ impl Player {
 }
 
 impl Animatable<AnimationType> for Player {
-    fn get_texture_handle_from_state(&self, handle: Handle<TextureAtlas>, _resource: ()) -> Option<AnimationType> {
-        if let Some(x) = self.textures.get(&EntSpriteKV::Handle(handle)) {
+    fn get_texture_handle_from_state(
+        &self,
+        handle: Handle<TextureAtlas>,
+        resource_manager: &ResourceManager,
+    ) -> Option<AnimationType> {
+        if let Some(x) = resource_manager
+            .textures
+            .player
+            .get(&EntSpriteKV::Handle(handle))
+        {
             match x {
                 EntSpriteKV::State(s) => Some(*s),
                 _ => None,
@@ -122,11 +83,19 @@ impl Animatable<AnimationType> for Player {
         }
     }
 
-    fn get_state_from_texture_handle(&self, state: AnimationType, _resource: ()) -> Option<Handle<TextureAtlas>> {
-        if let Some(x) = self.textures.get(&EntSpriteKV::State(EntTypeKey {
-            ty: self.current_sprite,
-            anim_ty: state,
-        })) {
+    fn get_state_from_texture_handle(
+        &self,
+        state: AnimationType,
+        resource_manager: &ResourceManager,
+    ) -> Option<Handle<TextureAtlas>> {
+        if let Some(x) = resource_manager
+            .textures
+            .player
+            .get(&EntSpriteKV::State(EntTypeKey {
+                ty: self.current_sprite,
+                anim_ty: state,
+            }))
+        {
             match x {
                 EntSpriteKV::Handle(h) => Some(h.clone()),
                 _ => None,
@@ -147,9 +116,6 @@ impl Default for Player {
 
             previous_sprite: PlayerType::MaskDude,
             current_sprite: PlayerType::MaskDude,
-
-            // Stores all playable character textures
-            textures: PlayerSpriteMap::new(),
         }
     }
 }

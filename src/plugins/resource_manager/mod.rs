@@ -1,6 +1,5 @@
 mod plugin;
-pub use plugin::PlayerPlugin;
+pub use plugin::ResourceManagerPlugin;
 
 pub mod components;
 mod systems;
-mod vars;

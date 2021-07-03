@@ -2,15 +2,16 @@ use crate::plugins::{
     animation::{components::*, traits::*},
     input::components::*,
     player::{components::*, vars::*},
+    resource_manager::components::{ResourceManager, SpriteMapKey},
 };
 use bevy::prelude::*;
 use std::f32::consts::PI;
 
-pub fn setup(
-    mut commands: Commands,
+pub fn setup_system(
     asset_server: Res<AssetServer>,
-    mut player_state: ResMut<Player>,
+    mut commands: Commands,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
+    mut resource_manager: ResMut<ResourceManager>,
 ) {
     for player in player::PLAYER_ANIMATIONS.iter() {
         for anim in player.animation_states.iter() {
@@ -24,38 +25,33 @@ pub fn setup(
                 1,
             ));
 
-            player_state.textures.insert(
-                PlayerSpriteMapKey::State(anim.kv),
+            resource_manager.textures.player.insert(
+                SpriteMapKey::State(anim.kv),
                 EntSpriteKV::Handle(handle.clone()),
             );
 
-            player_state.textures.insert(
+            resource_manager.textures.player.insert(
                 EntSpriteKV::Handle(handle.clone()),
                 EntSpriteKV::State(anim.kv.anim_ty),
             );
-        }
-    }
 
-    // Default player is MaskDude
-    if let Some(EntSpriteKV::Handle(default_texture)) =
-        player_state.textures.get(&EntSpriteKV::State(EntTypeKey {
-            ty: PlayerType::MaskDude,
-            anim_ty: AnimationType::Idle,
-        }))
-    {
-        commands
-            .spawn(SpriteSheetBundle {
-                texture_atlas: default_texture.clone(),
-                transform: Transform::from_scale(Vec3::splat(2.5)),
-                ..Default::default()
-            })
-            .with(PlayerTag)
-            .with(AnimatableTag)
-            .with(Timer::from_seconds(0.1, true));
+            // Spawn player
+            if anim.kv.ty == PlayerType::default() {
+                commands
+                    .spawn_bundle(SpriteSheetBundle {
+                        texture_atlas: handle.clone(),
+                        transform: Transform::from_scale(Vec3::splat(2.5)),
+                        ..Default::default()
+                    })
+                    .insert(PlayerTag)
+                    .insert(AnimatableTag)
+                    .insert(Timer::from_seconds(0.1, true));
+            }
+        }
     }
 }
 
-pub fn handle_input_event(
+pub fn handle_input_event_system(
     mut event_reader: EventReader<InputEvent>,
     mut player_state: ResMut<Player>,
 ) {
@@ -92,7 +88,8 @@ pub fn handle_input_event(
     }
 }
 
-pub fn handle_animation(
+pub fn handle_animation_system(
+    resource_manager: Res<ResourceManager>,
     mut events: EventReader<AnimEvent<Handle<TextureAtlas>>>,
     mut player_state: ResMut<Player>,
 ) {
@@ -100,7 +97,8 @@ pub fn handle_animation(
         match event {
             AnimEvent::Start(_handle) => {}
             AnimEvent::Finish(handle) => {
-                if let Some(state) = player_state.get_texture_handle_from_state(handle.clone(), ())
+                if let Some(state) =
+                    player_state.get_texture_handle_from_state(handle.clone(), &resource_manager)
                 {
                     match state {
                         AnimationType::DoubleJump => player_state.land(),
@@ -118,10 +116,11 @@ pub fn handle_animation(
     }
 }
 
-pub fn observe_player_state(
-    mut player_state: ResMut<Player>,
+pub fn observe_player_state_system(
     time: Res<Time>,
-    query: Query<(&PlayerTag, &mut Transform, &mut Handle<TextureAtlas>)>,
+    resource_manager: Res<ResourceManager>,
+    mut player_state: ResMut<Player>,
+    mut query: Query<(&PlayerTag, &mut Transform, &mut Handle<TextureAtlas>)>,
 ) {
     query.for_each_mut(|(_, mut transform, mut current_texture_handle)| {
         // Movement
@@ -142,8 +141,10 @@ pub fn observe_player_state(
 
         // Transformation
         if player_state.previous_sprite != player_state.current_sprite {
-            if let Some(EntSpriteKV::Handle(mask_dude_texture_handle)) =
-                player_state.textures.get(&EntSpriteKV::State(EntTypeKey {
+            if let Some(EntSpriteKV::Handle(mask_dude_texture_handle)) = resource_manager
+                .textures
+                .player
+                .get(&EntSpriteKV::State(EntTypeKey {
                     ty: player_state.current_sprite,
                     anim_ty: AnimationType::Idle,
                 }))
@@ -156,25 +157,26 @@ pub fn observe_player_state(
     });
 }
 
-pub fn change_animation(
+pub fn change_animation_system(
     player_state: Res<Player>,
-    query: Query<(&PlayerTag, &mut Handle<TextureAtlas>)>,
+    resource_manager: Res<ResourceManager>,
+    mut query: Query<(&PlayerTag, &mut Handle<TextureAtlas>)>,
 ) {
     query.for_each_mut(|(_, mut current_texture_atlas_handle)| {
         if player_state.movement != MovementState::None {
             if let Some(new_anim_handle) =
-                player_state.get_state_from_texture_handle(AnimationType::Run, ())
+                player_state.get_state_from_texture_handle(AnimationType::Run, &resource_manager)
             {
                 *current_texture_atlas_handle = new_anim_handle;
             }
         } else if player_state.jump != JumpState::None {
-            if let Some(new_anim_handle) =
-                player_state.get_state_from_texture_handle(AnimationType::DoubleJump, ())
+            if let Some(new_anim_handle) = player_state
+                .get_state_from_texture_handle(AnimationType::DoubleJump, &resource_manager)
             {
                 *current_texture_atlas_handle = new_anim_handle;
             }
         } else if let Some(new_anim_handle) =
-            player_state.get_state_from_texture_handle(AnimationType::Idle, ())
+            player_state.get_state_from_texture_handle(AnimationType::Idle, &resource_manager)
         {
             *current_texture_atlas_handle = new_anim_handle;
         }

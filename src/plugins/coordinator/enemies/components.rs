@@ -1,9 +1,8 @@
-use crate::plugins::animation::{components::*, traits::*};
+use crate::plugins::{
+    animation::{components::*, traits::*},
+    resource_manager::components::ResourceManager,
+};
 use bevy::prelude::*;
-use std::collections::HashMap;
-
-pub type EnemySpriteMap = HashMap<EnemySpriteMapKey, EntSpriteKV<AnimationType>>;
-pub type EnemySpriteMapKey = EntSpriteKV<EntTypeKey<AnimationType, EnemyType>>;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum EnemyType {
@@ -74,17 +73,19 @@ pub struct EnemyTag {
 }
 
 #[derive(Debug, Clone)]
-pub struct Enemies {
-    pub textures: EnemySpriteMap,
-}
+pub struct Enemies {}
 
-impl Animatable<AnimationType, Enemies> for EnemyTag {
+impl Animatable<AnimationType> for EnemyTag {
     fn get_texture_handle_from_state(
         &self,
         handle: Handle<TextureAtlas>,
-        resource: Enemies,
+        resource_manager: &ResourceManager,
     ) -> Option<AnimationType> {
-        if let Some(x) = resource.textures.get(&EntSpriteKV::Handle(handle)) {
+        if let Some(x) = resource_manager
+            .textures
+            .enemies
+            .get(&EntSpriteKV::Handle(handle))
+        {
             match x {
                 EntSpriteKV::State(s) => Some(*s),
                 _ => None,
@@ -97,12 +98,16 @@ impl Animatable<AnimationType, Enemies> for EnemyTag {
     fn get_state_from_texture_handle(
         &self,
         state: AnimationType,
-        resource: Enemies,
+        resource_manager: &ResourceManager,
     ) -> Option<Handle<TextureAtlas>> {
-        if let Some(x) = resource.textures.get(&EntSpriteKV::State(EntTypeKey {
-            ty: self.current_sprite,
-            anim_ty: state,
-        })) {
+        if let Some(x) = resource_manager
+            .textures
+            .enemies
+            .get(&EntSpriteKV::State(EntTypeKey {
+                ty: self.current_sprite,
+                anim_ty: state,
+            }))
+        {
             match x {
                 EntSpriteKV::Handle(h) => Some(h.clone()),
                 _ => None,
@@ -115,8 +120,6 @@ impl Animatable<AnimationType, Enemies> for EnemyTag {
 
 impl Default for Enemies {
     fn default() -> Self {
-        Self {
-            textures: EnemySpriteMap::new(),
-        }
+        Self {}
     }
 }

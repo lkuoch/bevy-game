@@ -1,5 +1,5 @@
 use crate::input::components::*;
-use bevy::prelude::*;
+use bevy::{app::Events, prelude::*};
 
 pub fn keyboard_input_system(inputs: Res<Input<KeyCode>>, mut events: ResMut<Events<InputEvent>>) {
     for just_pressed in inputs.get_just_pressed() {

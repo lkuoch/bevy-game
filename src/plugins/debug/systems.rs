@@ -4,9 +4,9 @@ use bevy::{
     prelude::*,
 };
 
-pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+pub fn setup_system(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands
-        .spawn(TextBundle {
+        .spawn_bundle(TextBundle {
             style: Style {
                 align_self: AlignSelf::FlexEnd,
                 ..Default::default()
@@ -24,10 +24,10 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
             ),
             ..Default::default()
         })
-        .with(FPSText);
+        .insert(FPSText);
 }
 
-pub fn text_update(diagnostics: Res<Diagnostics>, query: Query<&mut Text, With<FPSText>>) {
+pub fn text_update_system(diagnostics: Res<Diagnostics>, mut query: Query<&mut Text, With<FPSText>>) {
     query.for_each_mut(|mut text| {
         if let Some(fps) = diagnostics.get(FrameTimeDiagnosticsPlugin::FPS) {
             if let Some(avg) = fps.average() {
