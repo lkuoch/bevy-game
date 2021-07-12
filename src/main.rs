@@ -1,5 +1,6 @@
 #![feature(format_args_capture)]
 
+mod core;
 mod plugins;
 
 use crate::plugins::{

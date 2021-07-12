@@ -30,28 +30,3 @@ impl Default for AnimationType {
         Self::Idle
     }
 }
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub enum MovementState {
-    None,
-    Moving(DirState),
-}
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub enum DirState {
-    Left,
-    Right,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub enum JumpState {
-    None,
-    Jumping,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub enum AttackState {
-    None,
-    Preparing,
-    Attacking,
-}

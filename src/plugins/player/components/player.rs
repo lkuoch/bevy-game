@@ -2,44 +2,19 @@ use bevy::{prelude::Handle, sprite::TextureAtlas};
 
 use crate::plugins::{
     animation::{components::*, traits::Animatable},
-    player::components::components::*,
+    player::{components::components::*, states::PlayerState},
     resource_manager::components::ResourceManager,
 };
 
 #[derive(Debug, Clone)]
 pub struct Player {
-    pub dir: DirState,
-    pub attack: AttackState,
-    pub jump: JumpState,
-    pub movement: MovementState,
+    pub state: PlayerState,
 
     pub current_sprite: PlayerType,
     pub previous_sprite: PlayerType,
 }
 
 impl Player {
-    pub fn move_right(&mut self) {
-        self.movement = MovementState::Moving(DirState::Right);
-        self.dir = DirState::Right;
-    }
-
-    pub fn move_left(&mut self) {
-        self.movement = MovementState::Moving(DirState::Left);
-        self.dir = DirState::Left;
-    }
-
-    pub fn jump(&mut self) {
-        self.jump = JumpState::Jumping;
-    }
-
-    pub fn land(&mut self) {
-        self.jump = JumpState::None;
-    }
-
-    pub fn reset_movement(&mut self) {
-        self.movement = MovementState::None;
-    }
-
     pub fn transform_next(&mut self) {
         match self.current_sprite {
             PlayerType::MaskDude => {
@@ -109,10 +84,7 @@ impl Animatable<AnimationType> for Player {
 impl Default for Player {
     fn default() -> Self {
         Self {
-            dir: DirState::Right,
-            attack: AttackState::None,
-            jump: JumpState::None,
-            movement: MovementState::None,
+            state: PlayerState::default(),
 
             previous_sprite: PlayerType::MaskDude,
             current_sprite: PlayerType::MaskDude,

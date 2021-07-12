@@ -1,7 +1,11 @@
 use crate::plugins::{
     animation::{components::*, traits::*},
     input::components::*,
-    player::{components::*, vars::*},
+    player::{
+        components::*,
+        states::{MovementState, PlayerCommand, PlayerMovementDirection, PlayerState},
+        vars::*,
+    },
     resource_manager::components::{ResourceManager, SpriteMapKey},
 };
 use bevy::prelude::*;
@@ -53,23 +57,27 @@ pub fn setup_system(
 
 pub fn handle_input_event_system(
     mut event_reader: EventReader<InputEvent>,
-    mut player_state: ResMut<Player>,
+    mut player: ResMut<Player>,
 ) {
     for event in event_reader.iter() {
         if let Some(key) = event.pressed {
             match key {
                 KeyCode::A => {
-                    player_state.move_left();
+                    player
+                        .state
+                        .movement
+                        .enqueue(PlayerCommand::Movement(PlayerMovementDirection::Left));
                 }
                 KeyCode::D => {
-                    player_state.move_right();
+                    player
+                        .state
+                        .movement
+                        .enqueue(PlayerCommand::Movement(PlayerMovementDirection::Right));
                 }
                 KeyCode::Space => {
-                    player_state.jump();
+                    player.state.movement.enqueue(PlayerCommand::Jump);
                 }
-                KeyCode::T => {
-                    player_state.transform_next();
-                }
+                KeyCode::T => player.state.movement.enqueue(PlayerCommand::Transform),
                 _ => {}
             }
         }
@@ -77,10 +85,16 @@ pub fn handle_input_event_system(
         if let Some(key) = event.released {
             match key {
                 KeyCode::A => {
-                    player_state.reset_movement();
+                    player
+                        .state
+                        .movement
+                        .enqueue(PlayerCommand::MovementComplete);
                 }
                 KeyCode::D => {
-                    player_state.reset_movement();
+                    player
+                        .state
+                        .movement
+                        .enqueue(PlayerCommand::MovementComplete);
                 }
                 _ => {}
             }
@@ -88,6 +102,7 @@ pub fn handle_input_event_system(
     }
 }
 
+// TODO: Incorporate new state
 pub fn handle_animation_system(
     resource_manager: Res<ResourceManager>,
     mut events: EventReader<AnimEvent<Handle<TextureAtlas>>>,
@@ -101,7 +116,7 @@ pub fn handle_animation_system(
                     player_state.get_texture_handle_from_state(handle.clone(), &resource_manager)
                 {
                     match state {
-                        AnimationType::DoubleJump => player_state.land(),
+                        AnimationType::DoubleJump => {}
                         AnimationType::Idle => {}
                         AnimationType::Fall => {}
                         AnimationType::Hit => {}
@@ -116,67 +131,71 @@ pub fn handle_animation_system(
     }
 }
 
+// TODO: Incorporate new state
 pub fn observe_player_state_system(
     time: Res<Time>,
     resource_manager: Res<ResourceManager>,
-    mut player_state: ResMut<Player>,
+    mut player: ResMut<Player>,
     mut query: Query<(&PlayerTag, &mut Transform, &mut Handle<TextureAtlas>)>,
 ) {
     query.for_each_mut(|(_, mut transform, mut current_texture_handle)| {
         // Movement
-        if let MovementState::Moving(dir) = player_state.movement {
-            let dir_val = match dir {
-                DirState::Left => {
+        if let MovementState::Moving(direction) = player.state.movement.get() {
+            let dir = match direction {
+                PlayerMovementDirection::Left => {
                     transform.rotation = Quat::from_rotation_y(PI);
                     -1.0
                 }
-                DirState::Right => {
+                PlayerMovementDirection::Right => {
                     transform.rotation = Quat::default();
                     1.0
                 }
             };
 
-            transform.translation.x += time.delta_seconds() * dir_val * player::BASE_SPEED;
+            transform.translation.x += time.delta_seconds() * dir * player::BASE_SPEED;
         }
 
         // Transformation
-        if player_state.previous_sprite != player_state.current_sprite {
+        if player.previous_sprite != player.current_sprite {
             if let Some(EntSpriteKV::Handle(mask_dude_texture_handle)) = resource_manager
                 .textures
                 .player
                 .get(&EntSpriteKV::State(EntTypeKey {
-                    ty: player_state.current_sprite,
+                    ty: player.current_sprite,
                     anim_ty: AnimationType::Idle,
                 }))
             {
                 *current_texture_handle = mask_dude_texture_handle.clone();
             }
 
-            player_state.previous_sprite = player_state.current_sprite.clone();
+            player.previous_sprite = player.current_sprite.clone();
         }
     });
 }
 
+// TODO: Incorporate new state
 pub fn change_animation_system(
-    player_state: Res<Player>,
+    player: Res<Player>,
     resource_manager: Res<ResourceManager>,
     mut query: Query<(&PlayerTag, &mut Handle<TextureAtlas>)>,
 ) {
     query.for_each_mut(|(_, mut current_texture_atlas_handle)| {
-        if player_state.movement != MovementState::None {
+        if player.state.movement.get() == MovementState::Moving(PlayerMovementDirection::Left)
+            || player.state.movement.get() == MovementState::Moving(PlayerMovementDirection::Right)
+        {
             if let Some(new_anim_handle) =
-                player_state.get_state_from_texture_handle(AnimationType::Run, &resource_manager)
+                player.get_state_from_texture_handle(AnimationType::Run, &resource_manager)
             {
                 *current_texture_atlas_handle = new_anim_handle;
             }
-        } else if player_state.jump != JumpState::None {
-            if let Some(new_anim_handle) = player_state
-                .get_state_from_texture_handle(AnimationType::DoubleJump, &resource_manager)
+        } else if player.state.movement.get() == MovementState::Jumping {
+            if let Some(new_anim_handle) =
+                player.get_state_from_texture_handle(AnimationType::DoubleJump, &resource_manager)
             {
                 *current_texture_atlas_handle = new_anim_handle;
             }
         } else if let Some(new_anim_handle) =
-            player_state.get_state_from_texture_handle(AnimationType::Idle, &resource_manager)
+            player.get_state_from_texture_handle(AnimationType::Idle, &resource_manager)
         {
             *current_texture_atlas_handle = new_anim_handle;
         }

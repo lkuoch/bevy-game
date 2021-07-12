@@ -1,4 +1,4 @@
-use crate::player::{components::*, systems::*};
+use crate::player::{components::Player, states::*, systems::*};
 use bevy::prelude::*;
 
 pub struct PlayerPlugin;
