@@ -1,11 +1,7 @@
 use crate::plugins::{
     animation::{components::*, traits::*},
     input::components::*,
-    player::{
-        components::*,
-        states::{MovementState, PlayerCommand, PlayerMovementDirection, PlayerState},
-        vars::*,
-    },
+    player::{components::*, vars::*},
     resource_manager::components::{ResourceManager, SpriteMapKey},
 };
 use bevy::prelude::*;
@@ -106,14 +102,14 @@ pub fn handle_input_event_system(
 pub fn handle_animation_system(
     resource_manager: Res<ResourceManager>,
     mut events: EventReader<AnimEvent<Handle<TextureAtlas>>>,
-    mut player_state: ResMut<Player>,
+    mut player: ResMut<Player>,
 ) {
     for event in events.iter() {
         match event {
             AnimEvent::Start(_handle) => {}
             AnimEvent::Finish(handle) => {
                 if let Some(state) =
-                    player_state.get_texture_handle_from_state(handle.clone(), &resource_manager)
+                    player.get_texture_handle_from_state(handle.clone(), &resource_manager)
                 {
                     match state {
                         AnimationType::DoubleJump => {}
@@ -126,12 +122,11 @@ pub fn handle_animation_system(
                     }
                 }
             }
-            AnimEvent::None => {}
         }
     }
 }
 
-// TODO: Incorporate new state
+// TODO: Figure out how to do this in stages
 pub fn observe_player_state_system(
     time: Res<Time>,
     resource_manager: Res<ResourceManager>,
@@ -173,7 +168,7 @@ pub fn observe_player_state_system(
     });
 }
 
-// TODO: Incorporate new state
+// TODO: Figure out how to make this better
 pub fn change_animation_system(
     player: Res<Player>,
     resource_manager: Res<ResourceManager>,

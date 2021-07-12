@@ -29,7 +29,6 @@ pub struct EntList<'a, T1, T2> {
 pub enum AnimEvent<T> {
     Start(T),
     Finish(T),
-    None,
 }
 
 pub struct AnimatableTag;
