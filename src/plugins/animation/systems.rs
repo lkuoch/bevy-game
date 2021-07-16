@@ -4,7 +4,7 @@ use bevy::{app::Events, prelude::*};
 
 use crate::plugins::animation::components::*;
 
-pub fn animate_sprite(
+pub fn animate_sprite_system(
     time: Res<Time>,
     texture_atlases: Res<Assets<TextureAtlas>>,
     mut events: ResMut<Events<AnimEvent<Handle<TextureAtlas>>>>,

@@ -3,22 +3,57 @@ use crate::core::state_machine::Machine;
 #[derive(Debug)]
 pub struct PlayerTag;
 
+// Possible player state machine commands
 #[derive(Debug, Copy, Clone, PartialEq)]
-pub struct PlayerState {
-    pub movement: Machine<MovementState>,
-    pub transformation: Machine<PlayerTransformationState>,
+pub enum PlayerCommands {
+    Idle,
+    Jump,
+    OnGround,
+    Crouch,
+    Standup,
+    Transform,
+    MovementComplete,
+    Movement(PlayerMovementDirection),
+}
+
+// Tracks movement
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub struct PlayerMovementState {
+    pub machine: Machine<PlayerMovementStates>,
+}
+
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub enum PlayerMovementStates {
+    Idle,
+    Jumping,
+    Standing,
+    Crouching,
+    Grounded,
+    Moving(PlayerMovementDirection),
+}
+
+// Tracks transformations
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub struct PlayerTypeState {
+    pub machine: Machine<PlayerTypeStates>,
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub enum PlayerTransformationState {
+pub enum PlayerTypeStates {
     MaskDude,
     NinjaFrog,
     PinkMan,
     VirtualGuy,
 }
 
+// Tracks animations
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub struct PlayerAnimationState {
+    pub machine: Machine<PlayerAnimationStates>,
+}
+
 #[derive(Debug, PartialEq, Eq, Hash, Copy, Clone)]
-pub enum AnimationType {
+pub enum PlayerAnimationStates {
     Idle,
     DoubleJump,
     Fall,
@@ -29,29 +64,7 @@ pub enum AnimationType {
 }
 
 #[derive(Debug, Copy, Clone, PartialEq)]
-pub enum MovementState {
-    Idle,
-    Jumping,
-    Standing,
-    Crouching,
-    Grounded,
-    Moving(PlayerMovementDirection),
-}
-
-#[derive(Debug, Copy, Clone, PartialEq)]
 pub enum PlayerMovementDirection {
     Right,
     Left,
-}
-
-#[derive(Debug, Copy, Clone, PartialEq)]
-pub enum PlayerCommand {
-    Idle,
-    Jump,
-    OnGround,
-    Crouch,
-    Standup,
-    Transform,
-    MovementComplete,
-    Movement(PlayerMovementDirection),
 }

@@ -36,7 +36,7 @@ pub fn setup_system(
             );
 
             // Spawn player
-            if anim.kv.ty == PlayerTransformationState::default() {
+            if anim.kv.ty == PlayerTypeStates::default() {
                 commands
                     .spawn_bundle(SpriteSheetBundle {
                         texture_atlas: handle.clone(),
@@ -53,25 +53,24 @@ pub fn setup_system(
 
 pub fn handle_input_event_system(
     mut event_reader: EventReader<InputEvent>,
-    mut player: ResMut<PlayerState>,
+    mut player_movement_state: ResMut<PlayerMovementState>,
+    mut player_type_state: ResMut<PlayerTypeState>,
 ) {
     for event in event_reader.iter() {
         if let Some(key) = event.pressed {
             match key {
                 KeyCode::A => {
-                    player
-                        .movement
-                        .enqueue(PlayerCommand::Movement(PlayerMovementDirection::Left));
+                    player_movement_state
+                        .enqueue(PlayerCommands::Movement(PlayerMovementDirection::Left));
                 }
                 KeyCode::D => {
-                    player
-                        .movement
-                        .enqueue(PlayerCommand::Movement(PlayerMovementDirection::Right));
+                    player_movement_state
+                        .enqueue(PlayerCommands::Movement(PlayerMovementDirection::Right));
                 }
                 KeyCode::Space => {
-                    player.movement.enqueue(PlayerCommand::Jump);
+                    player_movement_state.enqueue(PlayerCommands::Jump);
                 }
-                KeyCode::T => player.movement.enqueue(PlayerCommand::Transform),
+                KeyCode::T => player_type_state.enqueue(PlayerCommands::Transform),
                 _ => {}
             }
         }
@@ -79,10 +78,10 @@ pub fn handle_input_event_system(
         if let Some(key) = event.released {
             match key {
                 KeyCode::A => {
-                    player.movement.enqueue(PlayerCommand::MovementComplete);
+                    player_movement_state.enqueue(PlayerCommands::MovementComplete);
                 }
                 KeyCode::D => {
-                    player.movement.enqueue(PlayerCommand::MovementComplete);
+                    player_movement_state.enqueue(PlayerCommands::MovementComplete);
                 }
                 _ => {}
             }
@@ -90,41 +89,13 @@ pub fn handle_input_event_system(
     }
 }
 
-pub fn animation_lifecycle_system(
-    resource_manager: Res<ResourceManager>,
-    mut player: ResMut<PlayerState>,
-    mut events: EventReader<AnimEvent<Handle<TextureAtlas>>>,
-) {
-    for event in events.iter() {
-        match event {
-            AnimEvent::Start(_handle) => {}
-            // Finished animations
-            AnimEvent::Finish(handle) => {
-                if let Some(state) =
-                    player.get_texture_handle_from_state(handle.clone(), &resource_manager)
-                {
-                    match state {
-                        AnimationType::DoubleJump | AnimationType::Jump => {
-                            // Reset player state
-                            player.movement.enqueue(PlayerCommand::Idle);
-                        }
-                        _ => {}
-                    }
-                }
-            }
-        }
-    }
-}
-
-pub fn observe_player_state_system(
+pub fn player_movement_state_system(
     time: Res<Time>,
-    resource_manager: Res<ResourceManager>,
-    mut player: ResMut<PlayerState>,
-    mut query: Query<(&PlayerTag, &mut Transform, &mut Handle<TextureAtlas>)>,
+    player_movement_state: Res<PlayerMovementState>,
+    mut query: Query<(&PlayerTag, &mut Transform)>,
 ) {
-    query.for_each_mut(|(_, mut transform, mut current_texture_handle)| {
-        // Movement
-        if let MovementState::Moving(direction) = player.movement.get() {
+    query.for_each_mut(|(_, mut transform)| {
+        if let PlayerMovementStates::Moving(direction) = player_movement_state.get() {
             let dir = match direction {
                 PlayerMovementDirection::Left => {
                     transform.rotation = Quat::from_rotation_y(PI);
@@ -138,45 +109,72 @@ pub fn observe_player_state_system(
 
             transform.translation.x += time.delta_seconds() * dir * player::BASE_SPEED;
         }
+    });
+}
 
-        // Transformation
-        // if let Some(EntSpriteKV::Handle(mask_dude_texture_handle)) = resource_manager
-        //     .textures
-        //     .players
-        //     .get(&EntSpriteKV::State(EntTypeKey {
-        //         ty: player.current_sprite,
-        //         anim_ty: AnimationType::Idle,
-        //     }))
-        // {
-        //     *current_texture_handle = mask_dude_texture_handle.clone();
-        // }
+pub fn player_type_state_system(
+    resource_manager: Res<ResourceManager>,
+    player_type_state: Res<PlayerTypeState>,
+    mut query: Query<(&PlayerTag, &mut Handle<TextureAtlas>), Changed<PlayerTypeState>>,
+) {
+    query.for_each_mut(|(_, mut texture_handle)| {
+        if let Some(EntSpriteKV::Handle(mask_dude_texture_handle)) = resource_manager
+            .textures
+            .players
+            .get(&EntSpriteKV::State(EntTypeKey {
+                ty: player_type_state.get(),
+                anim_ty: PlayerAnimationStates::Idle,
+            }))
+        {
+            *texture_handle = mask_dude_texture_handle.clone();
+        }
     });
 }
 
 pub fn change_animation_system(
-    player: Res<PlayerState>,
+    player_type_state: Res<PlayerTypeState>,
+    player_movement_state: Res<PlayerMovementState>,
+    player_animation_state: Res<PlayerAnimationState>,
     resource_manager: Res<ResourceManager>,
     mut query: Query<(&PlayerTag, &mut Handle<TextureAtlas>)>,
 ) {
-    query.for_each_mut(|(_, mut texture)| {
-        // Match movement state
-        match player.movement.get() {
-            MovementState::Moving(_) | MovementState::Grounded | MovementState::Standing => {
-                *texture = player
-                    .get_state_from_texture_handle(AnimationType::Run, &resource_manager)
-                    .expect("Missing Run animation");
-            }
-            MovementState::Jumping => {
-                *texture = player
-                    .get_state_from_texture_handle(AnimationType::DoubleJump, &resource_manager)
-                    .expect("Missing DoubleJump animation");
-            }
-            MovementState::Idle => {
-                *texture = player
-                    .get_state_from_texture_handle(AnimationType::Idle, &resource_manager)
-                    .expect("Missing Idle animation");
-            }
-            MovementState::Crouching => todo!(),
-        }
+    query.for_each_mut(|(player_tag, mut texture)| {
+        *texture = player_tag
+            .get_state_from_texture_handle(
+                &player_type_state.get(),
+                &player_animation_state.get_movement_state_animation(&player_movement_state.get()),
+                &resource_manager,
+            )
+            .expect("Missing animation");
     });
+}
+
+pub fn animation_lifecycle_system(
+    resource_manager: Res<ResourceManager>,
+    query: Query<&PlayerTag>,
+    mut events: EventReader<AnimEvent<Handle<TextureAtlas>>>,
+    mut player_movement_state: ResMut<PlayerMovementState>,
+) {
+    for event in events.iter() {
+        match event {
+            AnimEvent::Start(_handle) => {}
+            // Finished animations
+            AnimEvent::Finish(handle) => {
+                query.for_each(|player_tag| {
+                    if let Some(animation_state) =
+                        player_tag.get_texture_handle_from_state(&handle, &resource_manager)
+                    {
+                        match animation_state {
+                            PlayerAnimationStates::DoubleJump | PlayerAnimationStates::Jump => {
+                                // Reset player state
+                                player_movement_state.enqueue(PlayerCommands::Idle);
+                            }
+
+                            _ => {}
+                        }
+                    }
+                });
+            }
+        }
+    }
 }

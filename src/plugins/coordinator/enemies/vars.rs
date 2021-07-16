@@ -3,13 +3,13 @@ pub mod enemies {
 
     pub const BASE_SPEED: f32 = 200.0;
 
-    pub const ENEMY_ANIMATIONS: &[EntList<AnimationType, EnemyType>] = &[EntList {
+    pub const ENEMY_ANIMATIONS: &[EntList<EnemyAnimationStates, EnemyTypes>] = &[EntList {
         animation_states: &[
             // ANGRY PIG
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::AngryPig,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::AngryPig,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 9,
                 tile_size: (32.0, 30.0),
@@ -17,8 +17,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::AngryPig,
-                    anim_ty: AnimationType::Run,
+                    ty: EnemyTypes::AngryPig,
+                    anim_ty: EnemyAnimationStates::Run,
                 },
                 frames: 5,
                 tile_size: (36.0, 30.0),
@@ -26,8 +26,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::AngryPig,
-                    anim_ty: AnimationType::Walk,
+                    ty: EnemyTypes::AngryPig,
+                    anim_ty: EnemyAnimationStates::Walk,
                 },
                 frames: 12,
                 tile_size: (36.0, 30.0),
@@ -35,8 +35,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::AngryPig,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::AngryPig,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (36.0, 30.0),
@@ -44,8 +44,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::AngryPig,
-                    anim_ty: AnimationType::Hit2,
+                    ty: EnemyTypes::AngryPig,
+                    anim_ty: EnemyAnimationStates::Hit2,
                 },
                 frames: 5,
                 tile_size: (36.0, 30.0),
@@ -54,8 +54,8 @@ pub mod enemies {
             // BAT
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Bat,
-                    anim_ty: AnimationType::CeilingIn,
+                    ty: EnemyTypes::Bat,
+                    anim_ty: EnemyAnimationStates::CeilingIn,
                 },
                 frames: 7,
                 tile_size: (46.0, 30.0),
@@ -63,8 +63,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Bat,
-                    anim_ty: AnimationType::CeilingOut,
+                    ty: EnemyTypes::Bat,
+                    anim_ty: EnemyAnimationStates::CeilingOut,
                 },
                 frames: 7,
                 tile_size: (46.0, 30.0),
@@ -72,8 +72,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Bat,
-                    anim_ty: AnimationType::Flying,
+                    ty: EnemyTypes::Bat,
+                    anim_ty: EnemyAnimationStates::Flying,
                 },
                 frames: 7,
                 tile_size: (46.0, 30.0),
@@ -81,8 +81,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Bat,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Bat,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (46.0, 30.0),
@@ -90,8 +90,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Bat,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Bat,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 12,
                 tile_size: (46.0, 30.0),
@@ -100,8 +100,8 @@ pub mod enemies {
             // BEE
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Bee,
-                    anim_ty: AnimationType::Attack,
+                    ty: EnemyTypes::Bee,
+                    anim_ty: EnemyAnimationStates::Attack,
                 },
                 frames: 8,
                 tile_size: (36.0, 34.0),
@@ -109,8 +109,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Bee,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Bee,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (36.0, 34.0),
@@ -118,8 +118,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Bee,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Bee,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 6,
                 tile_size: (36.0, 34.0),
@@ -128,8 +128,8 @@ pub mod enemies {
             // BLUE BIRD
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::BlueBird,
-                    anim_ty: AnimationType::Flying,
+                    ty: EnemyTypes::BlueBird,
+                    anim_ty: EnemyAnimationStates::Flying,
                 },
                 frames: 9,
                 tile_size: (32.0, 32.0),
@@ -137,8 +137,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::BlueBird,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::BlueBird,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (32.0, 32.0),
@@ -147,8 +147,8 @@ pub mod enemies {
             // BUNNY
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Bunny,
-                    anim_ty: AnimationType::Fall,
+                    ty: EnemyTypes::Bunny,
+                    anim_ty: EnemyAnimationStates::Fall,
                 },
                 frames: 1,
                 tile_size: (34.0, 44.0),
@@ -156,8 +156,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Bunny,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Bunny,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (34.0, 44.0),
@@ -165,8 +165,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Bunny,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Bunny,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 8,
                 tile_size: (34.0, 44.0),
@@ -174,8 +174,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Bunny,
-                    anim_ty: AnimationType::Jump,
+                    ty: EnemyTypes::Bunny,
+                    anim_ty: EnemyAnimationStates::Jump,
                 },
                 frames: 1,
                 tile_size: (34.0, 44.0),
@@ -183,8 +183,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Bunny,
-                    anim_ty: AnimationType::Run,
+                    ty: EnemyTypes::Bunny,
+                    anim_ty: EnemyAnimationStates::Run,
                 },
                 frames: 12,
                 tile_size: (34.0, 44.0),
@@ -193,8 +193,8 @@ pub mod enemies {
             // CHAMELEON
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Chameleon,
-                    anim_ty: AnimationType::Attack,
+                    ty: EnemyTypes::Chameleon,
+                    anim_ty: EnemyAnimationStates::Attack,
                 },
                 frames: 10,
                 tile_size: (84.0, 38.0),
@@ -202,8 +202,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Chameleon,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Chameleon,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (84.0, 38.0),
@@ -211,8 +211,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Chameleon,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Chameleon,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 13,
                 tile_size: (84.0, 38.0),
@@ -220,8 +220,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Chameleon,
-                    anim_ty: AnimationType::Run,
+                    ty: EnemyTypes::Chameleon,
+                    anim_ty: EnemyAnimationStates::Run,
                 },
                 frames: 8,
                 tile_size: (84.0, 38.0),
@@ -230,8 +230,8 @@ pub mod enemies {
             // CHICKEN
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Chicken,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Chicken,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (32.0, 34.0),
@@ -239,8 +239,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Chicken,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Chicken,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 13,
                 tile_size: (32.0, 34.0),
@@ -248,8 +248,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Chicken,
-                    anim_ty: AnimationType::Run,
+                    ty: EnemyTypes::Chicken,
+                    anim_ty: EnemyAnimationStates::Run,
                 },
                 frames: 14,
                 tile_size: (32.0, 34.0),
@@ -258,8 +258,8 @@ pub mod enemies {
             // DUCK
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Duck,
-                    anim_ty: AnimationType::Fall,
+                    ty: EnemyTypes::Duck,
+                    anim_ty: EnemyAnimationStates::Fall,
                 },
                 frames: 1,
                 tile_size: (36.0, 36.0),
@@ -267,8 +267,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Duck,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Duck,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (36.0, 36.0),
@@ -276,8 +276,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Duck,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Duck,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 10,
                 tile_size: (36.0, 36.0),
@@ -285,8 +285,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Duck,
-                    anim_ty: AnimationType::Jump,
+                    ty: EnemyTypes::Duck,
+                    anim_ty: EnemyAnimationStates::Jump,
                 },
                 frames: 1,
                 tile_size: (36.0, 36.0),
@@ -294,8 +294,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Duck,
-                    anim_ty: AnimationType::JumpAnticipation,
+                    ty: EnemyTypes::Duck,
+                    anim_ty: EnemyAnimationStates::JumpAnticipation,
                 },
                 frames: 4,
                 tile_size: (36.0, 36.0),
@@ -304,8 +304,8 @@ pub mod enemies {
             // FAT BIRD
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::FatBird,
-                    anim_ty: AnimationType::Fall,
+                    ty: EnemyTypes::FatBird,
+                    anim_ty: EnemyAnimationStates::Fall,
                 },
                 frames: 4,
                 tile_size: (40.0, 48.0),
@@ -313,8 +313,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::FatBird,
-                    anim_ty: AnimationType::Ground,
+                    ty: EnemyTypes::FatBird,
+                    anim_ty: EnemyAnimationStates::Ground,
                 },
                 frames: 4,
                 tile_size: (40.0, 48.0),
@@ -322,8 +322,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::FatBird,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::FatBird,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (40.0, 48.0),
@@ -331,8 +331,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::FatBird,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::FatBird,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 8,
                 tile_size: (40.0, 48.0),
@@ -341,8 +341,8 @@ pub mod enemies {
             // GHOST
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Ghost,
-                    anim_ty: AnimationType::Appear,
+                    ty: EnemyTypes::Ghost,
+                    anim_ty: EnemyAnimationStates::Appear,
                 },
                 frames: 4,
                 tile_size: (44.0, 30.0),
@@ -350,8 +350,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Ghost,
-                    anim_ty: AnimationType::Disappear,
+                    ty: EnemyTypes::Ghost,
+                    anim_ty: EnemyAnimationStates::Disappear,
                 },
                 frames: 5,
                 tile_size: (44.0, 30.0),
@@ -359,8 +359,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Ghost,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Ghost,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (44.0, 30.0),
@@ -368,8 +368,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Ghost,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Ghost,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 10,
                 tile_size: (44.0, 30.0),
@@ -378,8 +378,8 @@ pub mod enemies {
             // MUSHROOM
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Mushroom,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Mushroom,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (32.0, 32.0),
@@ -387,8 +387,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Mushroom,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Mushroom,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 14,
                 tile_size: (32.0, 32.0),
@@ -396,8 +396,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Mushroom,
-                    anim_ty: AnimationType::Run,
+                    ty: EnemyTypes::Mushroom,
+                    anim_ty: EnemyAnimationStates::Run,
                 },
                 frames: 16,
                 tile_size: (32.0, 32.0),
@@ -406,8 +406,8 @@ pub mod enemies {
             // PLANT
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Plant,
-                    anim_ty: AnimationType::Attack,
+                    ty: EnemyTypes::Plant,
+                    anim_ty: EnemyAnimationStates::Attack,
                 },
                 frames: 8,
                 tile_size: (42.0, 42.0),
@@ -415,8 +415,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Plant,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Plant,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (44.0, 42.0),
@@ -424,8 +424,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Plant,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Plant,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 11,
                 tile_size: (44.0, 42.0),
@@ -434,8 +434,8 @@ pub mod enemies {
             // RADISH
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Radish,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Radish,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (30.0, 38.0),
@@ -443,8 +443,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Radish,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Radish,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 6,
                 tile_size: (30.0, 38.0),
@@ -452,8 +452,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Radish,
-                    anim_ty: AnimationType::Idle2,
+                    ty: EnemyTypes::Radish,
+                    anim_ty: EnemyAnimationStates::Idle2,
                 },
                 frames: 9,
                 tile_size: (30.0, 38.0),
@@ -461,8 +461,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Radish,
-                    anim_ty: AnimationType::Run,
+                    ty: EnemyTypes::Radish,
+                    anim_ty: EnemyAnimationStates::Run,
                 },
                 frames: 12,
                 tile_size: (30.0, 38.0),
@@ -471,8 +471,8 @@ pub mod enemies {
             // RHINO
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Rhino,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Rhino,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (52.0, 34.0),
@@ -480,8 +480,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Rhino,
-                    anim_ty: AnimationType::HitWall,
+                    ty: EnemyTypes::Rhino,
+                    anim_ty: EnemyAnimationStates::HitWall,
                 },
                 frames: 4,
                 tile_size: (52.0, 34.0),
@@ -489,8 +489,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Rhino,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Rhino,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 11,
                 tile_size: (52.0, 34.0),
@@ -498,8 +498,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Rhino,
-                    anim_ty: AnimationType::Run,
+                    ty: EnemyTypes::Rhino,
+                    anim_ty: EnemyAnimationStates::Run,
                 },
                 frames: 6,
                 tile_size: (52.0, 34.0),
@@ -508,8 +508,8 @@ pub mod enemies {
             // ROCKS
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Rocks1,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Rocks1,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 1,
                 tile_size: (38.0, 34.0),
@@ -517,8 +517,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Rocks1,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Rocks1,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 14,
                 tile_size: (38.0, 34.0),
@@ -526,8 +526,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Rocks1,
-                    anim_ty: AnimationType::Run,
+                    ty: EnemyTypes::Rocks1,
+                    anim_ty: EnemyAnimationStates::Run,
                 },
                 frames: 14,
                 tile_size: (38.0, 34.0),
@@ -535,8 +535,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Rocks2,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Rocks2,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 1,
                 tile_size: (32.0, 28.0),
@@ -544,8 +544,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Rocks2,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Rocks2,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 13,
                 tile_size: (32.0, 28.0),
@@ -553,8 +553,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Rocks2,
-                    anim_ty: AnimationType::Run,
+                    ty: EnemyTypes::Rocks2,
+                    anim_ty: EnemyAnimationStates::Run,
                 },
                 frames: 14,
                 tile_size: (32.0, 28.0),
@@ -562,8 +562,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Rocks3,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Rocks3,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (22.0, 18.0),
@@ -571,8 +571,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Rocks3,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Rocks3,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 11,
                 tile_size: (22.0, 18.0),
@@ -580,8 +580,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Rocks3,
-                    anim_ty: AnimationType::Run,
+                    ty: EnemyTypes::Rocks3,
+                    anim_ty: EnemyAnimationStates::Run,
                 },
                 frames: 14,
                 tile_size: (22.0, 18.0),
@@ -590,8 +590,8 @@ pub mod enemies {
             // SKULL
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Skull,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Skull,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (52.0, 54.0),
@@ -599,8 +599,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Skull,
-                    anim_ty: AnimationType::HitWall,
+                    ty: EnemyTypes::Skull,
+                    anim_ty: EnemyAnimationStates::HitWall,
                 },
                 frames: 7,
                 tile_size: (52.0, 54.0),
@@ -608,8 +608,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Skull,
-                    anim_ty: AnimationType::HitWall2,
+                    ty: EnemyTypes::Skull,
+                    anim_ty: EnemyAnimationStates::HitWall2,
                 },
                 frames: 7,
                 tile_size: (52.0, 54.0),
@@ -617,8 +617,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Skull,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Skull,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 8,
                 tile_size: (52.0, 54.0),
@@ -626,8 +626,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Skull,
-                    anim_ty: AnimationType::Idle2,
+                    ty: EnemyTypes::Skull,
+                    anim_ty: EnemyAnimationStates::Idle2,
                 },
                 frames: 8,
                 tile_size: (52.0, 54.0),
@@ -636,8 +636,8 @@ pub mod enemies {
             // SLIME
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Slime,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Slime,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (44.0, 30.0),
@@ -645,8 +645,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Slime,
-                    anim_ty: AnimationType::IdleRun,
+                    ty: EnemyTypes::Slime,
+                    anim_ty: EnemyAnimationStates::IdleRun,
                 },
                 frames: 10,
                 tile_size: (44.0, 30.0),
@@ -655,8 +655,8 @@ pub mod enemies {
             // SNAIL
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Snail,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Snail,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (38.0, 24.0),
@@ -664,8 +664,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Snail,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Snail,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 15,
                 tile_size: (38.0, 24.0),
@@ -673,8 +673,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Snail,
-                    anim_ty: AnimationType::ShellIdle,
+                    ty: EnemyTypes::Snail,
+                    anim_ty: EnemyAnimationStates::ShellIdle,
                 },
                 frames: 6,
                 tile_size: (38.0, 24.0),
@@ -682,8 +682,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Snail,
-                    anim_ty: AnimationType::ShellTopHit,
+                    ty: EnemyTypes::Snail,
+                    anim_ty: EnemyAnimationStates::ShellTopHit,
                 },
                 frames: 5,
                 tile_size: (38.0, 24.0),
@@ -691,8 +691,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Snail,
-                    anim_ty: AnimationType::ShellWallHit,
+                    ty: EnemyTypes::Snail,
+                    anim_ty: EnemyAnimationStates::ShellWallHit,
                 },
                 frames: 4,
                 tile_size: (38.0, 24.0),
@@ -700,8 +700,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Snail,
-                    anim_ty: AnimationType::SnailWithoutShell,
+                    ty: EnemyTypes::Snail,
+                    anim_ty: EnemyAnimationStates::SnailWithoutShell,
                 },
                 frames: 1,
                 tile_size: (38.0, 24.0),
@@ -709,8 +709,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Snail,
-                    anim_ty: AnimationType::Walk,
+                    ty: EnemyTypes::Snail,
+                    anim_ty: EnemyAnimationStates::Walk,
                 },
                 frames: 10,
                 tile_size: (38.0, 24.0),
@@ -719,8 +719,8 @@ pub mod enemies {
             // TRUNK
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Trunk,
-                    anim_ty: AnimationType::Attack,
+                    ty: EnemyTypes::Trunk,
+                    anim_ty: EnemyAnimationStates::Attack,
                 },
                 frames: 11,
                 tile_size: (64.0, 32.0),
@@ -728,8 +728,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Trunk,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Trunk,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (64.0, 32.0),
@@ -737,8 +737,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Trunk,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Trunk,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 18,
                 tile_size: (64.0, 32.0),
@@ -746,8 +746,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Trunk,
-                    anim_ty: AnimationType::Run,
+                    ty: EnemyTypes::Trunk,
+                    anim_ty: EnemyAnimationStates::Run,
                 },
                 frames: 14,
                 tile_size: (64.0, 32.0),
@@ -756,8 +756,8 @@ pub mod enemies {
             // TURTLE
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Turtle,
-                    anim_ty: AnimationType::Hit,
+                    ty: EnemyTypes::Turtle,
+                    anim_ty: EnemyAnimationStates::Hit,
                 },
                 frames: 5,
                 tile_size: (44.0, 26.0),
@@ -765,8 +765,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Turtle,
-                    anim_ty: AnimationType::Idle,
+                    ty: EnemyTypes::Turtle,
+                    anim_ty: EnemyAnimationStates::Idle,
                 },
                 frames: 14,
                 tile_size: (44.0, 26.0),
@@ -774,8 +774,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Turtle,
-                    anim_ty: AnimationType::Idle2,
+                    ty: EnemyTypes::Turtle,
+                    anim_ty: EnemyAnimationStates::Idle2,
                 },
                 frames: 14,
                 tile_size: (44.0, 26.0),
@@ -783,8 +783,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Turtle,
-                    anim_ty: AnimationType::TurtleSpikesIn,
+                    ty: EnemyTypes::Turtle,
+                    anim_ty: EnemyAnimationStates::TurtleSpikesIn,
                 },
                 frames: 8,
                 tile_size: (44.0, 26.0),
@@ -792,8 +792,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Turtle,
-                    anim_ty: AnimationType::TurtleSpikesOut,
+                    ty: EnemyTypes::Turtle,
+                    anim_ty: EnemyAnimationStates::TurtleSpikesOut,
                 },
                 frames: 8,
                 tile_size: (44.0, 26.0),
@@ -802,8 +802,8 @@ pub mod enemies {
             // ~~ GENERIC ~~
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Generic,
-                    anim_ty: AnimationType::Bullet,
+                    ty: EnemyTypes::Generic,
+                    anim_ty: EnemyAnimationStates::Bullet,
                 },
                 frames: 1,
                 tile_size: (16.0, 16.0),
@@ -811,8 +811,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Generic,
-                    anim_ty: AnimationType::BulletPieces,
+                    ty: EnemyTypes::Generic,
+                    anim_ty: EnemyAnimationStates::BulletPieces,
                 },
                 frames: 2,
                 tile_size: (16.0, 16.0),
@@ -820,8 +820,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Generic,
-                    anim_ty: AnimationType::BulletPieces,
+                    ty: EnemyTypes::Generic,
+                    anim_ty: EnemyAnimationStates::BulletPieces,
                 },
                 frames: 2,
                 tile_size: (16.0, 16.0),
@@ -829,8 +829,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Generic,
-                    anim_ty: AnimationType::Bullet,
+                    ty: EnemyTypes::Generic,
+                    anim_ty: EnemyAnimationStates::Bullet,
                 },
                 frames: 1,
                 tile_size: (16.0, 16.0),
@@ -838,8 +838,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Generic,
-                    anim_ty: AnimationType::GhostParticles,
+                    ty: EnemyTypes::Generic,
+                    anim_ty: EnemyAnimationStates::GhostParticles,
                 },
                 frames: 1,
                 tile_size: (48.0, 16.0),
@@ -847,8 +847,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Generic,
-                    anim_ty: AnimationType::Leafs,
+                    ty: EnemyTypes::Generic,
+                    anim_ty: EnemyAnimationStates::Leafs,
                 },
                 frames: 2,
                 tile_size: (16.0, 16.0),
@@ -856,8 +856,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Generic,
-                    anim_ty: AnimationType::RedParticle,
+                    ty: EnemyTypes::Generic,
+                    anim_ty: EnemyAnimationStates::RedParticle,
                 },
                 frames: 1,
                 tile_size: (16.0, 16.0),
@@ -865,8 +865,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Generic,
-                    anim_ty: AnimationType::OrangeParticle,
+                    ty: EnemyTypes::Generic,
+                    anim_ty: EnemyAnimationStates::OrangeParticle,
                 },
                 frames: 1,
                 tile_size: (16.0, 16.0),
@@ -874,8 +874,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Generic,
-                    anim_ty: AnimationType::SlimeParticles,
+                    ty: EnemyTypes::Generic,
+                    anim_ty: EnemyAnimationStates::SlimeParticles,
                 },
                 frames: 1,
                 tile_size: (62.0, 16.0),
@@ -883,8 +883,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Generic,
-                    anim_ty: AnimationType::Bullet,
+                    ty: EnemyTypes::Generic,
+                    anim_ty: EnemyAnimationStates::Bullet,
                 },
                 frames: 1,
                 tile_size: (16.0, 16.0),
@@ -892,8 +892,8 @@ pub mod enemies {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    ty: EnemyType::Generic,
-                    anim_ty: AnimationType::BulletPieces,
+                    ty: EnemyTypes::Generic,
+                    anim_ty: EnemyAnimationStates::BulletPieces,
                 },
                 frames: 2,
                 tile_size: (16.0, 16.0),

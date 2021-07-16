@@ -36,8 +36,8 @@ pub fn setup_system(
     }
 
     let default_enemy = EntTypeKey {
-        ty: EnemyType::Turtle,
-        anim_ty: AnimationType::Idle,
+        ty: EnemyTypes::Turtle,
+        anim_ty: EnemyAnimationStates::Idle,
     };
 
     // Let's just spawn common enemy

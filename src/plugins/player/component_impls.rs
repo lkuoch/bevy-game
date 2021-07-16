@@ -1,3 +1,5 @@
+use bevy::prelude::*;
+
 use crate::{
     core::state_machine::Machine,
     plugins::{
@@ -9,140 +11,181 @@ use crate::{
         resource_manager::components::ResourceManager,
     },
 };
-use bevy::prelude::*;
 
-impl PlayerState {
-    pub fn movement_state_logic(
-        current_state: &MovementState,
-        command: &PlayerCommand,
-    ) -> Option<MovementState> {
-        match command {
-            PlayerCommand::Idle => Some(MovementState::Idle),
-            PlayerCommand::Jump => Some(MovementState::Jumping),
-            PlayerCommand::OnGround => Some(MovementState::Standing),
-            PlayerCommand::Crouch => Some(MovementState::Crouching),
-            PlayerCommand::Standup => Some(MovementState::Standing),
-            PlayerCommand::MovementComplete => Some(MovementState::Grounded),
-            PlayerCommand::Movement(dir) => match dir {
-                PlayerMovementDirection::Right => Some(MovementState::Moving(*dir)),
-                PlayerMovementDirection::Left => Some(MovementState::Moving(*dir)),
-            },
-            _ => None,
-        }
-    }
-
-    pub fn transformation_state_logic(
-        current_state: &PlayerTransformationState,
-        command: &PlayerCommand,
-    ) -> Option<PlayerTransformationState> {
-        let transform = || -> PlayerTransformationState {
-            match current_state {
-                PlayerTransformationState::MaskDude => PlayerTransformationState::NinjaFrog,
-                PlayerTransformationState::NinjaFrog => PlayerTransformationState::PinkMan,
-                PlayerTransformationState::PinkMan => PlayerTransformationState::VirtualGuy,
-                PlayerTransformationState::VirtualGuy => PlayerTransformationState::MaskDude,
-            }
-        };
-
-        match command {
-            PlayerCommand::Transform => Some(transform()),
-            _ => None,
-        }
-    }
-}
-
-impl Machine<MovementState> {
-    pub fn enqueue(&mut self, command: PlayerCommand) {
-        if let Some(new_state) = PlayerState::movement_state_logic(&self.state, &command) {
-            self.state = new_state;
-        }
-    }
-}
-
-impl Machine<PlayerTransformationState> {
-    pub fn enqueue(&mut self, command: PlayerCommand) {
-        if let Some(new_state) = PlayerState::transformation_state_logic(&self.state, &command) {
-            self.state = new_state;
-        }
-    }
-}
-
-impl Animatable<AnimationType> for PlayerState {
+impl Animatable<PlayerTypeStates, PlayerAnimationStates> for PlayerTag {
     fn get_texture_handle_from_state(
         &self,
-        handle: Handle<TextureAtlas>,
+        handle: &Handle<TextureAtlas>,
         resource_manager: &ResourceManager,
-    ) -> Option<AnimationType> {
+    ) -> Option<PlayerAnimationStates> {
         if let Some(x) = resource_manager
             .textures
             .players
-            .get(&EntSpriteKV::Handle(handle))
+            .get(&EntSpriteKV::Handle(handle.clone()))
         {
-            match x {
+            return match x {
                 EntSpriteKV::State(s) => Some(*s),
                 _ => None,
-            }
-        } else {
-            None
+            };
         }
+
+        None
     }
 
     fn get_state_from_texture_handle(
         &self,
-        state: AnimationType,
+        entity_state: &PlayerTypeStates,
+        animation_state: &PlayerAnimationStates,
         resource_manager: &ResourceManager,
     ) -> Option<Handle<TextureAtlas>> {
         if let Some(x) = resource_manager
             .textures
             .players
             .get(&EntSpriteKV::State(EntTypeKey {
-                ty: self.transformation.state,
-                anim_ty: state,
+                ty: entity_state.clone(),
+                anim_ty: animation_state.clone(),
             }))
         {
-            match x {
+            return match x {
                 EntSpriteKV::Handle(h) => Some(h.clone()),
                 _ => None,
-            }
+            };
         } else {
             None
         }
     }
 }
 
-impl Default for Machine<MovementState> {
-    fn default() -> Self {
-        Self {
-            state: MovementState::Idle,
+impl PlayerMovementState {
+    pub fn get(&self) -> PlayerMovementStates {
+        self.machine.state
+    }
+
+    pub fn enqueue(&mut self, command: PlayerCommands) {
+        if let Some(new_state) =
+            PlayerMovementState::movement_state_logic(&self.machine.state, &command)
+        {
+            self.machine.state = new_state;
+        }
+    }
+
+    fn movement_state_logic(
+        current_state: &PlayerMovementStates,
+        command: &PlayerCommands,
+    ) -> Option<PlayerMovementStates> {
+        match command {
+            PlayerCommands::Idle => Some(PlayerMovementStates::Idle),
+            PlayerCommands::Jump => Some(PlayerMovementStates::Jumping),
+            PlayerCommands::OnGround => Some(PlayerMovementStates::Standing),
+            PlayerCommands::Crouch => Some(PlayerMovementStates::Crouching),
+            PlayerCommands::Standup => Some(PlayerMovementStates::Standing),
+            PlayerCommands::MovementComplete => Some(PlayerMovementStates::Grounded),
+            PlayerCommands::Movement(dir) => match dir {
+                PlayerMovementDirection::Right => Some(PlayerMovementStates::Moving(*dir)),
+                PlayerMovementDirection::Left => Some(PlayerMovementStates::Moving(*dir)),
+            },
+            _ => None,
         }
     }
 }
 
-impl Default for Machine<PlayerTransformationState> {
-    fn default() -> Self {
-        Self {
-            state: PlayerTransformationState::default(),
+impl PlayerTypeState {
+    pub fn get(&self) -> PlayerTypeStates {
+        self.machine.state
+    }
+
+    pub fn enqueue(&mut self, command: PlayerCommands) {
+        if let Some(new_state) =
+            PlayerTypeState::transformation_state_logic(&self.machine.state, &command)
+        {
+            self.machine.state = new_state;
+        }
+    }
+
+    fn transformation_state_logic(
+        current_state: &PlayerTypeStates,
+        command: &PlayerCommands,
+    ) -> Option<PlayerTypeStates> {
+        let transform = || -> PlayerTypeStates {
+            match current_state {
+                PlayerTypeStates::MaskDude => PlayerTypeStates::NinjaFrog,
+                PlayerTypeStates::NinjaFrog => PlayerTypeStates::PinkMan,
+                PlayerTypeStates::PinkMan => PlayerTypeStates::VirtualGuy,
+                PlayerTypeStates::VirtualGuy => PlayerTypeStates::MaskDude,
+            }
+        };
+
+        match command {
+            PlayerCommands::Transform => Some(transform()),
+            _ => None,
         }
     }
 }
 
-impl Default for PlayerState {
-    fn default() -> Self {
-        Self {
-            movement: Machine::<MovementState>::default(),
-            transformation: Machine::<PlayerTransformationState>::default(),
+impl PlayerAnimationState {
+    pub fn get(&self) -> PlayerAnimationStates {
+        self.machine.state
+    }
+
+    pub fn get_movement_state_animation(
+        &self,
+        player_movement_state: &PlayerMovementStates,
+    ) -> PlayerAnimationStates {
+        match player_movement_state {
+            PlayerMovementStates::Idle
+            | PlayerMovementStates::Grounded
+            | PlayerMovementStates::Standing => PlayerAnimationStates::Idle,
+            PlayerMovementStates::Moving(_) => PlayerAnimationStates::Run,
+            PlayerMovementStates::Jumping => PlayerAnimationStates::DoubleJump,
+            _ => PlayerAnimationStates::Idle,
         }
     }
 }
 
-impl Default for AnimationType {
+impl Default for PlayerMovementState {
+    fn default() -> Self {
+        Self {
+            machine: Machine::<PlayerMovementStates> {
+                state: PlayerMovementStates::default(),
+            },
+        }
+    }
+}
+
+impl Default for PlayerTypeState {
+    fn default() -> Self {
+        Self {
+            machine: Machine::<PlayerTypeStates> {
+                state: PlayerTypeStates::default(),
+            },
+        }
+    }
+}
+
+impl Default for PlayerAnimationState {
+    fn default() -> Self {
+        Self {
+            machine: Machine::<PlayerAnimationStates> {
+                state: PlayerAnimationStates::default(),
+            },
+        }
+    }
+}
+
+impl Default for PlayerMovementStates {
     fn default() -> Self {
         Self::Idle
     }
 }
 
-impl Default for PlayerTransformationState {
+impl Default for PlayerTypeStates {
     fn default() -> Self {
         Self::MaskDude
+    }
+}
+
+impl Default for PlayerAnimationStates {
+    fn default() -> Self {
+        Self::Idle
     }
 }

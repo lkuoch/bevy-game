@@ -3,13 +3,13 @@ pub mod player {
 
     pub const BASE_SPEED: f32 = 250.0;
 
-    pub const PLAYER_ANIMATIONS: &[EntList<AnimationType, PlayerTransformationState>] = &[EntList {
+    pub const PLAYER_ANIMATIONS: &[EntList<PlayerAnimationStates, PlayerTypeStates>] = &[EntList {
         animation_states: &[
             // MASK DUDE
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Idle,
-                    ty: PlayerTransformationState::MaskDude,
+                    anim_ty: PlayerAnimationStates::Idle,
+                    ty: PlayerTypeStates::MaskDude,
                 },
                 frames: 11,
                 tile_size: (32.0, 32.0),
@@ -17,8 +17,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::DoubleJump,
-                    ty: PlayerTransformationState::MaskDude,
+                    anim_ty: PlayerAnimationStates::DoubleJump,
+                    ty: PlayerTypeStates::MaskDude,
                 },
                 frames: 6,
                 tile_size: (32.0, 32.0),
@@ -26,8 +26,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Fall,
-                    ty: PlayerTransformationState::MaskDude,
+                    anim_ty: PlayerAnimationStates::Fall,
+                    ty: PlayerTypeStates::MaskDude,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -35,8 +35,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Hit,
-                    ty: PlayerTransformationState::MaskDude,
+                    anim_ty: PlayerAnimationStates::Hit,
+                    ty: PlayerTypeStates::MaskDude,
                 },
                 frames: 7,
                 tile_size: (32.0, 32.0),
@@ -44,8 +44,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Jump,
-                    ty: PlayerTransformationState::MaskDude,
+                    anim_ty: PlayerAnimationStates::Jump,
+                    ty: PlayerTypeStates::MaskDude,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -53,8 +53,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Jump,
-                    ty: PlayerTransformationState::MaskDude,
+                    anim_ty: PlayerAnimationStates::Jump,
+                    ty: PlayerTypeStates::MaskDude,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -62,8 +62,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Run,
-                    ty: PlayerTransformationState::MaskDude,
+                    anim_ty: PlayerAnimationStates::Run,
+                    ty: PlayerTypeStates::MaskDude,
                 },
                 frames: 12,
                 tile_size: (32.0, 32.0),
@@ -71,8 +71,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::WallJump,
-                    ty: PlayerTransformationState::MaskDude,
+                    anim_ty: PlayerAnimationStates::WallJump,
+                    ty: PlayerTypeStates::MaskDude,
                 },
                 frames: 5,
                 tile_size: (32.0, 32.0),
@@ -81,8 +81,8 @@ pub mod player {
             // NINJA FROG
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Idle,
-                    ty: PlayerTransformationState::NinjaFrog,
+                    anim_ty: PlayerAnimationStates::Idle,
+                    ty: PlayerTypeStates::NinjaFrog,
                 },
                 frames: 11,
                 tile_size: (32.0, 32.0),
@@ -90,8 +90,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::DoubleJump,
-                    ty: PlayerTransformationState::NinjaFrog,
+                    anim_ty: PlayerAnimationStates::DoubleJump,
+                    ty: PlayerTypeStates::NinjaFrog,
                 },
                 frames: 6,
                 tile_size: (32.0, 32.0),
@@ -99,8 +99,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Fall,
-                    ty: PlayerTransformationState::NinjaFrog,
+                    anim_ty: PlayerAnimationStates::Fall,
+                    ty: PlayerTypeStates::NinjaFrog,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -108,8 +108,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Hit,
-                    ty: PlayerTransformationState::NinjaFrog,
+                    anim_ty: PlayerAnimationStates::Hit,
+                    ty: PlayerTypeStates::NinjaFrog,
                 },
                 frames: 7,
                 tile_size: (32.0, 32.0),
@@ -117,8 +117,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Jump,
-                    ty: PlayerTransformationState::NinjaFrog,
+                    anim_ty: PlayerAnimationStates::Jump,
+                    ty: PlayerTypeStates::NinjaFrog,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -126,8 +126,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Jump,
-                    ty: PlayerTransformationState::NinjaFrog,
+                    anim_ty: PlayerAnimationStates::Jump,
+                    ty: PlayerTypeStates::NinjaFrog,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -135,8 +135,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Run,
-                    ty: PlayerTransformationState::NinjaFrog,
+                    anim_ty: PlayerAnimationStates::Run,
+                    ty: PlayerTypeStates::NinjaFrog,
                 },
                 frames: 12,
                 tile_size: (32.0, 32.0),
@@ -144,8 +144,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::WallJump,
-                    ty: PlayerTransformationState::NinjaFrog,
+                    anim_ty: PlayerAnimationStates::WallJump,
+                    ty: PlayerTypeStates::NinjaFrog,
                 },
                 frames: 5,
                 tile_size: (32.0, 32.0),
@@ -154,8 +154,8 @@ pub mod player {
             // NINJA FROG
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Idle,
-                    ty: PlayerTransformationState::NinjaFrog,
+                    anim_ty: PlayerAnimationStates::Idle,
+                    ty: PlayerTypeStates::NinjaFrog,
                 },
                 frames: 11,
                 tile_size: (32.0, 32.0),
@@ -163,8 +163,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::DoubleJump,
-                    ty: PlayerTransformationState::NinjaFrog,
+                    anim_ty: PlayerAnimationStates::DoubleJump,
+                    ty: PlayerTypeStates::NinjaFrog,
                 },
                 frames: 6,
                 tile_size: (32.0, 32.0),
@@ -172,8 +172,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Fall,
-                    ty: PlayerTransformationState::NinjaFrog,
+                    anim_ty: PlayerAnimationStates::Fall,
+                    ty: PlayerTypeStates::NinjaFrog,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -181,8 +181,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Hit,
-                    ty: PlayerTransformationState::NinjaFrog,
+                    anim_ty: PlayerAnimationStates::Hit,
+                    ty: PlayerTypeStates::NinjaFrog,
                 },
                 frames: 7,
                 tile_size: (32.0, 32.0),
@@ -190,8 +190,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Jump,
-                    ty: PlayerTransformationState::NinjaFrog,
+                    anim_ty: PlayerAnimationStates::Jump,
+                    ty: PlayerTypeStates::NinjaFrog,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -199,8 +199,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Jump,
-                    ty: PlayerTransformationState::NinjaFrog,
+                    anim_ty: PlayerAnimationStates::Jump,
+                    ty: PlayerTypeStates::NinjaFrog,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -208,8 +208,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Run,
-                    ty: PlayerTransformationState::NinjaFrog,
+                    anim_ty: PlayerAnimationStates::Run,
+                    ty: PlayerTypeStates::NinjaFrog,
                 },
                 frames: 12,
                 tile_size: (32.0, 32.0),
@@ -217,8 +217,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::WallJump,
-                    ty: PlayerTransformationState::NinjaFrog,
+                    anim_ty: PlayerAnimationStates::WallJump,
+                    ty: PlayerTypeStates::NinjaFrog,
                 },
                 frames: 5,
                 tile_size: (32.0, 32.0),
@@ -227,8 +227,8 @@ pub mod player {
             // PINK MAN
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Idle,
-                    ty: PlayerTransformationState::PinkMan,
+                    anim_ty: PlayerAnimationStates::Idle,
+                    ty: PlayerTypeStates::PinkMan,
                 },
                 frames: 11,
                 tile_size: (32.0, 32.0),
@@ -236,8 +236,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::DoubleJump,
-                    ty: PlayerTransformationState::PinkMan,
+                    anim_ty: PlayerAnimationStates::DoubleJump,
+                    ty: PlayerTypeStates::PinkMan,
                 },
                 frames: 6,
                 tile_size: (32.0, 32.0),
@@ -245,8 +245,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Fall,
-                    ty: PlayerTransformationState::PinkMan,
+                    anim_ty: PlayerAnimationStates::Fall,
+                    ty: PlayerTypeStates::PinkMan,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -254,8 +254,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Hit,
-                    ty: PlayerTransformationState::PinkMan,
+                    anim_ty: PlayerAnimationStates::Hit,
+                    ty: PlayerTypeStates::PinkMan,
                 },
                 frames: 7,
                 tile_size: (32.0, 32.0),
@@ -263,8 +263,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Jump,
-                    ty: PlayerTransformationState::PinkMan,
+                    anim_ty: PlayerAnimationStates::Jump,
+                    ty: PlayerTypeStates::PinkMan,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -272,8 +272,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Jump,
-                    ty: PlayerTransformationState::PinkMan,
+                    anim_ty: PlayerAnimationStates::Jump,
+                    ty: PlayerTypeStates::PinkMan,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -281,8 +281,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Run,
-                    ty: PlayerTransformationState::PinkMan,
+                    anim_ty: PlayerAnimationStates::Run,
+                    ty: PlayerTypeStates::PinkMan,
                 },
                 frames: 12,
                 tile_size: (32.0, 32.0),
@@ -290,8 +290,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::WallJump,
-                    ty: PlayerTransformationState::PinkMan,
+                    anim_ty: PlayerAnimationStates::WallJump,
+                    ty: PlayerTypeStates::PinkMan,
                 },
                 frames: 5,
                 tile_size: (32.0, 32.0),
@@ -300,8 +300,8 @@ pub mod player {
             // Pink Man
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Idle,
-                    ty: PlayerTransformationState::PinkMan,
+                    anim_ty: PlayerAnimationStates::Idle,
+                    ty: PlayerTypeStates::PinkMan,
                 },
                 frames: 11,
                 tile_size: (32.0, 32.0),
@@ -309,8 +309,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::DoubleJump,
-                    ty: PlayerTransformationState::PinkMan,
+                    anim_ty: PlayerAnimationStates::DoubleJump,
+                    ty: PlayerTypeStates::PinkMan,
                 },
                 frames: 6,
                 tile_size: (32.0, 32.0),
@@ -318,8 +318,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Fall,
-                    ty: PlayerTransformationState::PinkMan,
+                    anim_ty: PlayerAnimationStates::Fall,
+                    ty: PlayerTypeStates::PinkMan,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -327,8 +327,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Hit,
-                    ty: PlayerTransformationState::PinkMan,
+                    anim_ty: PlayerAnimationStates::Hit,
+                    ty: PlayerTypeStates::PinkMan,
                 },
                 frames: 7,
                 tile_size: (32.0, 32.0),
@@ -336,8 +336,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Jump,
-                    ty: PlayerTransformationState::PinkMan,
+                    anim_ty: PlayerAnimationStates::Jump,
+                    ty: PlayerTypeStates::PinkMan,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -345,8 +345,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Jump,
-                    ty: PlayerTransformationState::PinkMan,
+                    anim_ty: PlayerAnimationStates::Jump,
+                    ty: PlayerTypeStates::PinkMan,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -354,8 +354,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Run,
-                    ty: PlayerTransformationState::PinkMan,
+                    anim_ty: PlayerAnimationStates::Run,
+                    ty: PlayerTypeStates::PinkMan,
                 },
                 frames: 12,
                 tile_size: (32.0, 32.0),
@@ -363,8 +363,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::WallJump,
-                    ty: PlayerTransformationState::PinkMan,
+                    anim_ty: PlayerAnimationStates::WallJump,
+                    ty: PlayerTypeStates::PinkMan,
                 },
                 frames: 5,
                 tile_size: (32.0, 32.0),
@@ -373,8 +373,8 @@ pub mod player {
             // VIRTUAL GUY
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Idle,
-                    ty: PlayerTransformationState::VirtualGuy,
+                    anim_ty: PlayerAnimationStates::Idle,
+                    ty: PlayerTypeStates::VirtualGuy,
                 },
                 frames: 11,
                 tile_size: (32.0, 32.0),
@@ -382,8 +382,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::DoubleJump,
-                    ty: PlayerTransformationState::VirtualGuy,
+                    anim_ty: PlayerAnimationStates::DoubleJump,
+                    ty: PlayerTypeStates::VirtualGuy,
                 },
                 frames: 6,
                 tile_size: (32.0, 32.0),
@@ -391,8 +391,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Fall,
-                    ty: PlayerTransformationState::VirtualGuy,
+                    anim_ty: PlayerAnimationStates::Fall,
+                    ty: PlayerTypeStates::VirtualGuy,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -400,8 +400,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Hit,
-                    ty: PlayerTransformationState::VirtualGuy,
+                    anim_ty: PlayerAnimationStates::Hit,
+                    ty: PlayerTypeStates::VirtualGuy,
                 },
                 frames: 7,
                 tile_size: (32.0, 32.0),
@@ -409,8 +409,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Jump,
-                    ty: PlayerTransformationState::VirtualGuy,
+                    anim_ty: PlayerAnimationStates::Jump,
+                    ty: PlayerTypeStates::VirtualGuy,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -418,8 +418,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Jump,
-                    ty: PlayerTransformationState::VirtualGuy,
+                    anim_ty: PlayerAnimationStates::Jump,
+                    ty: PlayerTypeStates::VirtualGuy,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -427,8 +427,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Run,
-                    ty: PlayerTransformationState::VirtualGuy,
+                    anim_ty: PlayerAnimationStates::Run,
+                    ty: PlayerTypeStates::VirtualGuy,
                 },
                 frames: 12,
                 tile_size: (32.0, 32.0),
@@ -436,8 +436,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::WallJump,
-                    ty: PlayerTransformationState::VirtualGuy,
+                    anim_ty: PlayerAnimationStates::WallJump,
+                    ty: PlayerTypeStates::VirtualGuy,
                 },
                 frames: 5,
                 tile_size: (32.0, 32.0),
@@ -446,8 +446,8 @@ pub mod player {
             // Virtual Guy
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Idle,
-                    ty: PlayerTransformationState::VirtualGuy,
+                    anim_ty: PlayerAnimationStates::Idle,
+                    ty: PlayerTypeStates::VirtualGuy,
                 },
                 frames: 11,
                 tile_size: (32.0, 32.0),
@@ -455,8 +455,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::DoubleJump,
-                    ty: PlayerTransformationState::VirtualGuy,
+                    anim_ty: PlayerAnimationStates::DoubleJump,
+                    ty: PlayerTypeStates::VirtualGuy,
                 },
                 frames: 6,
                 tile_size: (32.0, 32.0),
@@ -464,8 +464,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Fall,
-                    ty: PlayerTransformationState::VirtualGuy,
+                    anim_ty: PlayerAnimationStates::Fall,
+                    ty: PlayerTypeStates::VirtualGuy,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -473,8 +473,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Hit,
-                    ty: PlayerTransformationState::VirtualGuy,
+                    anim_ty: PlayerAnimationStates::Hit,
+                    ty: PlayerTypeStates::VirtualGuy,
                 },
                 frames: 7,
                 tile_size: (32.0, 32.0),
@@ -482,8 +482,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Jump,
-                    ty: PlayerTransformationState::VirtualGuy,
+                    anim_ty: PlayerAnimationStates::Jump,
+                    ty: PlayerTypeStates::VirtualGuy,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -491,8 +491,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Jump,
-                    ty: PlayerTransformationState::VirtualGuy,
+                    anim_ty: PlayerAnimationStates::Jump,
+                    ty: PlayerTypeStates::VirtualGuy,
                 },
                 frames: 1,
                 tile_size: (32.0, 32.0),
@@ -500,8 +500,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::Run,
-                    ty: PlayerTransformationState::VirtualGuy,
+                    anim_ty: PlayerAnimationStates::Run,
+                    ty: PlayerTypeStates::VirtualGuy,
                 },
                 frames: 12,
                 tile_size: (32.0, 32.0),
@@ -509,8 +509,8 @@ pub mod player {
             },
             AnimationState {
                 kv: EntTypeKey {
-                    anim_ty: AnimationType::WallJump,
-                    ty: PlayerTransformationState::VirtualGuy,
+                    anim_ty: PlayerAnimationStates::WallJump,
+                    ty: PlayerTypeStates::VirtualGuy,
                 },
                 frames: 5,
                 tile_size: (32.0, 32.0),

@@ -5,7 +5,7 @@ use crate::plugins::{
 use bevy::prelude::*;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub enum EnemyType {
+pub enum EnemyTypes {
     AngryPig,
     Bat,
     Bee,
@@ -32,7 +32,7 @@ pub enum EnemyType {
 }
 
 #[derive(Debug, PartialEq, Eq, Hash, Copy, Clone)]
-pub enum AnimationType {
+pub enum EnemyAnimationStates {
     Appear,
     Attack,
     Bullet,
@@ -69,52 +69,53 @@ pub enum AnimationType {
 
 #[derive(Debug, Copy, Clone)]
 pub struct EnemyTag {
-    pub current_sprite: EnemyType,
+    pub current_sprite: EnemyTypes,
 }
 
 #[derive(Debug, Clone)]
 pub struct Enemies {}
 
-impl Animatable<AnimationType> for EnemyTag {
+impl Animatable<EnemyTypes, EnemyAnimationStates> for EnemyTag {
     fn get_texture_handle_from_state(
         &self,
-        handle: Handle<TextureAtlas>,
+        handle: &Handle<TextureAtlas>,
         resource_manager: &ResourceManager,
-    ) -> Option<AnimationType> {
+    ) -> Option<EnemyAnimationStates> {
         if let Some(x) = resource_manager
             .textures
             .enemies
-            .get(&EntSpriteKV::Handle(handle))
+            .get(&EntSpriteKV::Handle(handle.clone()))
         {
-            match x {
+            return match x {
                 EntSpriteKV::State(s) => Some(*s),
                 _ => None,
-            }
-        } else {
-            None
+            };
         }
+
+        None
     }
 
     fn get_state_from_texture_handle(
         &self,
-        state: AnimationType,
+        entity_state: &EnemyTypes,
+        animation_state: &EnemyAnimationStates,
         resource_manager: &ResourceManager,
     ) -> Option<Handle<TextureAtlas>> {
         if let Some(x) = resource_manager
             .textures
             .enemies
             .get(&EntSpriteKV::State(EntTypeKey {
-                ty: self.current_sprite,
-                anim_ty: state,
+                ty: entity_state.clone(),
+                anim_ty: animation_state.clone(),
             }))
         {
-            match x {
+            return match x {
                 EntSpriteKV::Handle(h) => Some(h.clone()),
                 _ => None,
-            }
-        } else {
-            None
+            };
         }
+
+        None
     }
 }
 
