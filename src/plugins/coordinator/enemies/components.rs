@@ -1,11 +1,22 @@
-use crate::plugins::{
-    animation::{components::*, traits::*},
-    resource_manager::components::ResourceManager,
+use crate::{
+    core::state_machine::Machine,
+    plugins::{
+        animation::{components::*, traits::*},
+        resource_manager::components::ResourceManager,
+    },
 };
 use bevy::prelude::*;
 
+#[derive(Debug)]
+pub struct EnemyTag;
+
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub struct EnemyTypeState {
+    pub machine: Machine<EnemyTypeStates>,
+}
+
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub enum EnemyTypes {
+pub enum EnemyTypeStates {
     AngryPig,
     Bat,
     Bee,
@@ -65,62 +76,4 @@ pub enum EnemyAnimationStates {
     OrangeParticle,
     Run,
     Walk,
-}
-
-#[derive(Debug, Copy, Clone)]
-pub struct EnemyTag {
-    pub current_sprite: EnemyTypes,
-}
-
-#[derive(Debug, Clone)]
-pub struct Enemies {}
-
-impl Animatable<EnemyTypes, EnemyAnimationStates> for EnemyTag {
-    fn get_texture_handle_from_state(
-        &self,
-        handle: &Handle<TextureAtlas>,
-        resource_manager: &ResourceManager,
-    ) -> Option<EnemyAnimationStates> {
-        if let Some(x) = resource_manager
-            .textures
-            .enemies
-            .get(&EntSpriteKV::Handle(handle.clone()))
-        {
-            return match x {
-                EntSpriteKV::State(s) => Some(*s),
-                _ => None,
-            };
-        }
-
-        None
-    }
-
-    fn get_state_from_texture_handle(
-        &self,
-        entity_state: &EnemyTypes,
-        animation_state: &EnemyAnimationStates,
-        resource_manager: &ResourceManager,
-    ) -> Option<Handle<TextureAtlas>> {
-        if let Some(x) = resource_manager
-            .textures
-            .enemies
-            .get(&EntSpriteKV::State(EntTypeKey {
-                ty: entity_state.clone(),
-                anim_ty: animation_state.clone(),
-            }))
-        {
-            return match x {
-                EntSpriteKV::Handle(h) => Some(h.clone()),
-                _ => None,
-            };
-        }
-
-        None
-    }
-}
-
-impl Default for Enemies {
-    fn default() -> Self {
-        Self {}
-    }
 }

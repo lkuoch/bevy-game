@@ -118,7 +118,7 @@ pub fn player_type_state_system(
     mut query: Query<(&PlayerTag, &mut Handle<TextureAtlas>), Changed<PlayerTypeState>>,
 ) {
     query.for_each_mut(|(_, mut texture_handle)| {
-        if let Some(EntSpriteKV::Handle(mask_dude_texture_handle)) = resource_manager
+        if let Some(EntSpriteKV::Handle(curr_texture_handle)) = resource_manager
             .textures
             .players
             .get(&EntSpriteKV::State(EntTypeKey {
@@ -126,7 +126,7 @@ pub fn player_type_state_system(
                 anim_ty: PlayerAnimationStates::Idle,
             }))
         {
-            *texture_handle = mask_dude_texture_handle.clone();
+            *texture_handle = curr_texture_handle.clone();
         }
     });
 }
@@ -139,13 +139,15 @@ pub fn change_animation_system(
     mut query: Query<(&PlayerTag, &mut Handle<TextureAtlas>)>,
 ) {
     query.for_each_mut(|(player_tag, mut texture)| {
+        let entity_state = &player_type_state.get();
+
         *texture = player_tag
             .get_state_from_texture_handle(
-                &player_type_state.get(),
+                entity_state,
                 &player_animation_state.get_movement_state_animation(&player_movement_state.get()),
                 &resource_manager,
             )
-            .expect("Missing animation");
+            .expect(&format!("Missing animation {entity_state:?}"));
     });
 }
 

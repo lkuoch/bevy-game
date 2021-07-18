@@ -32,7 +32,7 @@ pub enum PlayerMovementStates {
     Moving(PlayerMovementDirection),
 }
 
-// Tracks transformations
+// Tracks player types
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct PlayerTypeState {
     pub machine: Machine<PlayerTypeStates>,

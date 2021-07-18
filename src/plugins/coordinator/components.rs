@@ -1,3 +1,11 @@
+use super::EnemyTypeStates;
+
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub enum CoordinatorCommands {
+    EnemyTransform(EnemyTypeStates),
+}
+
+// TODO: Move this into respective dirss
 #[derive(Debug, Clone, Copy, PartialEq, Hash)]
 pub enum ItemsType {
     Boxes,

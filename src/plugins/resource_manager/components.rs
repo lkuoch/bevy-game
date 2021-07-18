@@ -3,7 +3,7 @@ use std::collections::HashMap;
 
 use crate::plugins::{
     animation::components::{EntSpriteKV, EntTypeKey},
-    coordinator::{EnemyAnimationStates, EnemyTypes},
+    coordinator::{EnemyAnimationStates, EnemyTypeStates},
     player::components::{PlayerAnimationStates, PlayerTypeStates},
 };
 
@@ -19,7 +19,7 @@ pub struct ResourceManager {
 #[derive(Debug, Clone)]
 pub struct Textures {
     pub players: SpriteMap<PlayerAnimationStates, PlayerTypeStates>,
-    pub enemies: SpriteMap<EnemyAnimationStates, EnemyTypes>,
+    pub enemies: SpriteMap<EnemyAnimationStates, EnemyTypeStates>,
 }
 
 impl Default for ResourceManager {
