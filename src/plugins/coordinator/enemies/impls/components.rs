@@ -12,7 +12,7 @@ use crate::{
     },
 };
 
-impl Animatable<EnemyTypeStates, EnemyAnimationStates> for EnemyTag {
+impl Animatable<EnemyTypeStates, EnemyAnimationStates> for FromEnemy {
     fn get_texture_handle_from_state(
         &self,
         handle: &Handle<TextureAtlas>,

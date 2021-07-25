@@ -12,7 +12,7 @@ use crate::{
     },
 };
 
-impl Animatable<PlayerTypeStates, PlayerAnimationStates> for PlayerTag {
+impl Animatable<PlayerTypeStates, PlayerAnimationStates> for FromPlayer {
     fn get_texture_handle_from_state(
         &self,
         handle: &Handle<TextureAtlas>,

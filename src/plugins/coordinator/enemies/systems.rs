@@ -57,7 +57,7 @@ pub fn setup_system(
                     .mul_transform(Transform::from_scale(Vec3::splat(2.))),
                 ..Default::default()
             })
-            .insert(EnemyTag)
+            .insert(FromEnemy)
             .insert(EnemyTypeState::default())
             .insert(AnimatableTag)
             .insert(Timer::from_seconds(0.1, true));
@@ -83,12 +83,12 @@ pub fn handle_input_event_system(
 
 pub fn change_animation_system(
     resource_manager: Res<ResourceManager>,
-    mut query: Query<(&EnemyTag, &EnemyTypeState, &mut Handle<TextureAtlas>)>,
+    mut query: Query<(&FromEnemy, &EnemyTypeState, &mut Handle<TextureAtlas>)>,
 ) {
-    query.for_each_mut(|(enemy_tag, enemy_type_state, mut texture)| {
+    query.for_each_mut(|(from_enemy, enemy_type_state, mut texture)| {
         let entity_state = &enemy_type_state.get();
 
-        *texture = enemy_tag
+        *texture = from_enemy
             .get_state_from_texture_handle(
                 entity_state,
                 &EnemyTypeStates::get_default_animation(entity_state),

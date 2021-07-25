@@ -1,7 +1,6 @@
 use crate::core::state_machine::Machine;
 
-#[derive(Debug)]
-pub struct PlayerTag;
+pub struct FromPlayer;
 
 // Possible player state machine commands
 #[derive(Debug, Copy, Clone, PartialEq)]

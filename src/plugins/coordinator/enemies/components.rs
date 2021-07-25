@@ -7,8 +7,7 @@ use crate::{
 };
 use bevy::prelude::*;
 
-#[derive(Debug)]
-pub struct EnemyTag;
+pub struct FromEnemy;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct EnemyTypeState {
