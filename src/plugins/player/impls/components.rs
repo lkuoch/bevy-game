@@ -12,7 +12,7 @@ use crate::{
     },
 };
 
-impl Animatable<PlayerTypeStates, PlayerAnimationStates> for FromPlayer {
+impl Animatable<PlayerTypeStates, PlayerAnimationStates> for IsPlayer {
     fn get_texture_handle_from_state(
         &self,
         handle: &Handle<TextureAtlas>,
@@ -70,7 +70,7 @@ impl PlayerMovementState {
     }
 
     fn movement_state_logic(
-        current_state: &PlayerMovementStates,
+        _current_state: &PlayerMovementStates,
         command: &PlayerCommands,
     ) -> Option<PlayerMovementStates> {
         match command {

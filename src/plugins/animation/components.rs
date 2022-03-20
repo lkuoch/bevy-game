@@ -31,4 +31,5 @@ pub enum AnimEvent<T> {
     Finish(T),
 }
 
-pub struct AnimatableTag;
+#[derive(Component)]
+pub struct WithAnimation;

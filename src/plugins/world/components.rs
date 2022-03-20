@@ -1,3 +1,6 @@
+use bevy::prelude::*;
+
+#[derive(Component)]
 pub enum Collider {
     // Player in front
     NoneBackground,
@@ -10,7 +13,7 @@ pub enum Collider {
     Ground,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Hash)]
+#[derive(Component, Clone, Copy, Debug, PartialEq, Hash)]
 pub enum BackgroundType {
     Blue,
     Brown,

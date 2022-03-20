@@ -1,8 +1,9 @@
 pub mod enemies {
     use crate::{coordinator::enemies::components::*, plugins::animation::components::*};
 
-    pub const BASE_SPEED: f32 = 200.0;
+    // pub const BASE_SPEED: f32 = 200.0;
 
+    // DO THIS WITHOUT HARDCODING :(
     pub const ENEMY_ANIMATIONS: &[EntList<EnemyAnimationStates, EnemyTypeStates>] = &[EntList {
         animation_states: &[
             // ANGRY PIG

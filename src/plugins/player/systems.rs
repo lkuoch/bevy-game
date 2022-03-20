@@ -17,7 +17,7 @@ pub fn setup_system(
         for anim in player.animation_states.iter() {
             let path = format!("{}{}", player.root_path.to_owned(), anim.path.to_owned());
 
-            let texture_handle: Handle<Texture> = asset_server.load(&path[..]);
+            let texture_handle = asset_server.load(&path[..]);
             let handle = texture_atlases.add(TextureAtlas::from_grid(
                 texture_handle,
                 Vec2::new(anim.tile_size.0, anim.tile_size.1),
@@ -43,8 +43,8 @@ pub fn setup_system(
                         transform: Transform::from_scale(Vec3::splat(2.5)),
                         ..Default::default()
                     })
-                    .insert(FromPlayer)
-                    .insert(AnimatableTag)
+                    .insert(IsPlayer)
+                    .insert(WithAnimation)
                     .insert(Timer::from_seconds(0.1, true));
             }
         }
@@ -92,9 +92,9 @@ pub fn handle_input_event_system(
 pub fn player_movement_state_system(
     time: Res<Time>,
     player_movement_state: Res<PlayerMovementState>,
-    mut query: Query<&mut Transform, With<FromPlayer>>,
+    mut query: Query<&mut Transform, With<IsPlayer>>,
 ) {
-    query.for_each_mut(|(mut transform)| {
+    query.for_each_mut(|mut transform| {
         if let PlayerMovementStates::Moving(direction) = player_movement_state.get() {
             let dir = match direction {
                 PlayerMovementDirection::Left => {
@@ -115,7 +115,7 @@ pub fn player_movement_state_system(
 pub fn player_type_state_system(
     resource_manager: Res<ResourceManager>,
     player_type_state: Res<PlayerTypeState>,
-    mut query: Query<&mut Handle<TextureAtlas>, (With<FromPlayer>, Changed<PlayerTypeState>)>,
+    mut query: Query<&mut Handle<TextureAtlas>, (With<IsPlayer>, Changed<PlayerTypeState>)>,
 ) {
     query.for_each_mut(|mut texture_handle| {
         if let Some(EntSpriteKV::Handle(curr_texture_handle)) = resource_manager
@@ -136,7 +136,7 @@ pub fn change_animation_system(
     player_movement_state: Res<PlayerMovementState>,
     player_animation_state: Res<PlayerAnimationState>,
     resource_manager: Res<ResourceManager>,
-    mut query: Query<(&FromPlayer, &mut Handle<TextureAtlas>)>,
+    mut query: Query<(&IsPlayer, &mut Handle<TextureAtlas>)>,
 ) {
     query.for_each_mut(|(from_player, mut texture)| {
         let entity_state = &player_type_state.get();
@@ -153,7 +153,7 @@ pub fn change_animation_system(
 
 pub fn animation_lifecycle_system(
     resource_manager: Res<ResourceManager>,
-    query: Query<&FromPlayer>,
+    query: Query<&IsPlayer>,
     mut events: EventReader<AnimEvent<Handle<TextureAtlas>>>,
     mut player_movement_state: ResMut<PlayerMovementState>,
 ) {

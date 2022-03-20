@@ -3,7 +3,7 @@ use bevy::prelude::*;
 
 pub struct ResourceManagerPlugin;
 impl Plugin for ResourceManagerPlugin {
-    fn build(&self, app: &mut AppBuilder) {
+    fn build(&self, app: &mut App) {
         app.insert_resource(ResourceManager::default());
     }
 }

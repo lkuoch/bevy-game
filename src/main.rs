@@ -1,5 +1,4 @@
-#![feature(format_args_capture)]
-
+#![allow(dead_code)]
 mod core;
 mod plugins;
 
@@ -9,7 +8,7 @@ use crate::plugins::{
 use bevy::prelude::*;
 
 fn main() {
-    App::build()
+    App::new()
         .add_plugins(DefaultPlugins)
         .add_plugin(debug::DebugPlugin)
         .add_plugin(resource_manager::ResourceManagerPlugin)

@@ -1,15 +1,11 @@
-use crate::{
-    core::state_machine::Machine,
-    plugins::{
-        animation::{components::*, traits::*},
-        resource_manager::components::ResourceManager,
-    },
-};
 use bevy::prelude::*;
 
-pub struct FromEnemy;
+use crate::core::state_machine::Machine;
 
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Component)]
+pub struct IsEnemy;
+
+#[derive(Component, Copy, Clone, Debug, PartialEq)]
 pub struct EnemyTypeState {
     pub machine: Machine<EnemyTypeStates>,
 }

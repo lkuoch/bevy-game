@@ -18,8 +18,9 @@ pub fn setup_system(
     for enemy in enemies::ENEMY_ANIMATIONS.iter() {
         for anim in enemy.animation_states.iter() {
             let path = format!("{}{}", enemy.root_path.to_owned(), anim.path.to_owned());
+            dbg!(&path);
 
-            let texture_handle: Handle<Texture> = asset_server.load(&path[..]);
+            let texture_handle = asset_server.load(&path[..]);
             let handle = texture_atlases.add(TextureAtlas::from_grid(
                 texture_handle,
                 Vec2::new(anim.tile_size.0, anim.tile_size.1),
@@ -57,9 +58,9 @@ pub fn setup_system(
                     .mul_transform(Transform::from_scale(Vec3::splat(2.))),
                 ..Default::default()
             })
-            .insert(FromEnemy)
+            .insert(IsEnemy)
             .insert(EnemyTypeState::default())
-            .insert(AnimatableTag)
+            .insert(WithAnimation)
             .insert(Timer::from_seconds(0.1, true));
     }
 }
@@ -70,12 +71,12 @@ pub fn handle_input_event_system(
 ) {
     for event in event_reader.iter() {
         if let Some(key) = event.pressed {
-            if let Ok(mut enemy_type_state) = query.single_mut() {
-                match key {
-                    KeyCode::R => enemy_type_state
-                        .enqueue(CoordinatorCommands::EnemyTransform(EnemyTypeStates::Bat)),
-                    _ => {}
-                }
+            let mut enemy_type_state = query.single_mut();
+
+            match key {
+                KeyCode::R => enemy_type_state
+                    .enqueue(CoordinatorCommands::EnemyTransform(EnemyTypeStates::Bat)),
+                _ => {}
             }
         }
     }
@@ -83,7 +84,7 @@ pub fn handle_input_event_system(
 
 pub fn change_animation_system(
     resource_manager: Res<ResourceManager>,
-    mut query: Query<(&FromEnemy, &EnemyTypeState, &mut Handle<TextureAtlas>)>,
+    mut query: Query<(&IsEnemy, &EnemyTypeState, &mut Handle<TextureAtlas>)>,
 ) {
     query.for_each_mut(|(from_enemy, enemy_type_state, mut texture)| {
         let entity_state = &enemy_type_state.get();

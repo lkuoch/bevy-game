@@ -1,6 +1,9 @@
+use bevy::prelude::*;
+
 use crate::core::state_machine::Machine;
 
-pub struct FromPlayer;
+#[derive(Component)]
+pub struct IsPlayer;
 
 // Possible player state machine commands
 #[derive(Debug, Copy, Clone, PartialEq)]
@@ -16,12 +19,12 @@ pub enum PlayerCommands {
 }
 
 // Tracks movement
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub struct PlayerMovementState {
     pub machine: Machine<PlayerMovementStates>,
 }
 
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum PlayerMovementStates {
     Idle,
     Jumping,
@@ -32,12 +35,12 @@ pub enum PlayerMovementStates {
 }
 
 // Tracks player types
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Clone, Component, Copy, Debug, PartialEq)]
 pub struct PlayerTypeState {
     pub machine: Machine<PlayerTypeStates>,
 }
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+#[derive(Clone, Component, Copy, Debug, Eq, Hash, PartialEq)]
 pub enum PlayerTypeStates {
     MaskDude,
     NinjaFrog,
@@ -46,12 +49,12 @@ pub enum PlayerTypeStates {
 }
 
 // Tracks animations
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub struct PlayerAnimationState {
     pub machine: Machine<PlayerAnimationStates>,
 }
 
-#[derive(Debug, PartialEq, Eq, Hash, Copy, Clone)]
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 pub enum PlayerAnimationStates {
     Idle,
     DoubleJump,
@@ -62,7 +65,7 @@ pub enum PlayerAnimationStates {
     WallJump,
 }
 
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum PlayerMovementDirection {
     Right,
     Left,

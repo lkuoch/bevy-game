@@ -12,7 +12,7 @@ use crate::{
     },
 };
 
-impl Animatable<EnemyTypeStates, EnemyAnimationStates> for FromEnemy {
+impl Animatable<EnemyTypeStates, EnemyAnimationStates> for IsEnemy {
     fn get_texture_handle_from_state(
         &self,
         handle: &Handle<TextureAtlas>,
@@ -103,7 +103,6 @@ impl EnemyTypeState {
 
         match command {
             CoordinatorCommands::EnemyTransform(_) => Some(transform()),
-            _ => None,
         }
     }
 }

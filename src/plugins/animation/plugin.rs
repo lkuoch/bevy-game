@@ -3,7 +3,7 @@ use bevy::prelude::*;
 
 pub struct AnimationPlugin;
 impl Plugin for AnimationPlugin {
-    fn build(&self, app: &mut AppBuilder) {
+    fn build(&self, app: &mut App) {
         app.add_event::<AnimEvent<Handle<TextureAtlas>>>()
             .add_system(animate_sprite_system);
     }

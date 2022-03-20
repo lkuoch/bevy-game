@@ -3,7 +3,7 @@ use bevy::prelude::*;
 
 pub struct PlayerPlugin;
 impl Plugin for PlayerPlugin {
-    fn build(&self, app: &mut AppBuilder) {
+    fn build(&self, app: &mut App) {
         app.insert_resource(PlayerMovementState::default())
             .insert_resource(PlayerTypeState::default())
             .insert_resource(PlayerAnimationState::default())
